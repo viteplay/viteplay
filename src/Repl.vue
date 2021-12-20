@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import "prismjs/themes/prism.css"
-import "vue-prism-editor/dist/prismeditor.min.css"
 import {
   onErrorCaptured,
+  onMounted,
   PropType,
   ref,
   shallowRef,
@@ -11,8 +10,8 @@ import {
 } from "vue"
 import { PrismEditor } from "vue-prism-editor"
 import { debounce } from "./utils"
+import { transformCodeToComponent, Transformed } from "./transform"
 import { highlight } from "./highlight"
-import { transformCodeToComponent } from "./transform"
 
 const props = defineProps({
   code: {
@@ -31,39 +30,30 @@ const props = defineProps({
   lineNumbers: {
     type: Boolean,
   },
+  highlight: {
+    type: Function as PropType<(code: string) => string>,
+    default: highlight,
+  },
 })
 
 let code = ref("")
-const component = shallowRef<any>(null)
-const compileError = ref<string | null>(null)
+const transformed = shallowRef<Transformed | null>(null)
+let errors = ref<string[]>([])
 
-const toComponent = (code: string) => {
-  // Clean up previous error
-  compileError.value = null
+const transform = (code: string) => {
+  const transformed = transformCodeToComponent(code, props.modules)
+  return transformed
+}
 
-  try {
-    // Create a Vue component from "code"
-    const component = transformCodeToComponent(code, props.modules)
-
-    return component
-  } catch (error: any) {
-    // Handle compiler error
-    console.error(error)
-    const loc = error.loc as any
-    if (loc) {
-      compileError.value = `${error.message} at line ${loc.start}`
-    } else {
-      compileError.value = error.message
-    }
+const setComponent = () => {
+  const result = transform(code.value)
+  if (result) {
+    transformed.value = result
+    errors.value = result.errors || []
   }
 }
 
-const setComponent = debounce(() => {
-  const c = toComponent(code.value)
-  if (c) {
-    component.value = c
-  }
-}, 250)
+const setComponentDebounced = debounce(setComponent, 250)
 
 watchEffect(() => {
   code.value = props.code.trim()
@@ -71,56 +61,36 @@ watchEffect(() => {
 
 // Catch errors in the child components (solely for the component we create)
 onErrorCaptured((error) => {
-  compileError.value = error.message
+  errors.value = [error.message]
   // Stop the error from bubbling up to the parent
   return false
 })
 
-watch(
-  code,
-  () => {
-    setComponent()
-  },
-  { immediate: true },
-)
+watch(code, setComponentDebounced)
+
+onMounted(() => {
+  setComponent()
+})
 </script>
 
 <template>
-  <div class="vue-repl">
-    <div class="vue-repl-preview" v-if="component">
-      <component :is="component" />
+  <div class="vrepl">
+    <div class="vrepl-preview" v-if="transformed">
+      <component v-if="transformed.component" :is="transformed.component" />
+      <component v-if="transformed.css" is="style">{{
+        transformed.css
+      }}</component>
     </div>
-    <div class="vue-repl--editor">
+    <div class="vrepl-editor">
+      <div class="vrepl-editor--header">Editable Example</div>
       <PrismEditor
         :line-numbers="props.lineNumbers"
-        :highlight="highlight"
+        :highlight="props.highlight"
         v-model="code"
       />
     </div>
-    <div class="vue-repl--error" v-if="compileError">
-      {{ compileError }}
+    <div class="vrepl-error" v-if="errors.length > 0">
+      <div v-for="(error, index) in errors" :key="index">{{ error }}</div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.vue-repl {
-  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
-}
-
-.vue-repl--editor {
-}
-
-.vue-repl--error {
-  background-color: red;
-  color: white;
-  white-space: pre-wrap;
-  padding: 10px;
-}
-</style>
-
-<style>
-.prism-editor__textarea:focus {
-  outline: none;
-}
-</style>

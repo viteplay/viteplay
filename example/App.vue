@@ -46,7 +46,7 @@ const modules = {
 
 <template>
   <div class="main">
-    <Repl :code="code" :modules="modules" :line-numbers="true" />
+    <Repl :code="code" :modules="modules" />
   </div>
 </template>
 

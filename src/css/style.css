@@ -1,0 +1,43 @@
+/** override vue-prism-editor */
+.prism-editor__textarea:focus {
+  outline: none;
+}
+
+/** our own styles */
+.vrepl {
+  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
+  box-sizing: border-box;
+}
+
+.vrepl-error {
+  background-color: red;
+  color: white;
+  white-space: pre-wrap;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.vrepl-preview {
+  border: 1px solid #e2e2e2;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.vrepl-editor {
+  background-color: rgb(1, 22, 39);
+  color: #c4c4c4;
+  border-radius: 6px;
+  padding: 0 20px 20px 20px;
+  margin: 10px 0;
+}
+
+.vrepl-editor--header {
+  text-align: center;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(143, 143, 143);
+}

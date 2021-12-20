@@ -1,52 +1,110 @@
 import * as Vue from "vue"
-import { parse, compileScript } from "@vue/compiler-sfc"
+import {
+  parse,
+  compileScript,
+  compileTemplate,
+  compileStyle,
+} from "@vue/compiler-sfc"
 import { transform, Transform } from "../vendor/sucrase"
+
+export type Transformed = {
+  component?: any
+  css?: string
+  errors?: string[]
+}
 
 export const transformCodeToComponent = (
   code: string,
   modules: Record<string, any> = {},
-) => {
-  const { descriptor, errors } = parse(code, {})
-  const id = `_${Math.random().toString(36).slice(2, 9)}`
+  filename = "preview.vue",
+): Transformed => {
+  const { descriptor, errors: parseErrors } = parse(code, {
+    sourceMap: true,
+    filename,
+  })
+
+  const errors: string[] = []
 
   if (errors.length > 0) {
-    throw new Error(errors.join("\n"))
+    return { errors: parseErrors.map((e) => e.message) }
   }
 
-  const component: Record<string, any> = {}
+  try {
+    const id = `_${Math.random().toString(36).slice(2, 9)}`
+    const component: Record<string, any> = {}
+    let css = ""
 
-  const require = (id: string) => {
-    if (id in modules) {
-      return modules[id]
+    const require = (id: string) => {
+      if (id in modules) {
+        return modules[id]
+      }
+      if (id === "vue") {
+        return Vue
+      }
+      throw new Error(`Module ${id} not found`)
     }
-    if (id === "vue") {
-      return Vue
+
+    const evalCode = (code: string, isTS: boolean) => {
+      const result = transform(code, {
+        transforms: [isTS && "typescript", "imports"].filter(
+          Boolean,
+        ) as Transform[],
+      })
+      const exports: Record<string, any> = {}
+      const fn = new Function("require", "exports", result.code)
+      fn(require, exports)
+      return exports
     }
-    throw new Error(`Module ${id} not found`)
-  }
+    const isTS =
+      descriptor.script?.lang === "ts" || descriptor.scriptSetup?.lang === "ts"
+    // Get the setup function from script setup, template is inlined in setup function
+    const scriptResult = compileScript(descriptor, { id, inlineTemplate: true })
 
-  if (descriptor.script) {
-    // TODO
-  }
-
-  // Get the setup function from script setup, template is inlined in setup function
-  if (descriptor.scriptSetup) {
-    const script = compileScript(descriptor, { id, inlineTemplate: true })
-    const result = transform(script.content, {
-      transforms: [script.lang === "ts" && "typescript", "imports"].filter(
-        Boolean,
-      ) as Transform[],
-    })
-    const exports: Record<string, any> = {}
-
-    const fn = new Function("exports", "require", result.code)
-    fn(exports, require)
+    const exports = evalCode(scriptResult.content, isTS)
     Object.assign(component, exports.default)
-  }
 
-  if (descriptor.styles.length > 0) {
-    // TODO
-  }
+    // Compile template, only needed if there's no script setup
+    if (!descriptor.scriptSetup && descriptor.template) {
+      const templateResult = compileTemplate({
+        source: descriptor.template.content,
+        id,
+        filename,
+      })
+      if (templateResult.errors.length > 0) {
+        return {
+          errors: templateResult.errors.map((e) =>
+            typeof e === "string" ? e : e.message,
+          ),
+        }
+      }
+      const exports = evalCode(templateResult.code, false)
+      Object.assign(component, exports)
+    }
 
-  return component
+    for (const style of descriptor.styles) {
+      const styleResult = compileStyle({
+        source: style.content,
+        id,
+        filename,
+        scoped: style.scoped,
+      })
+      if (styleResult.errors.length > 0) {
+        return {
+          errors: styleResult.errors.map((e: any) => {
+            if (e.name === "CssSyntaxError") {
+              return `${e.file}:${e.line + style.loc.start.line - 1}:${
+                e.column
+              }: ${e.reason}`
+            }
+            return e.message
+          }),
+        }
+      }
+      css += styleResult.code + "\n"
+    }
+
+    return { component, css, errors }
+  } catch (error: any) {
+    return { errors: [error.message] }
+  }
 }
