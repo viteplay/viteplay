@@ -1,5 +1,5 @@
 {
-  "name": "my-ts-lib",
+  "name": "vue-repl",
   "version": "0.0.0",
   "description": "My awesome typescript library",
   "publishConfig": {
@@ -18,16 +18,33 @@
   "scripts": {
     "build-fast": "tsup src/index.ts --format cjs,esm",
     "build": "pnpm run build-fast -- --dts-resolve",
-    "test": "pnpm run build && uvu -r sucrase/register --ignore fixture",
-    "prepublishOnly": "pnpm run build-fast"
+    "test": "vitest run",
+    "example": "vite example",
+    "vendor-sucrase": "node scripts/vendor-sucrase.mjs"
   },
   "license": "MIT",
   "devDependencies": {
     "@egoist/prettier-config": "1.0.0",
+    "@types/prismjs": "^1.16.6",
+    "@vitejs/plugin-vue": "^2.0.1",
+    "@vue/compiler-sfc": "^3.2.26",
+    "codejar": "^3.5.0",
+    "esbuild": "^0.14.5",
     "prettier": "2.5.1",
     "sucrase": "3.20.3",
     "tsup": "5.11.6",
     "typescript": "4.5.4",
-    "uvu": "0.5.2"
+    "uvu": "0.5.2",
+    "vite": "^2.7.3",
+    "vitest": "^0.0.97",
+    "vue": "^3.2.26",
+    "vue-prism-editor": "^2.0.0-alpha.2"
+  },
+  "dependencies": {
+    "@vue/compiler-dom": "^3.2.26",
+    "prismjs": "^1.25.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.26"
   }
 }
