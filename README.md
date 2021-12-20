@@ -26,6 +26,22 @@ const code = `
 <template>
   <Repl :code="code" />
 </template>
+
+<style src="vue-repl/dist/style.css"></style>
+```
+
+## Development
+
+Install dependencies:
+
+```bash
+pnpm i
+```
+
+Run the example (Vite):
+
+```bash
+npm run example
 ```
 
 ## License

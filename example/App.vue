@@ -6,7 +6,8 @@ const code =
   `
 <script setup>
 import { ref } from 'vue'
-import { Button } from 'my-ui'
+import ` +
+  `{ Button } from 'my-ui'
 let count = ref(0)
 let inc = () => count.value++
 </` +
