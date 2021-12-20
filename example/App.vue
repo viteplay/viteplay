@@ -14,8 +14,16 @@ let inc = () => count.value++
   `script>
 
 <template>
-  <Button bg="pink" @click="inc">hi {{ count }}</Button>
+  <div class="example">
+    <Button bg="pink" @click="inc">hi {{ count }}</Button>
+  </div>
 </template>
+
+<style scoped>
+.example::v-deep(button) {
+  color: red;
+}
+</style>
 `
 
 const Button = defineComponent({

@@ -76,10 +76,12 @@ onMounted(() => {
 <template>
   <div class="vrepl">
     <div class="vrepl-preview" v-if="transformed">
+      <component
+        v-if="transformed.css"
+        is="style"
+        v-html="transformed.css"
+      ></component>
       <component v-if="transformed.component" :is="transformed.component" />
-      <component v-if="transformed.css" is="style">{{
-        transformed.css
-      }}</component>
     </div>
     <div class="vrepl-editor">
       <div class="vrepl-editor--header">Editable Example</div>

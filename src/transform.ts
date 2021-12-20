@@ -32,7 +32,12 @@ export const transformCodeToComponent = (
   try {
     const id = `_${Math.random().toString(36).slice(2, 9)}`
     const component: Record<string, any> = {}
+    const hasScoped = descriptor.styles.some((style) => style.scoped)
     let css = ""
+
+    if (hasScoped) {
+      component.__scopeId = `data-v-${id}`
+    }
 
     const require = (id: string) => {
       if (id in modules) {
@@ -59,7 +64,6 @@ export const transformCodeToComponent = (
       descriptor.script?.lang === "ts" || descriptor.scriptSetup?.lang === "ts"
     // Get the setup function from script setup, template is inlined in setup function
     const scriptResult = compileScript(descriptor, { id, inlineTemplate: true })
-
     const exports = evalCode(scriptResult.content, isTS)
     Object.assign(component, exports.default)
 
@@ -69,7 +73,11 @@ export const transformCodeToComponent = (
         source: descriptor.template.content,
         id,
         filename,
+        scoped: descriptor.styles.some((style) => style.scoped),
+        slotted: descriptor.slotted,
+        isProd: false,
       })
+
       if (templateResult.errors.length > 0) {
         return {
           errors: templateResult.errors.map((e) =>
