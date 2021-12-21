@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import "vue-repl/dist/style.css"
 import { defineComponent, h } from "vue"
-import { Repl } from "../src"
+import { Repl } from "vue-repl"
 
 const code =
   `

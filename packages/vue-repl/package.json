@@ -1,0 +1,43 @@
+{
+  "name": "vue-repl",
+  "version": "0.0.0",
+  "description": "My awesome typescript library",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-repl.cjs.js",
+  "module": "./dist/vue-repl.es.js",
+  "exports": {
+    ".": {
+      "require": "./dist/vue-repl.cjs.js",
+      "import": "./dist/vue-repl.es.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "npm run vendor-sucrase && vite build",
+    "test": "vitest run",
+    "example": "npm run vendor-sucrase && vite example",
+    "vendor-sucrase": "node scripts/vendor-sucrase.mjs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/prismjs": "^1.16.6",
+    "esbuild": "^0.14.5",
+    "sucrase": "3.20.3",
+    "vite": "^2.7.3",
+    "vue": "^3.2.26",
+    "vue-prism-editor": "^2.0.0-alpha.2"
+  },
+  "dependencies": {
+    "@vue/compiler-sfc": "^3.2.26",
+    "prismjs": "^1.25.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.26"
+  }
+}

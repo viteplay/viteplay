@@ -1,49 +1,28 @@
-# vue-repl
+## Development Setup
 
-[![npm version](https://badgen.net/npm/v/vue-repl)](https://npm.im/vue-repl) [![npm downloads](https://badgen.net/npm/dm/vue-repl)](https://npm.im/vue-repl)
+You will need pnpm.
 
-## Install
+After cloning the repo, run:
 
-```bash
-npm i vue-repl
 ```
-
-## Usage
-
-```vue
-<script lang="ts" setup>
-import { Repl } from "vue-repl"
-
-const code = `
-<template>
-  <Button @click="inc">
-      Click me
-  </Button>
-</template>
-`
-</script>
-
-<template>
-  <Repl :code="code" />
-</template>
-
-<style src="vue-repl/dist/style.css"></style>
-```
-
-## Development
-
-Install dependencies:
-
-```bash
 pnpm i
 ```
 
-Run the example (Vite):
+To build all packages, run:
+
+```
+pnpm run build
+```
+
+To run a playground in the `playground` directory, run:
 
 ```bash
-npm run example
+turbo run dev --scope=<package-name>
+
+# e.g.
+turbo run dev --scope=test-vue-repl
 ```
 
 ## License
 
-MIT &copy; [EGOIST](https://github.com/sponsors/egoist)
+MIT

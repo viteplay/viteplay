@@ -1,0 +1,17 @@
+{
+  "version": "0.0.0",
+  "name": "vite-plugin-editable-docs",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsup src/index.ts --watch",
+    "build": "tsup src/index.ts --dts"
+  },
+  "devDependencies": {
+    "vite": "^2.7.4",
+    "tsup": "^5.11.6"
+  }
+}
