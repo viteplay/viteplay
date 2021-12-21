@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import "vue-repl/dist/style.css"
+import "prismjs/themes/prism-tomorrow.css"
 import { defineComponent, h } from "vue"
 import { Repl } from "vue-repl"
 

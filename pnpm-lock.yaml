@@ -51,12 +51,14 @@ importers:
     specifiers:
       '@vitejs/plugin-vue': ^2.0.1
       '@vue/compiler-sfc': ^3.2.26
+      prismjs: ^1.25.0
       vite: ^2.7.4
       vue: ^3.2.26
       vue-repl: workspace:*
     devDependencies:
       '@vitejs/plugin-vue': 2.0.1_vite@2.7.4+vue@3.2.26
       '@vue/compiler-sfc': 3.2.26
+      prismjs: 1.25.0
       vite: 2.7.4
       vue: 3.2.26
       vue-repl: link:../../packages/vue-repl
@@ -1033,7 +1035,6 @@ packages:
 
   /prismjs/1.25.0:
     resolution: {integrity: sha512-WCjJHl1KEWbnkQom1+SzftbtXMKQoezOCYs5rECqMN+jP+apI7ftoflyqigqzopSO3hMhTEb0mFClA8lkolgEg==}
-    dev: false
 
   /queue-microtask/1.2.2:
     resolution: {integrity: sha512-dB15eXv3p2jDlbOiNLyMabYg1/sXvppd8DP2J3EOCQ0AkuSXCW2tP7mnVouVLJKgUMY6yP0kcQDVpLCN13h4Xg==}

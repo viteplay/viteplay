@@ -5,13 +5,15 @@
 ## Install
 
 ```bash
-npm i vue-repl
+npm i vue-repl prismjs
 ```
 
 ## Usage
 
 ```vue
 <script lang="ts" setup>
+import "vue-repl/dist/style.css"
+import "prismjs/themes/prism-tomorrow.css"
 import { Repl } from "vue-repl"
 
 const code = `
@@ -26,23 +28,9 @@ const code = `
 <template>
   <Repl :code="code" />
 </template>
-
-<style src="vue-repl/dist/style.css"></style>
 ```
 
-## Development
-
-Install dependencies:
-
-```bash
-pnpm i
-```
-
-Run the example (Vite):
-
-```bash
-npm run example
-```
+You can use other Prism themes, but some styling tweaks might be required.
 
 ## License
 
