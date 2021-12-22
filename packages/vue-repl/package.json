@@ -19,7 +19,8 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm run vendor-sucrase && vite build",
+    "build": "npm run vendor-sucrase && vite build && vue-tsc",
+    "dev": "npm run vendor-sucrase && vite build --watch",
     "test": "vitest run",
     "example": "npm run vendor-sucrase && vite example",
     "vendor-sucrase": "node scripts/vendor-sucrase.mjs"
@@ -31,11 +32,14 @@
     "sucrase": "3.20.3",
     "vite": "^2.7.3",
     "vue": "^3.2.26",
-    "vue-prism-editor": "^2.0.0-alpha.2"
+    "vue-prism-editor": "^2.0.0-alpha.2",
+    "vite-plugin-dts": "^0.9.6",
+    "@vitejs/plugin-vue": "^2.0.1"
   },
   "dependencies": {
     "@vue/compiler-sfc": "^3.2.26",
-    "prismjs": "^1.25.0"
+    "prismjs": "^1.25.0",
+    "vue-repl-helpers": "workspace:*"
   },
   "peerDependencies": {
     "vue": "^3.2.26"

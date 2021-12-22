@@ -1,38 +1,18 @@
 {
   "private": true,
-  "name": "vue-repl",
+  "name": "vue-repl-workspace",
   "version": "0.0.0",
   "description": "My awesome typescript library",
   "license": "MIT",
   "scripts": {
-    "build": "turbo run build --scope=vue-repl --scope=vite-plugin-*"
-  },
-  "turbo": {
-    "baseBranch": "origin/main",
-    "npmClient": "pnpm",
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          "dist/**"
-        ]
-      },
-      "test": {
-        "cache": false
-      },
-      "dev": {
-        "cache": false
-      }
-    }
+    "build": "ultra -r --filter vue-repl build && ultra -r --filter vite-plugin-editable-docs"
   },
   "devDependencies": {
     "@egoist/prettier-config": "1.0.0",
     "prettier": "2.5.1",
-    "turbo": "^1.0.19",
     "typescript": "4.5.4",
     "vite": "^2.7.3",
-    "vitest": "^0.0.97"
+    "vitest": "^0.0.97",
+    "vue-tsc": "^0.30.0"
   }
 }

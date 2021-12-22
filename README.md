@@ -17,10 +17,13 @@ pnpm run build
 To run a playground in the `playground` directory, run:
 
 ```bash
-turbo run dev --scope=<package-name>
+npm i -g ultra-runner
+
+# the `+` prefix asks ultra to build the package's dependencies first
+ultra -r --filter +<package-name> dev
 
 # e.g.
-turbo run dev --scope=test-vue-repl
+ultra -r --filter +test-vue-repl dev
 ```
 
 ## License

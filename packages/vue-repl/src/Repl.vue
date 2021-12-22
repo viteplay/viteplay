@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {
+  computed,
   onErrorCaptured,
   onMounted,
   PropType,
@@ -9,9 +10,11 @@ import {
   watchEffect,
 } from "vue"
 import { PrismEditor } from "vue-prism-editor"
+import { restoreSFC } from "vue-repl-helpers"
 import { debounce } from "./utils"
 import { transformCodeToComponent, Transformed } from "./transform"
 import { highlight } from "./highlight"
+import { useReplContext } from "."
 
 const props = defineProps({
   code: {
@@ -40,8 +43,11 @@ let code = ref("")
 const transformed = shallowRef<Transformed | null>(null)
 let errors = ref<string[]>([])
 
+const context = useReplContext()
+const modules = computed(() => ({ ...props.modules, ...context.modules }))
+
 const transform = (code: string) => {
-  const transformed = transformCodeToComponent(code, props.modules)
+  const transformed = transformCodeToComponent(code, modules.value)
   return transformed
 }
 
@@ -56,7 +62,7 @@ const setComponent = () => {
 const setComponentDebounced = debounce(setComponent, 250)
 
 watchEffect(() => {
-  code.value = props.code.trim()
+  code.value = restoreSFC(props.code.trim())
 })
 
 // Catch errors in the child components (solely for the component we create)

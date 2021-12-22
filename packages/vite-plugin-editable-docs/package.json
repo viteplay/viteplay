@@ -10,8 +10,16 @@
     "dev": "tsup src/index.ts --watch",
     "build": "tsup src/index.ts --dts"
   },
+  "dependencies": {
+    "fast-glob": "^3.2.7",
+    "vue-repl-helpers": "workspace:*"
+  },
   "devDependencies": {
     "vite": "^2.7.4",
-    "tsup": "^5.11.6"
+    "tsup": "^5.11.6",
+    "vue-repl": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue-repl": "workspace:*"
   }
 }
