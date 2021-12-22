@@ -19,7 +19,7 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm run vendor-sucrase && vite build && vue-tsc",
+    "build": "npm run vendor-sucrase && vite build",
     "dev": "npm run vendor-sucrase && vite build --watch",
     "test": "vitest run",
     "example": "npm run vendor-sucrase && vite example",
