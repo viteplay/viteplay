@@ -55,7 +55,10 @@ const plugin = (opts: Options): Plugin => {
 
         const contents = `
         <script setup>
-        import { Repl } from 'vue-repl'
+        import { Repl } from "vue-repl"
+        
+        // Can't use "style src" tag because of this issue https://github.com/vitejs/vite/pull/6233
+        import "vue-repl/dist/style.css"
 
        ${opts.modules ? stringifyModules(opts.modules) : "let modules = {}"}
 
@@ -82,7 +85,6 @@ const plugin = (opts: Options): Plugin => {
           </div>
         </template>
 
-        <style src="vue-repl/dist/style.css"></style>
         <style src="prismjs/themes/prism-tomorrow.css"></style>
       `
 
