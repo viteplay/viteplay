@@ -15,6 +15,7 @@ import { debounce } from "./utils"
 import { transformCodeToComponent, Transformed } from "./transform"
 import { highlight } from "./highlight"
 import { useReplContext } from "."
+import { useCopy } from "./hooks/useCopy"
 
 const props = defineProps({
   code: {
@@ -42,6 +43,7 @@ const props = defineProps({
 let code = ref("")
 const transformed = shallowRef<Transformed | null>(null)
 let errors = ref<string[]>([])
+const copy = useCopy(() => code.value)
 
 const context = useReplContext()
 const modules = computed(() => ({ ...props.modules, ...context.modules }))
@@ -90,7 +92,12 @@ onMounted(() => {
       <component v-if="transformed.component" :is="transformed.component" />
     </div>
     <div class="vrepl-editor">
-      <div class="vrepl-editor--header">Editable Example</div>
+      <div class="vrepl-editor--header">
+        <h3>Editable Example</h3>
+        <button @click="copy.copy" class="vrepl-copy-button">
+          {{ copy.copied.value ? "Copied" : "Copy" }}
+        </button>
+      </div>
       <PrismEditor
         :line-numbers="props.lineNumbers"
         :highlight="props.highlight"
