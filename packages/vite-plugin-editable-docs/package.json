@@ -15,8 +15,8 @@
     "vue-repl-helpers": "workspace:*"
   },
   "devDependencies": {
-    "vite": "^2.7.4",
-    "tsup": "^5.11.6",
+    "vite": "2.7.7",
+    "tsup": "5.11.9",
     "vue-repl": "workspace:*"
   },
   "peerDependencies": {
