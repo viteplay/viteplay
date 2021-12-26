@@ -6,11 +6,11 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "vite": "^2.7.4",
-    "@vitejs/plugin-vue": "^2.0.1",
-    "@vue/compiler-sfc": "^3.2.26",
-    "vue": "^3.2.26",
+    "vite": "2.7.7",
+    "@vitejs/plugin-vue": "2.0.1",
+    "@vue/compiler-sfc": "3.2.26",
+    "vue": "3.2.26",
     "vue-repl": "workspace:*",
-    "prismjs": "^1.25.0"
+    "prismjs": "1.25.0"
   }
 }
