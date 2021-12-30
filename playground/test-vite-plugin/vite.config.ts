@@ -4,7 +4,6 @@ import vue from "@vitejs/plugin-vue"
 
 export default defineConfig({
   plugins: [
-    // @ts-expect-error
     editableDocs({
       modules: {
         "my-ui": "./src/my-ui.ts",
@@ -12,7 +11,7 @@ export default defineConfig({
       pages: [
         {
           title: "Button",
-          files: "./src/Button/examples/*.vue",
+          examples: "./src/Button/examples/*.vue",
         },
         // {
         //   title: "Form",

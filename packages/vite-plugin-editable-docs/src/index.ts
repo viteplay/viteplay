@@ -6,11 +6,10 @@ import { escapeSFC } from "vue-repl-helpers"
 import { outputFileSync } from "./fs"
 
 export type Options = {
-  pages: { title: string; files: string }[]
+  pages: { title: string; examples: string }[]
   modules?: Record<string, string>
+  cacheDir?: string
 }
-
-const cacheDir = path.resolve(".cache/vite-plugin-editable-docs")
 
 const slash = (p: string) => p.replace(/\\/g, "/")
 
@@ -32,12 +31,13 @@ const stringifyModules = (modules: Record<string, string>) => {
 
 const plugin = (opts: Options): Plugin => {
   let clientContent = ""
+  let cacheDir = opts.cacheDir || ".cache/vite-plugin-editable-docs"
 
   const build = async () => {
     console.log("building!")
     const pages = await Promise.all(
       opts.pages.map(async (page, index) => {
-        const files = await glob(page.files).then((files) =>
+        const files = await glob(page.examples).then((files) =>
           Promise.all(
             files.map(async (file) => {
               const contents = await fs.promises.readFile(file, "utf8")
@@ -50,7 +50,7 @@ const plugin = (opts: Options): Plugin => {
         )
 
         if (files.length === 0) {
-          throw new Error(`No files found for ${page.files}`)
+          throw new Error(`No files found for ${page.examples}`)
         }
 
         const contents = `
@@ -120,6 +120,10 @@ const plugin = (opts: Options): Plugin => {
 
   return {
     name: "editable-docs",
+
+    configResolved(config) {
+      cacheDir = path.resolve(config.root, cacheDir)
+    },
 
     load(id) {
       if (slash(id).includes("vite-plugin-editable-docs/client")) {
