@@ -21,7 +21,7 @@ importers:
       fast-glob: ^3.2.7
       tsup: 5.11.9
       vite: 2.7.10
-      vue: ^3.2.26
+      vue: 3.2.26
       vue-repl: workspace:*
       vue-repl-helpers: workspace:*
     dependencies:
