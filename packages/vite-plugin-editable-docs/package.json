@@ -15,11 +15,13 @@
     "vue-repl-helpers": "workspace:*"
   },
   "devDependencies": {
-    "vite": "2.7.10",
     "tsup": "5.11.9",
+    "vite": "2.7.10",
+    "vue": "^3.2.26",
     "vue-repl": "workspace:*"
   },
   "peerDependencies": {
-    "vue-repl": "workspace:*"
+    "vue-repl": "workspace:*",
+    "vue": ">=3"
   }
 }

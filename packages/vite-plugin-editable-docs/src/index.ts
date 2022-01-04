@@ -30,7 +30,6 @@ const stringifyModules = (modules: Record<string, string>) => {
 }
 
 const plugin = (opts: Options): Plugin => {
-  let clientContent = ""
   let cacheDir = opts.cacheDir || ".cache/vite-plugin-editable-docs"
 
   const build = async () => {
@@ -102,7 +101,7 @@ const plugin = (opts: Options): Plugin => {
       }),
     )
 
-    clientContent = `
+    const clientContent = `
     let pages = [
       ${pages
         .map((page) => {
@@ -116,6 +115,8 @@ const plugin = (opts: Options): Plugin => {
 
     export { pages }
     `
+
+    outputFileSync(path.join(cacheDir, "client.js"), clientContent)
   }
 
   return {
@@ -125,9 +126,12 @@ const plugin = (opts: Options): Plugin => {
       cacheDir = path.resolve(config.root, cacheDir)
     },
 
-    load(id) {
-      if (slash(id).includes("vite-plugin-editable-docs/client")) {
-        return clientContent
+    resolveId(id) {
+      if (id.startsWith("editable-docs-cache/")) {
+        return id.replace("editable-docs-cache", cacheDir)
+      }
+      if (id === "vite-plugin-editable-docs/client") {
+        return path.join(__dirname, "../client.js")
       }
     },
 

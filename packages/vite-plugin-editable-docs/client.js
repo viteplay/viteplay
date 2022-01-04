@@ -1,1 +1,1 @@
-throw new Error(`Please add vite-plugin-editable-docs to your Vite config`)
+export { pages } from "editable-docs-cache/client.js"
