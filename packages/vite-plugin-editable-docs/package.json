@@ -15,7 +15,7 @@
     "vue-repl-helpers": "workspace:*"
   },
   "devDependencies": {
-    "tsup": "5.11.9",
+    "tsup": "5.11.10",
     "vite": "2.7.10",
     "vue": "3.2.26",
     "vue-repl": "workspace:*"
