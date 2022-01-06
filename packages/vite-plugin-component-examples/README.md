@@ -21,3 +21,22 @@ export default defineConfig({
   ],
 })
 ```
+
+Then it will generate pages from the examples, you can import the pages like this:
+
+```js
+import { pages } from "vite-plugin-component-examples/client"
+
+assert.equal(pages, [
+  {
+    title: "Button",
+    path: "/button",
+    component: () => import("generated/pages/button.vue"),
+  },
+  {
+    title: "Form",
+    path: "/form",
+    component: () => import("generated/pages/form.vue"),
+  },
+])
+```

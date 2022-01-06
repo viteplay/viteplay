@@ -13,7 +13,7 @@ const slash = (input) => input.replace(/\\/g, "/")
 
 /**
  *
- * @param {{pages:import('../index').Page[], cacheDir: string}} opts
+ * @param {{pages:import('../index').Page[], cacheDir: string, getPath: (slug: string) => string}} opts
  */
 export const build = async (opts) => {
   console.log("building!")
@@ -103,8 +103,10 @@ export const build = async (opts) => {
     let pages = [
       ${pages
         .map((page) => {
+          const slug = page.title.toLowerCase().replace(/[^\w]+/g, "-")
           return `{
           title: "${page.title}",
+          path: "${opts.getPath(slug)}",
           component: () => import("${slash(page.component)}")
         }`
         })

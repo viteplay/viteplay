@@ -7,6 +7,7 @@ import { getDirnameFromImportMetaUrl } from "./lib/utils.js"
  */
 const plugin = (options) => {
   let cacheDir = options.cacheDir || ".cache/vite-plugin-component-examples"
+  const getPath = options.getPath || ((slug) => `/${slug}`)
   return {
     name: "component-examples",
 
@@ -32,12 +33,12 @@ const plugin = (options) => {
       server.watcher.on("all", (event, id) => {
         if (id.startsWith(cacheDir)) return
         // TODO: only rebuild when examples change
-        build({ pages: options.pages, cacheDir })
+        build({ pages: options.pages, cacheDir, getPath })
       })
     },
 
     async buildStart() {
-      await build({ pages: options.pages, cacheDir })
+      await build({ pages: options.pages, cacheDir, getPath })
     },
   }
 }
