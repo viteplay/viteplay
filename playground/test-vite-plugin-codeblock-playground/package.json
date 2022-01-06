@@ -6,7 +6,7 @@
     "build": "vitepress build"
   },
   "devDependencies": {
-    "prismjs": "1.25.0",
+    "prismjs": "1.26.0",
     "vite-plugin-codeblock-playground": "workspace:*",
     "vitepress": "0.21.2",
     "vue-playground": "workspace:*"
