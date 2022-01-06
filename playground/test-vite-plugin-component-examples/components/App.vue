@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { pages } from "vite-plugin-editable-docs/client"
+import { pages } from "vite-plugin-component-examples/client"
 import { computed, ref, defineAsyncComponent } from "vue"
-
 let selected = ref(pages[0].title)
 
 const component = computed(() => {

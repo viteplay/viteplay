@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "test-vite-plugin-codeblock-playground",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build"
+  },
+  "devDependencies": {
+    "prismjs": "1.25.0",
+    "vite-plugin-codeblock-playground": "workspace:*",
+    "vitepress": "^0.20.10",
+    "vue-repl": "workspace:*"
+  }
+}

@@ -11,7 +11,7 @@ import {
 } from "vue"
 import { PrismEditor } from "vue-prism-editor"
 import { restoreSFC } from "vue-repl-helpers"
-import { debounce } from "./utils"
+import { debounce, ensureSFC } from "./utils"
 import { transformCodeToComponent, Transformed } from "./transform"
 import { highlight } from "./highlight"
 import { useReplContext } from "."
@@ -40,10 +40,14 @@ const props = defineProps({
   },
 })
 
+// Code to be actually evaluated
 let code = ref("")
+// Code to display
+let displayCode = ref("")
+
 const transformed = shallowRef<Transformed | null>(null)
 let errors = ref<string[]>([])
-const copy = useCopy(() => code.value)
+const copy = useCopy(() => displayCode.value)
 
 const context = useReplContext()
 const modules = computed(() => ({ ...props.modules, ...context.modules }))
@@ -64,7 +68,11 @@ const setComponent = () => {
 const setComponentDebounced = debounce(setComponent, 250)
 
 watchEffect(() => {
-  code.value = restoreSFC(props.code.trim())
+  displayCode.value = restoreSFC(props.code.trim())
+})
+
+watchEffect(() => {
+  code.value = ensureSFC(displayCode.value)
 })
 
 // Catch errors in the child components (solely for the component we create)
@@ -101,7 +109,7 @@ onMounted(() => {
       <PrismEditor
         :line-numbers="props.lineNumbers"
         :highlight="props.highlight"
-        v-model="code"
+        v-model="displayCode"
       />
     </div>
     <div class="vrepl-error" v-if="errors.length > 0">

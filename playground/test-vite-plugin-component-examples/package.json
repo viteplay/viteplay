@@ -1,18 +1,17 @@
 {
   "private": true,
-  "name": "test-vite-plugin",
+  "name": "test-vite-plugin-component-examples",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "2.0.1",
-    "@vue/compiler-sfc": "3.2.26",
     "prismjs": "1.25.0",
     "vite": "2.7.10",
-    "vite-plugin-editable-docs": "workspace:*",
-    "vue": "3.2.26",
-    "vue-repl": "workspace:*",
-    "vue-router": "4.0.12"
+    "vite-plugin-component-examples": "workspace:*",
+    "vue": "^3.2.26",
+    "vue-repl": "workspace:*"
   }
 }

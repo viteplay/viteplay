@@ -62,10 +62,16 @@ export const transformCodeToComponent = (
     }
     const isTS =
       descriptor.script?.lang === "ts" || descriptor.scriptSetup?.lang === "ts"
-    // Get the setup function from script setup, template is inlined in setup function
-    const scriptResult = compileScript(descriptor, { id, inlineTemplate: true })
-    const exports = evalCode(scriptResult.content, isTS)
-    Object.assign(component, exports.default)
+
+    if (descriptor.script || descriptor.scriptSetup) {
+      // Get the setup function from script setup, template is inlined in setup function
+      const scriptResult = compileScript(descriptor, {
+        id,
+        inlineTemplate: true,
+      })
+      const exports = evalCode(scriptResult.content, isTS)
+      Object.assign(component, exports.default)
+    }
 
     // Compile template, only needed if there's no script setup
     if (!descriptor.scriptSetup && descriptor.template) {
@@ -113,6 +119,7 @@ export const transformCodeToComponent = (
 
     return { component, css, errors }
   } catch (error: any) {
+    console.error(error)
     return { errors: [error.message] }
   }
 }

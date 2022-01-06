@@ -1,0 +1,19 @@
+{
+  "version": "0.0.0",
+  "name": "vite-plugin-component-examples",
+  "type": "module",
+  "files": [
+    "index.js",
+    "client.js",
+    "client.d.ts",
+    "lib"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "dependencies": {
+    "fast-glob": "^3.2.7"
+  },
+  "devDependencies": {
+    "vue": "^3.2.26"
+  }
+}

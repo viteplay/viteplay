@@ -1,27 +1,30 @@
 {
   "version": "0.0.0",
-  "name": "vite-plugin-editable-docs",
+  "name": "vite-plugin-codeblock-playground",
   "files": [
     "dist"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "tsup src/index.ts --watch",
+    "dev": "tsup src/index.ts --watch  --dts",
     "build": "tsup src/index.ts --dts"
   },
   "dependencies": {
-    "fast-glob": "^3.2.7",
-    "vue-repl-helpers": "workspace:*"
+    "@egoist/vue-markdown-it": "^1.0.0",
+    "js-yaml": "^4.1.0",
+    "magic-string": "^0.25.7"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
+    "@types/markdown-it": "^12.2.3",
     "tsup": "5.11.10",
     "vite": "2.7.10",
     "vue": "3.2.26",
     "vue-repl": "workspace:*"
   },
   "peerDependencies": {
-    "vue-repl": "workspace:*",
-    "vue": ">=3"
+    "vue": ">=3",
+    "vue-repl": "workspace:*"
   }
 }

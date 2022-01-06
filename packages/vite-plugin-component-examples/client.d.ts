@@ -3,6 +3,4 @@ declare const pages: {
   component: () => Promise<any>
 }[]
 
-declare const Menu: import("vue").DefineComponent<{}>
-
 export { pages }

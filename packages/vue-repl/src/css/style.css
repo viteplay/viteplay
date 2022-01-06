@@ -22,6 +22,7 @@
   border: 1px solid #e2e2e2;
   border-radius: 8px;
   padding: 20px;
+  margin: 15px 0;
 }
 
 .vrepl-editor {
@@ -49,11 +50,12 @@
   font-weight: normal;
   font-size: 1rem;
   font-size: inherit;
+  margin: 0;
 }
 
 .vrepl-copy-button {
   position: absolute;
-  right: 4px;
+  right: 0px;
   top: 14px;
   background-color: white;
   font-weight: bold;
