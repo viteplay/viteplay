@@ -87,12 +87,12 @@ importers:
     specifiers:
       prismjs: 1.25.0
       vite-plugin-codeblock-playground: workspace:*
-      vitepress: ^0.20.10
+      vitepress: 0.21.2
       vue-repl: workspace:*
     devDependencies:
       prismjs: 1.25.0
       vite-plugin-codeblock-playground: link:../../packages/vite-plugin-codeblock-playground
-      vitepress: 0.20.10
+      vitepress: 0.21.2
       vue-repl: link:../../packages/vue-repl
 
   playground/test-vite-plugin-component-examples:
@@ -1570,8 +1570,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/0.20.10:
-    resolution: {integrity: sha512-dKgH6k1yxdEjIIxoXGI0vMg3lpBLvMarre/vvt4beuxd+rXOUB1a7DAtXDmgIXOMGQ7IcF+4zyd2132IedhjtQ==}
+  /vitepress/0.21.2:
+    resolution: {integrity: sha512-Xf2lLYVpzW8BzeaqxTjB0/IlArha6GS44csR4+jMIpC9ZYLSmZgx+UJBMqVCd7OoXS/ROrC+H5j5RJOjHXLutg==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
