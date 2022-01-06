@@ -23,7 +23,7 @@ npm i -g ultra-runner
 ultra -r --filter +<package-name> dev
 
 # e.g.
-ultra -r --filter +test-vue-repl dev
+ultra -r --filter +test-vue-playground dev
 ```
 
 ## License

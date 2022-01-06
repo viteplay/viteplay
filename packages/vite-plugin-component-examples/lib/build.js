@@ -40,10 +40,10 @@ export const build = async (opts) => {
 
       const contents = `
         <script setup>
-        import { Repl } from "vue-repl"
+        import { Playground } from "vue-playground"
         
         // Can't use "style src" tag because of this issue https://github.com/vitejs/vite/pull/6233
-        import "vue-repl/dist/style.css"
+        import "vue-playground/dist/style.css"
 
         ${files
           .map((file, index) => {
@@ -73,7 +73,7 @@ export const build = async (opts) => {
             .map((file, index) => {
               return `
             <section>
-              <Repl :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
+              <Playground :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
                 file.contents,
               )}\`)" />
             </section>

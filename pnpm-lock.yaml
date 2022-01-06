@@ -28,7 +28,7 @@ importers:
       tsup: 5.11.10
       vite: 2.7.10
       vue: 3.2.26
-      vue-repl: workspace:*
+      vue-playground: workspace:*
     dependencies:
       '@egoist/vue-markdown-it': 1.0.0
       js-yaml: 4.1.0
@@ -39,7 +39,7 @@ importers:
       tsup: 5.11.10_typescript@4.5.4
       vite: 2.7.10
       vue: 3.2.26
-      vue-repl: link:../vue-repl
+      vue-playground: link:../vue-playground
 
   packages/vite-plugin-component-examples:
     specifiers:
@@ -50,7 +50,7 @@ importers:
     devDependencies:
       vue: 3.2.26
 
-  packages/vue-repl:
+  packages/vue-playground:
     specifiers:
       '@types/prismjs': 1.16.6
       '@vitejs/plugin-vue': 2.0.1
@@ -62,11 +62,9 @@ importers:
       vite-plugin-dts: 0.9.7
       vue: 3.2.26
       vue-prism-editor: 2.0.0-alpha.2
-      vue-repl-helpers: workspace:*
     dependencies:
       '@vue/compiler-sfc': 3.2.26
       prismjs: 1.25.0
-      vue-repl-helpers: link:../vue-repl-helpers
     devDependencies:
       '@types/prismjs': 1.16.6
       '@vitejs/plugin-vue': 2.0.1_vite@2.7.10+vue@3.2.26
@@ -77,23 +75,17 @@ importers:
       vue: 3.2.26
       vue-prism-editor: 2.0.0-alpha.2_vue@3.2.26
 
-  packages/vue-repl-helpers:
-    specifiers:
-      tsup: 5.11.10
-    devDependencies:
-      tsup: 5.11.10_typescript@4.5.4
-
   playground/test-vite-plugin-codeblock-playground:
     specifiers:
       prismjs: 1.25.0
       vite-plugin-codeblock-playground: workspace:*
       vitepress: 0.21.2
-      vue-repl: workspace:*
+      vue-playground: workspace:*
     devDependencies:
       prismjs: 1.25.0
       vite-plugin-codeblock-playground: link:../../packages/vite-plugin-codeblock-playground
       vitepress: 0.21.2
-      vue-repl: link:../../packages/vue-repl
+      vue-playground: link:../../packages/vue-playground
 
   playground/test-vite-plugin-component-examples:
     specifiers:
@@ -102,30 +94,30 @@ importers:
       vite: 2.7.10
       vite-plugin-component-examples: workspace:*
       vue: ^3.2.26
-      vue-repl: workspace:*
+      vue-playground: workspace:*
     devDependencies:
       '@vitejs/plugin-vue': 2.0.1_vite@2.7.10+vue@3.2.26
       prismjs: 1.25.0
       vite: 2.7.10
       vite-plugin-component-examples: link:../../packages/vite-plugin-component-examples
       vue: 3.2.26
-      vue-repl: link:../../packages/vue-repl
+      vue-playground: link:../../packages/vue-playground
 
-  playground/test-vue-repl:
+  playground/test-vue-playground:
     specifiers:
       '@vitejs/plugin-vue': 2.0.1
       '@vue/compiler-sfc': 3.2.26
       prismjs: 1.25.0
       vite: 2.7.10
       vue: 3.2.26
-      vue-repl: workspace:*
+      vue-playground: workspace:*
     devDependencies:
       '@vitejs/plugin-vue': 2.0.1_vite@2.7.10+vue@3.2.26
       '@vue/compiler-sfc': 3.2.26
       prismjs: 1.25.0
       vite: 2.7.10
       vue: 3.2.26
-      vue-repl: link:../../packages/vue-repl
+      vue-playground: link:../../packages/vue-playground
 
 packages:
 

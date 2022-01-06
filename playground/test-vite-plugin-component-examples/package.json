@@ -12,6 +12,6 @@
     "vite": "2.7.10",
     "vite-plugin-component-examples": "workspace:*",
     "vue": "^3.2.26",
-    "vue-repl": "workspace:*"
+    "vue-playground": "workspace:*"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "vue-repl",
+  "name": "vue-playground",
   "version": "0.0.0",
   "description": "My awesome typescript library",
   "publishConfig": {
@@ -8,12 +8,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-repl.cjs.js",
-  "module": "./dist/vue-repl.es.js",
+  "main": "./dist/vue-playground.cjs.js",
+  "module": "./dist/vue-playground.es.js",
   "exports": {
     ".": {
-      "require": "./dist/vue-repl.cjs.js",
-      "import": "./dist/vue-repl.es.js"
+      "require": "./dist/vue-playground.cjs.js",
+      "import": "./dist/vue-playground.es.js"
     },
     "./dist/style.css": "./dist/style.css"
   },
@@ -38,8 +38,7 @@
   },
   "dependencies": {
     "@vue/compiler-sfc": "^3.2.26",
-    "prismjs": "^1.25.0",
-    "vue-repl-helpers": "workspace:*"
+    "prismjs": "^1.25.0"
   },
   "peerDependencies": {
     "vue": "^3.2.26"

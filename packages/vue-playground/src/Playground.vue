@@ -10,11 +10,10 @@ import {
   watchEffect,
 } from "vue"
 import { PrismEditor } from "vue-prism-editor"
-import { restoreSFC } from "vue-repl-helpers"
 import { debounce, ensureSFC } from "./utils"
 import { transformCodeToComponent, Transformed } from "./transform"
 import { highlight } from "./highlight"
-import { useReplContext } from "."
+import { usePlaygroundContext } from "."
 import { useCopy } from "./hooks/useCopy"
 
 const props = defineProps({
@@ -49,7 +48,7 @@ const transformed = shallowRef<Transformed | null>(null)
 let errors = ref<string[]>([])
 const copy = useCopy(() => displayCode.value)
 
-const context = useReplContext()
+const context = usePlaygroundContext()
 const modules = computed(() => ({ ...props.modules, ...context.modules }))
 
 const transform = (code: string) => {
@@ -68,7 +67,7 @@ const setComponent = () => {
 const setComponentDebounced = debounce(setComponent, 250)
 
 watchEffect(() => {
-  displayCode.value = restoreSFC(props.code.trim())
+  displayCode.value = props.code.trim()
 })
 
 watchEffect(() => {

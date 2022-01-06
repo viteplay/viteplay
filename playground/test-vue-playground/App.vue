@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import "vue-repl/dist/style.css"
+import "vue-playground/dist/style.css"
 import "prismjs/themes/prism-tomorrow.css"
 import { defineComponent, h } from "vue"
-import { Repl } from "vue-repl"
+import { Playground } from "vue-playground"
 
 const code =
   `
@@ -56,7 +56,7 @@ const modules = {
 
 <template>
   <div class="main">
-    <Repl :code="code" :modules="modules" />
+    <Playground :code="code" :modules="modules" />
   </div>
 </template>
 

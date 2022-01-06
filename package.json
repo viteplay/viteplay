@@ -1,12 +1,9 @@
 {
   "private": true,
-  "name": "vue-repl-workspace",
+  "name": "playground-workspace",
   "version": "0.0.0",
   "description": "My awesome typescript library",
   "license": "MIT",
-  "scripts": {
-    "build": "ultra -r --filter vue-repl build && ultra -r --filter vite-plugin-editable-docs build"
-  },
   "devDependencies": {
     "@egoist/prettier-config": "1.0.0",
     "@types/node": "17.0.7",

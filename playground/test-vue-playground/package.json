@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "test-vue-repl",
+  "name": "test-vue-playground",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
@@ -10,7 +10,7 @@
     "@vitejs/plugin-vue": "2.0.1",
     "@vue/compiler-sfc": "3.2.26",
     "vue": "3.2.26",
-    "vue-repl": "workspace:*",
+    "vue-playground": "workspace:*",
     "prismjs": "1.25.0"
   }
 }

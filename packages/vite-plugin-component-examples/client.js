@@ -1,3 +1,3 @@
 // @ts-nocheck
 
-export { pages } from "editable-docs-cache/client.js"
+export { pages } from "component-examples-cache/client.js"

@@ -17,8 +17,8 @@ const plugin = (options) => {
     },
 
     resolveId(id) {
-      if (id.startsWith("editable-docs-cache/")) {
-        return id.replace("editable-docs-cache", cacheDir)
+      if (id.startsWith("component-examples-cache/")) {
+        return id.replace("component-examples-cache", cacheDir)
       }
       if (id === "vite-plugin-component-examples/client") {
         return path.join(
