@@ -25,7 +25,7 @@ importers:
       '@types/markdown-it': ^12.2.3
       js-yaml: ^4.1.0
       magic-string: ^0.25.7
-      tsup: 5.11.10
+      tsup: 5.11.11
       vite: 2.7.10
       vue: 3.2.26
       vue-playground: workspace:*
@@ -36,7 +36,7 @@ importers:
     devDependencies:
       '@types/js-yaml': 4.0.5
       '@types/markdown-it': 12.2.3
-      tsup: 5.11.10_typescript@4.5.4
+      tsup: 5.11.11_typescript@4.5.4
       vite: 2.7.10
       vue: 3.2.26
       vue-playground: link:../vue-playground
@@ -1481,8 +1481,8 @@ packages:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
     dev: true
 
-  /tsup/5.11.10_typescript@4.5.4:
-    resolution: {integrity: sha512-z8YzbPyF8Vvj37h+TY84AfvlmKZtBTRuWwRETWUbfckMj854WeLkuRQV8vRyoY8bLJQhnKWlLge/3fVbFZGERg==}
+  /tsup/5.11.11_typescript@4.5.4:
+    resolution: {integrity: sha512-rgbTu+KhAI9PdGUS07rKohDXbRLTstBGJaxl75q7RZYRGF+n+kN8L4RlXY5pqYb9Hsq0gEB6nS39v7nSvVBS+g==}
     hasBin: true
     peerDependencies:
       typescript: ^4.1.0
