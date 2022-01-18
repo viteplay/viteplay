@@ -30,7 +30,7 @@
     "@types/prismjs": "1.16.6",
     "esbuild": "0.14.10",
     "sucrase": "3.20.3",
-    "vite": "2.7.10",
+    "vite": "2.7.13",
     "vue": "3.2.26",
     "vue-prism-editor": "2.0.0-alpha.2",
     "vite-plugin-dts": "0.9.7",
