@@ -3,7 +3,19 @@ import { Plugin } from "vite"
 export declare type Page = { title: string; examples: string | string[] }
 
 export declare type Options = {
-  pages: Page[]
+  /**
+   * Path to extract components from to create dev pages for
+   *
+   * @example './components/*\/*.vue'
+   */
+  components?: string
+  /**
+   * Path to extract component examples from to put on each dev page
+   *
+   * @example './components/*\/*.example.vue'
+   */
+  componentExamples?: string
+  pages?: Page[]
   cacheDir?: string
   getPath?: (slug: string) => string
 }

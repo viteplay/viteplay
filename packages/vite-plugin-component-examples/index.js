@@ -1,6 +1,9 @@
 import path from "path"
 import { build } from "./lib/build.js"
-import { getDirnameFromImportMetaUrl } from "./lib/utils.js"
+import {
+  getDirnameFromImportMetaUrl,
+  getPagesFromOptions,
+} from "./lib/utils.js"
 
 /**
  * @type {import('./index').CreatePlugin}
@@ -38,7 +41,8 @@ const plugin = (options) => {
     },
 
     async buildStart() {
-      await build({ pages: options.pages, cacheDir, getPath })
+      const pages = await getPagesFromOptions(options)
+      await build({ pages, cacheDir, getPath })
     },
   }
 }
