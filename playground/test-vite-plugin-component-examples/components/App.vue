@@ -3,6 +3,8 @@ import { pages } from "vite-plugin-component-examples/client"
 import { computed, ref, defineAsyncComponent } from "vue"
 let selected = ref(pages[0].title)
 
+console.log(`pages → `, pages)
+
 const component = computed(() => {
   const m = pages.find((page) => page.title === selected.value)
   return m && defineAsyncComponent(m.component)
