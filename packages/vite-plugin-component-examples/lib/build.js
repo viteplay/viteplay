@@ -24,7 +24,17 @@ export const build = async (opts) => {
           files.sort().map(async (file) => {
             const contents = await fs.promises.readFile(file, "utf8")
             const imports = await getImports(contents, file)
+            const title =
+              file
+                .split("/")
+                .pop()
+                // `[number]-` is used to to control order
+                ?.replace(/^\d+\-/, "")
+                ?.replace(/\.vue$/, "")
+                ?.replace(/\.example$/, "") || ""
+            // TODO: grab title/description/markdown content from example file content
             return {
+              title,
               path: file,
               absolutePath: path.resolve(file),
               contents,
@@ -68,18 +78,19 @@ export const build = async (opts) => {
         </script>
         <template>
           <div>
-          
-          ${files
-            .map((file, index) => {
-              return `
+            <h1>${page.title}</h1>
+            ${files
+              .map((file, index) => {
+                return `
             <section>
-              <Playground :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
-                file.contents,
-              )}\`)" />
+            <h2>${file.title}</h2>
+            <Playground :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
+                  file.contents,
+                )}\`)" />
             </section>
               `
-            })
-            .join("\n")}
+              })
+              .join("\n")}
           </div>
         </template>
         <style src="prismjs/themes/prism-tomorrow.css"></style>
