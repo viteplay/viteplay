@@ -28,6 +28,8 @@ export const build = async (opts) => {
               file
                 .split("/")
                 .pop()
+                // `[number]-` is used to to control order
+                ?.replace(/^\d+\-/, "")
                 ?.replace(/\.vue$/, "")
                 ?.replace(/\.example$/, "") || ""
             // TODO: grab title/description/markdown content from example file content
