@@ -1,4 +1,5 @@
 import path from "path"
+import glob from "fast-glob"
 import { createRequire } from "module"
 import { fileURLToPath } from "url"
 
@@ -19,4 +20,24 @@ export const localRequire = (id) => {
 export const getDirnameFromImportMetaUrl = (url) => {
   const p = fileURLToPath(url)
   return path.dirname(p)
+}
+
+/**
+ * @param {import('../../index').Options} options
+ * @returns {import('../../index').Page[]}
+ */
+export async function getPagesFromOptions(options) {
+  if ("pages" in options) return options.pages
+
+  const { components, componentExamples } = options
+  const exampleFiles = await glob(componentExamples)
+  const files = await glob(components)
+  const componentFiles = files.filter((p) => !exampleFiles.includes(p))
+
+  return componentFiles.map((p) => {
+    const fileName = (p.split("/").pop() || "").replace(/\.vue$/, "")
+    const folder = path.dirname(p)
+    const examples = exampleFiles.filter((_p) => _p.startsWith(folder))
+    return { title: fileName, examples }
+  })
 }
