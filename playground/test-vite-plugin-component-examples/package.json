@@ -13,5 +13,8 @@
     "vite-plugin-component-examples": "workspace:*",
     "vue": "^3.2.26",
     "vue-playground": "workspace:*"
+  },
+  "dependencies": {
+    "vue-router": "^4.0.12"
   }
 }
