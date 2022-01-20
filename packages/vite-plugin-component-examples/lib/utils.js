@@ -35,9 +35,9 @@ export async function getPagesFromOptions(options) {
   const componentFiles = files.filter((p) => !exampleFiles.includes(p))
 
   return componentFiles.map((p) => {
-    const componentFile = (p.split("/").pop() || "").replace(/\.vue$/, "")
-    const componentFolder = p.split("/").slice(0, -1).join("/")
-    const examples = exampleFiles.filter((_p) => _p.startsWith(componentFolder))
-    return { title: componentFile, examples }
+    const fileName = (p.split("/").pop() || "").replace(/\.vue$/, "")
+    const folder = path.dirname(p)
+    const examples = exampleFiles.filter((_p) => _p.startsWith(folder))
+    return { title: fileName, examples }
   })
 }
