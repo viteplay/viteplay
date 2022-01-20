@@ -2,6 +2,7 @@
 import fs from "fs"
 import path from "path"
 import glob from "fast-glob"
+import { kebabCase } from "case-anything"
 import { getImports } from "./get-imports.js"
 import { outputFileIfChanged } from "./fs.js"
 
@@ -114,7 +115,7 @@ export const build = async (opts) => {
     let pages = [
       ${pages
         .map((page) => {
-          const slug = page.title.toLowerCase().replace(/[^\w]+/g, "-")
+          const slug = kebabCase(page.title)
           return `{
           title: "${page.title}",
           path: "${opts.getPath(slug)}",
