@@ -20,7 +20,7 @@ export declare type Options = {
    *
    * @example '/dev'
    */
-  parentPath?: string
+  pathParent?: string
   pages?: Page[]
   cacheDir?: string
   getPath?: (slug: string) => string
