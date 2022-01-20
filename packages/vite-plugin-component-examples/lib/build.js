@@ -13,7 +13,7 @@ const slash = (input) => input.replace(/\\/g, "/")
 
 /**
  *
- * @param {{pages:import('../index').Page[], cacheDir: string, getPath: (slug: string) => string}} opts
+ * @param {{pages:import('../index').Page[], parentPath: string, cacheDir: string, getPath: (slug: string) => string}} opts
  */
 export const build = async (opts) => {
   console.log("building!")
@@ -110,18 +110,34 @@ export const build = async (opts) => {
     }),
   )
 
+  // const _children = pages
+  // .map((page) => {
+  //   const slug = page.title.toLowerCase().replace(/[^\w]+/g, "-")
+  //   return `{
+  //   title: "${page.title}",
+  //   path: "${opts.getPath(slug)}",
+  //   component: () => import("${slash(page.component)}")
+  // }`
+  // })
+  // .join(",\n")
   const clientContent = `
     let pages = [
-      ${pages
-        .map((page) => {
-          const slug = page.title.toLowerCase().replace(/[^\w]+/g, "-")
-          return `{
-          title: "${page.title}",
-          path: "${opts.getPath(slug)}",
-          component: () => import("${slash(page.component)}")
-        }`
-        })
-        .join(",\n")}
+      {
+        path: "${opts.parentPath || "/dev"}",
+        component: () => '<template><router-view></router-view></template>',
+        children: [
+          ${pages
+            .map((page) => {
+              const slug = page.title.toLowerCase().replace(/[^\w]+/g, "-")
+              return `{
+              title: "${page.title}",
+              path: "${opts.getPath(slug)}",
+              component: () => import("${slash(page.component)}")
+            }`
+            })
+            .join(",\n")}
+        ],
+      },
     ]
     export { pages }
     `

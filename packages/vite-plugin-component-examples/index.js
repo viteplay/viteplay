@@ -11,6 +11,7 @@ import {
 const plugin = (options) => {
   let cacheDir = options.cacheDir || ".cache/vite-plugin-component-examples"
   const getPath = options.getPath || ((slug) => `/${slug}`)
+
   return {
     name: "component-examples",
 
@@ -35,14 +36,15 @@ const plugin = (options) => {
     configureServer(server) {
       server.watcher.on("all", (event, id) => {
         if (id.startsWith(cacheDir)) return
+        const pages = await getPagesFromOptions(options)
         // TODO: only rebuild when examples change
-        build({ pages: options.pages, cacheDir, getPath })
+        build({ pages, parentPath: options.parentPath, cacheDir, getPath })
       })
     },
 
     async buildStart() {
       const pages = await getPagesFromOptions(options)
-      await build({ pages, cacheDir, getPath })
+      await build({ pages, parentPath: options.parentPath, cacheDir, getPath })
     },
   }
 }
