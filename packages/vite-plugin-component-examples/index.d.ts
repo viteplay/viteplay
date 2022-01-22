@@ -15,6 +15,12 @@ export declare type Options = {
    * @example './components/*\/*.example.vue'
    */
   componentExamples?: string
+  /**
+   * The path the generated routes should be nested under as children.
+   *
+   * @example '/dev'
+   */
+  pathParent?: string
   pages?: Page[]
   cacheDir?: string
   getPath?: (slug: string) => string
