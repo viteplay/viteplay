@@ -6,7 +6,6 @@ const value = ref("")
 </script>
 
 <template>
-  advanced example
   <Input kind="primary" :value="value" @change="(v) => (value = v)" />
   <pre>{{ value }}</pre>
 </template>
