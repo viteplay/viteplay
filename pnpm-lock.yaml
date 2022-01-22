@@ -61,7 +61,7 @@ importers:
       prismjs: ^1.25.0
       sucrase: 3.20.3
       vite: 2.7.10
-      vite-plugin-dts: 0.9.7
+      vite-plugin-dts: 0.9.9
       vue: 3.2.26
       vue-prism-editor: 2.0.0-alpha.2
       vue-router: ^4.0.12
@@ -74,7 +74,7 @@ importers:
       esbuild: 0.14.10
       sucrase: 3.20.3
       vite: 2.7.10
-      vite-plugin-dts: 0.9.7_vite@2.7.10
+      vite-plugin-dts: 0.9.9_vite@2.7.10
       vue: 3.2.26
       vue-prism-editor: 2.0.0-alpha.2_vue@3.2.26
       vue-router: 4.0.12_vue@3.2.26
@@ -1541,8 +1541,8 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /vite-plugin-dts/0.9.7_vite@2.7.10:
-    resolution: {integrity: sha512-XZ/vIv8nNSLTxanxoMw6B8sDXfZfQHKwZsiYZmY7eK11sDzDnEo4VJbYzsgDosTD/JtbOC7NA5TGqqzsstaGGQ==}
+  /vite-plugin-dts/0.9.9_vite@2.7.10:
+    resolution: {integrity: sha512-HzLTCBbsN9gotphtIe97TCigeco6aGLBoeSHdxD9QGGl8prO7uykus0fphLkjWCbFlrerb8Uxp9fu82BfIiaIg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: '>=2.4.4'

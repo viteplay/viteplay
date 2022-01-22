@@ -34,7 +34,7 @@
     "vue": "3.2.26",
     "vue-prism-editor": "2.0.0-alpha.2",
     "vue-router": "^4.0.12",
-    "vite-plugin-dts": "0.9.7",
+    "vite-plugin-dts": "0.9.9",
     "@vitejs/plugin-vue": "2.0.1"
   },
   "dependencies": {
