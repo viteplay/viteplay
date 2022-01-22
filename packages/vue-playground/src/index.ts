@@ -3,8 +3,9 @@ import "./css/style.css"
 import { App, inject } from "vue"
 
 import Playground from "./Playground.vue"
+import ViteplayLayout from "./ViteplayLayout.vue"
 
-export { Playground }
+export { Playground, ViteplayLayout }
 
 export { highlight } from "./highlight"
 

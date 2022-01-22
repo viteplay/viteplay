@@ -114,20 +114,17 @@ export const build = async (opts) => {
     }),
   )
 
+  const titleAndPaths = pages.map((p) => ({ title: p.title, path: p.path }))
   const layoutContents = `
 <script setup>
+import { ViteplayLayout } from "vue-playground"
+
+const pages = ${JSON.stringify(titleAndPaths)}
+const pathParent = "${opts.pathParent}"
 </script>
+
 <template>
-  <nav>
-    <ul>
-      ${pages
-        .map((p) => {
-          return `<li><router-link to="${opts.pathParent}/${p.path}">${p.title}</router-link></li>`
-        })
-        .join("\n")}
-    </ul>
-  </nav>
-  <router-view></router-view>
+  <ViteplayLayout :pages="pages" :pathParent="pathParent" />
 </template>
 `
 
