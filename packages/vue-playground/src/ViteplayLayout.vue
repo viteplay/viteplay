@@ -1,30 +1,37 @@
 <script lang="ts" setup>
+import { ref } from "vue"
+import { SideBarItem } from "./components/SideBar.types"
+import SideBar from "./components/SideBar.vue"
+import Page from "./components/Page.vue"
+import NavBar from "./components/NavBar.vue"
+
+const navTitle = "VitePlay"
+const navLogo = "https://v3.vuejs.org/logo.png"
+
 defineProps<{
-  pages: {
-    title: string
-    path: string
-    children: { title: string; hashtag: string }[]
-  }[]
+  items: SideBarItem[]
   pathParent: string
 }>()
+
+// sidebar
+const openSideBar = ref(false)
+
+const toggleSidebar = (to?: boolean) => {
+  openSideBar.value = typeof to === "boolean" ? to : !openSideBar.value
+}
 </script>
 
 <template>
-  <nav>
-    <ul>
-      <li v-for="p in pages">
-        <router-link :to="`${pathParent}/${p.path}`">{{ p.title }}</router-link>
-        <ul>
-          <li v-for="c in p.children">
-            <router-link :to="`${pathParent}/${p.path}#${c.hashtag}`">{{
-              c.title
-            }}</router-link>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-  <router-view></router-view>
+  <NavBar
+    :title="navTitle"
+    :pathParent="pathParent"
+    :logo="navLogo"
+    @toggle="toggleSidebar"
+  />
+
+  <SideBar :items="items" :pathParent="pathParent" :open="openSideBar" />
+
+  <Page />
 </template>
 
 <style></style>
