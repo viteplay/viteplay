@@ -34,8 +34,10 @@ export const build = async (opts) => {
                 ?.replace(/\.vue$/, "")
                 ?.replace(/\.example$/, "") || ""
             // TODO: grab title/description/markdown content from example file content
+            const hashtag = kebabCase(title)
             return {
               title,
+              hashtag,
               path: file,
               absolutePath: path.resolve(file),
               contents,
@@ -84,7 +86,7 @@ export const build = async (opts) => {
               .map((file, index) => {
                 return `
             <section>
-            <h2>${file.title}</h2>
+            <h2 id="${file.hashtag}">${file.title}</h2>
             <Playground :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
                   file.contents,
                 )}\`)" />
@@ -110,11 +112,16 @@ export const build = async (opts) => {
         title: page.title,
         path: opts.getPath(slug),
         component,
+        children: files,
       }
     }),
   )
 
-  const titleAndPaths = pages.map((p) => ({ title: p.title, path: p.path }))
+  const titleAndPaths = pages.map((p) => ({
+    title: p.title,
+    path: p.path,
+    children: p.children.map((c) => ({ title: c.title, hashtag: c.hashtag })),
+  }))
   const layoutContents = `
 <script setup>
 import { ViteplayLayout } from "vue-playground"
