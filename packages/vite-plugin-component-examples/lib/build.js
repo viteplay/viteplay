@@ -2,6 +2,7 @@
 import fs from "fs"
 import path from "path"
 import glob from "fast-glob"
+import { kebabCase } from "case-anything"
 import { getImports } from "./get-imports.js"
 import { outputFileIfChanged } from "./fs.js"
 
@@ -98,12 +99,12 @@ export const build = async (opts) => {
 
       const component = path.join(
         opts.cacheDir,
-        `${index}-${page.title.replace(/[^\w]+/, "-")}.vue`,
+        `${index}-${kebabCase(page.title)}.vue`,
       )
 
       outputFileIfChanged(component, contents)
 
-      const slug = page.title.toLowerCase().replace(/[^\w]+/g, "-")
+      const slug = kebabCase(page.title)
 
       return {
         title: page.title,
