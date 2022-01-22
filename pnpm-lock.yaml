@@ -64,6 +64,7 @@ importers:
       vite-plugin-dts: 0.9.7
       vue: 3.2.26
       vue-prism-editor: 2.0.0-alpha.2
+      vue-router: ^4.0.12
     dependencies:
       '@vue/compiler-sfc': 3.2.26
       prismjs: 1.25.0
@@ -76,6 +77,7 @@ importers:
       vite-plugin-dts: 0.9.7_vite@2.7.10
       vue: 3.2.26
       vue-prism-editor: 2.0.0-alpha.2_vue@3.2.26
+      vue-router: 4.0.12_vue@3.2.26
 
   playground/test-vite-plugin-codeblock-playground:
     specifiers:
@@ -391,7 +393,6 @@ packages:
 
   /@vue/devtools-api/6.0.0-beta.21.1:
     resolution: {integrity: sha512-FqC4s3pm35qGVeXRGOjTsRzlkJjrBLriDS9YXbflHLsfA9FrcKzIyWnLXoNm+/7930E8rRakXuAc2QkC50swAw==}
-    dev: false
 
   /@vue/reactivity-transform/3.2.26:
     resolution: {integrity: sha512-XKMyuCmzNA7nvFlYhdKwD78rcnmPb7q46uoR00zkX6yZrUmcCQ5OikiwUEVbvNhL5hBJuvbSO95jB5zkUon+eQ==}
@@ -1645,7 +1646,6 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.0.0-beta.21.1
       vue: 3.2.26
-    dev: false
 
   /vue/3.2.26:
     resolution: {integrity: sha512-KD4lULmskL5cCsEkfhERVRIOEDrfEL9CwAsLYpzptOGjaGFNWo3BQ9g8MAb7RaIO71rmVOziZ/uEN/rHwcUIhg==}
