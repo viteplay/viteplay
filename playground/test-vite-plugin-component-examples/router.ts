@@ -10,6 +10,10 @@ export const router = createRouter({
       path: "/",
       component: () => import("./components/Manual.vue"),
     },
+    {
+      path: "/my-page",
+      component: () => import("./components/MyPage.vue"),
+    },
     ...pages,
     {
       path: "/:all(.*)*",
