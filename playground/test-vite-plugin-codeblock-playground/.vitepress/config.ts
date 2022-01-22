@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { defineConfig } from "vitepress"
-import playground from "vite-plugin-codeblock-playground"
+import VitePlay from "vite-plugin-codeblock-playground"
 
 export default defineConfig({
   vite: {
-    plugins: [playground()],
+    plugins: [VitePlay()],
   },
 })
