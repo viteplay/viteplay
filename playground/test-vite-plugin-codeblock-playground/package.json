@@ -8,7 +8,7 @@
   "devDependencies": {
     "prismjs": "1.25.0",
     "vite-plugin-codeblock-playground": "workspace:*",
-    "vitepress": "0.21.2",
+    "vitepress": "0.21.6",
     "vue-playground": "workspace:*"
   }
 }
