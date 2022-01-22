@@ -9,7 +9,7 @@ export default defineConfig({
       // Path to extract components from to create dev pages for
       components: "./components/*/*.vue",
       // Path to extract component examples from to put on each dev page
-      componentExamples: "./components/*/*.example.vue",
+      componentExamples: "./components/*/examples/*.vue",
       pathParent: "/dev",
     }),
   ],
