@@ -1,5 +1,5 @@
 {
-  "name": "vue-playground",
+  "name": "@viteplay/vue",
   "version": "0.0.0",
   "description": "My awesome typescript library",
   "publishConfig": {
@@ -8,12 +8,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-playground.cjs.js",
-  "module": "./dist/vue-playground.es.js",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
   "exports": {
     ".": {
-      "require": "./dist/vue-playground.cjs.js",
-      "import": "./dist/vue-playground.es.js"
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.es.js"
     },
     "./dist/style.css": "./dist/style.css"
   },
@@ -35,10 +35,9 @@
     "vue-prism-editor": "2.0.0-alpha.2",
     "vue-router": "^4.0.12",
     "vite-plugin-dts": "0.9.7",
-    "@vitejs/plugin-vue": "2.0.1"
+    "@vitejs/plugin-vue": "2.1.0"
   },
   "dependencies": {
-    "@vue/compiler-sfc": "^3.2.26",
     "prismjs": "^1.25.0"
   },
   "peerDependencies": {

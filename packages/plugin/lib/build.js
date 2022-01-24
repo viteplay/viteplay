@@ -53,10 +53,10 @@ export const build = async (opts) => {
 
       const contents = `
         <script setup>
-        import { Playground } from "vue-playground"
+        import { Playground } from "@viteplay/vue"
         
         // Can't use "style src" tag because of this issue https://github.com/vitejs/vite/pull/6233
-        import "vue-playground/dist/style.css"
+        import "@viteplay/vue/dist/style.css"
 
         ${files
           .map((file, index) => {
@@ -128,14 +128,14 @@ export const build = async (opts) => {
   }))
   const layoutContents = `
 <script setup>
-import { ViteplayLayout } from "vue-playground"
+import { RouteLayout } from "@viteplay/vue"
 
 const items = ${JSON.stringify(sideBarItems)}
 const pathParent = "${opts.pathParent}"
 </script>
 
 <template>
-  <ViteplayLayout :items="items" :pathParent="pathParent" />
+  <RouteLayout :items="items" :pathParent="pathParent" />
 </template>
 `
 

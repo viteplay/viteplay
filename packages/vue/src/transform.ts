@@ -4,7 +4,7 @@ import {
   compileScript,
   compileTemplate,
   compileStyle,
-} from "@vue/compiler-sfc"
+} from "vue/compiler-sfc"
 import { transform, Transform } from "../vendor/sucrase"
 
 export type Transformed = {

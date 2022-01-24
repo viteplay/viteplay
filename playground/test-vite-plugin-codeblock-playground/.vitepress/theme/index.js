@@ -1,6 +1,6 @@
 import DefaultTheme from "vitepress/theme"
-import { Playground } from "vue-playground"
-import "vue-playground/dist/style.css"
+import { Playground } from "@viteplay/vue"
+import "@viteplay/vue/dist/style.css"
 import "prismjs/themes/prism-tomorrow.css"
 import Button from "../../components/Button.vue"
 

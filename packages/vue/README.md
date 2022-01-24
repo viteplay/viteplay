@@ -1,20 +1,20 @@
-# vue-playground
+# @viteplay/vue
 
-[![npm version](https://badgen.net/npm/v/vue-playground)](https://npm.im/vue-playground) [![npm downloads](https://badgen.net/npm/dm/vue-playground)](https://npm.im/vue-playground)
+[![npm version](https://badgen.net/npm/v/@viteplay/vue)](https://npm.im/@viteplay/vue) [![npm downloads](https://badgen.net/npm/dm/@viteplay/vue)](https://npm.im/@viteplay/vue)
 
 ## Install
 
 ```bash
-npm i vue-playground prismjs
+npm i @viteplay/vue prismjs
 ```
 
 ## Usage
 
 ```vue
 <script lang="ts" setup>
-import "vue-playground/dist/style.css"
+import "@viteplay/vue/dist/style.css"
 import "prismjs/themes/prism-tomorrow.css"
-import { Repl } from "vue-playground"
+import { Repl } from "@viteplay/vue"
 
 const code = `
 <template>

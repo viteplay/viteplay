@@ -1,6 +1,9 @@
 {
   "version": "0.0.0",
-  "name": "vite-plugin-component-examples",
+  "name": "@viteplay/plugin",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "files": [
     "index.js",

@@ -6,9 +6,9 @@ import "./css/style.css"
 import { App, inject } from "vue"
 
 import Playground from "./Playground.vue"
-import ViteplayLayout from "./ViteplayLayout.vue"
+import RouteLayout from "./RouteLayout.vue"
 
-export { Playground, ViteplayLayout }
+export { Playground, RouteLayout }
 
 export { highlight } from "./highlight"
 
@@ -18,7 +18,7 @@ export type Options = {
 
 export type { SideBarItem } from "./components/SideBar.types"
 
-const PROVIDE_KEY = Symbol("for-vue-playground")
+const PROVIDE_KEY = Symbol("for-viteplay")
 
 export const createPlaygroundContext = (options: Options = {}) => {
   return {

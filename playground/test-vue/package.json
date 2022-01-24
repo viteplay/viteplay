@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "test-vue-playground",
+  "name": "test-vue",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
@@ -8,9 +8,8 @@
   "devDependencies": {
     "vite": "2.7.10",
     "@vitejs/plugin-vue": "2.0.1",
-    "@vue/compiler-sfc": "3.2.26",
     "vue": "3.2.26",
-    "vue-playground": "workspace:*",
+    "@viteplay/vue": "workspace:*",
     "prismjs": "1.25.0"
   }
 }

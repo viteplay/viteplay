@@ -21,10 +21,10 @@
     "tsup": "5.11.10",
     "vite": "2.7.10",
     "vue": "3.2.26",
-    "vue-playground": "workspace:*"
+    "@viteplay/vue": "workspace:*"
   },
   "peerDependencies": {
     "vue": ">=3",
-    "vue-playground": "workspace:*"
+    "@viteplay/vue": "workspace:*"
   }
 }

@@ -11,18 +11,17 @@ pnpm i
 To build all packages, run:
 
 ```
-npm i -g ultra-runner
-ultra -r build
+pnpm run build -r
 ```
 
-To run a playground in the `playground` directory, run:
+To run a playground in the `playground` director:
 
 ```bash
-# the `+` prefix asks ultra to build the package's dependencies first
-ultra -r --filter +<package-name> dev
+# Run dev script for all packages first:
+pnpm dev
 
-# e.g.
-ultra -r --filter +test-vue-playground dev
+# Then run specific playground like:
+pnpm dev --filter test-vue
 ```
 
 ## License

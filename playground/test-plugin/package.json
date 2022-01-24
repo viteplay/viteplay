@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "test-vite-plugin-component-examples",
+  "name": "test-plugin",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,9 +10,9 @@
     "@vitejs/plugin-vue": "2.0.1",
     "prismjs": "1.25.0",
     "vite": "2.7.10",
-    "vite-plugin-component-examples": "workspace:*",
+    "@viteplay/plugin": "workspace:*",
     "vue": "^3.2.26",
-    "vue-playground": "workspace:*"
+    "@viteplay/vue": "workspace:*"
   },
   "dependencies": {
     "vue-router": "^4.0.12"
