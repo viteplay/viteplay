@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "private": true,
+  "name": "scripts",
+  "dependencies": {
+    "execa": "^6.0.0"
+  }
+}
