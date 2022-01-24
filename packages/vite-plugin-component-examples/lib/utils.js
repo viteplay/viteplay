@@ -23,13 +23,20 @@ export const getDirnameFromImportMetaUrl = (url) => {
 }
 
 /**
- * @param {import('../../index').Options} options
- * @returns {import('../../index').Page[]}
+ * @param {import('../index').Options} options
+ * @returns {Promise<import('../index').Page[]>}
  */
 export async function getPagesFromOptions(options) {
-  if ("pages" in options) return options.pages
+  if (options.pages) return options.pages
 
   const { components, componentExamples } = options
+
+  if (!components || !componentExamples) {
+    throw new Error(
+      "You must provide both `components` and `componentExamples` in `options`",
+    )
+  }
+
   const exampleFiles = await glob(componentExamples)
   const files = await glob(components)
   const componentFiles = files.filter((p) => !exampleFiles.includes(p))
