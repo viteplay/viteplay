@@ -46,11 +46,9 @@ export const build = async (opts) => {
           }),
         ),
       )
-
       if (files.length === 0) {
-        throw new Error(`No files found for ${page.examples}`)
+        console.warn(`No examples found for ${JSON.stringify(page)}`)
       }
-
       const contents = `
         <script setup>
         import { Playground } from "@viteplay/vue"
@@ -117,15 +115,17 @@ export const build = async (opts) => {
     }),
   )
 
-  const sideBarItems = pages.map((p) => ({
-    text: p.title,
-    link: p.path,
-    headers: p.children.map((c) => ({
-      title: c.title,
-      slug: c.slug,
-      level: 2,
-    })),
-  }))
+  const sideBarItems = pages
+    .filter((p) => p.children.length > 0)
+    .map((p) => ({
+      text: p.title,
+      link: p.path,
+      headers: p.children.map((c) => ({
+        title: c.title,
+        slug: c.slug,
+        level: 2,
+      })),
+    }))
   const layoutContents = `
 <script setup>
 import { RouteLayout } from "@viteplay/vue"
