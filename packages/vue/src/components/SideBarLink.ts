@@ -1,5 +1,6 @@
 import { FunctionalComponent, h, VNode } from "vue"
 import { useRoute } from "vue-router"
+import { useConfig } from ".."
 import type { SideBarItem, SideBarGroup, Header } from "./SideBar.types"
 import { joinUrl, isActive } from "./utils"
 
@@ -9,20 +10,20 @@ interface HeaderWithChildren extends Header {
 
 export const SideBarLink: FunctionalComponent<{
   item: SideBarItem
-  base?: string
   depth?: number
 }> = (props) => {
   const route = useRoute()
   const depth = props.depth || 1
   const maxDepth = Infinity
+  const config = useConfig()
 
   const text = props.item.text
-  const link = resolveLink(props.base || "", props.item.link)
+  const link = resolveLink(config.base || "", props.item.link)
   const children = (props.item as SideBarGroup).children
   const headers = (props.item as SideBarItem).headers
   const active = isActive(
     route,
-    joinUrl(props.base || "", props.item.link || ""),
+    joinUrl(config.base || "", props.item.link || ""),
   )
   const childItems =
     depth < maxDepth

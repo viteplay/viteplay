@@ -3,7 +3,7 @@ import "./css/vars.css"
 import "./css/layout.css"
 import "./css/sidebar-links.css"
 import "./css/style.css"
-import { App, inject } from "vue"
+import { provide, inject } from "vue"
 
 import Playground from "./Playground.vue"
 import RouteLayout from "./RouteLayout.vue"
@@ -12,23 +12,35 @@ export { Playground, RouteLayout }
 
 export { highlight } from "./highlight"
 
-export type GlobalPlaygroundOptions = {
+export type Config = {
   modules?: Record<string, any>
+  base?: string
+  title?: string
+  logo?: string
 }
 
 export type { SideBarItem } from "./components/SideBar.types"
 
 const PROVIDE_KEY = Symbol("for-viteplay")
 
-// @viteplay/plugin uses this to provide global options for the playground component
-export const providePlaygroundOptions = (
-  app: App,
-  options: GlobalPlaygroundOptions,
-) => {
-  app.provide(PROVIDE_KEY, options)
+const getDefaultConfig = () => {
+  return {
+    base: "/",
+    modules: {},
+    title: "VitePlay",
+    logo: "https://v3.vuejs.org/logo.png",
+  }
 }
 
-export const usePlaygroundOptions = () => {
-  const options = inject<GlobalPlaygroundOptions>(PROVIDE_KEY, {})
-  return options
+// @viteplay/plugin uses this to provide global config
+export const provideConfig = (config: Config) => {
+  provide(PROVIDE_KEY, {
+    ...getDefaultConfig(),
+    ...config,
+  })
+}
+
+export const useConfig = () => {
+  const config = inject<Required<Config>>(PROVIDE_KEY, getDefaultConfig())
+  return config
 }

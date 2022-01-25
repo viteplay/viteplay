@@ -5,12 +5,8 @@ import SideBar from "./components/SideBar.vue"
 import Page from "./components/Page.vue"
 import NavBar from "./components/NavBar.vue"
 
-const navTitle = "VitePlay"
-const navLogo = "https://v3.vuejs.org/logo.png"
-
 defineProps<{
   items: SideBarItem[]
-  base: string
 }>()
 
 // sidebar
@@ -22,14 +18,9 @@ const toggleSidebar = (to?: boolean) => {
 </script>
 
 <template>
-  <NavBar
-    :title="navTitle"
-    :base="base"
-    :logo="navLogo"
-    @toggle="toggleSidebar"
-  />
+  <NavBar @toggle="toggleSidebar" />
 
-  <SideBar :items="items" :base="base" :open="openSideBar" />
+  <SideBar :items="items" :open="openSideBar" />
 
   <Page />
 </template>

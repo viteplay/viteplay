@@ -23,8 +23,7 @@ export const getDirnameFromImportMetaUrl = (url) => {
 }
 
 /**
- * @param {import('../index').Options} options
- * @returns {Promise<import('../index').Page[]>}
+ * @type {import('../').GetPagesFromOptions}
  */
 export async function getPagesFromOptions(options) {
   if (options.pages) return options.pages

@@ -1,14 +1,11 @@
 import path from "path"
 import { build } from "./lib/build.js"
-import { getPagesFromOptions } from "./lib/utils.js"
 
 /**
  * @type {import('./index').CreatePlugin}
  */
 const plugin = (options) => {
   let cacheDir = options.cacheDir || ".cache/viteplay"
-  const getPath = options.getPath || ((slug) => `${slug}`)
-  const base = options.base || "/"
 
   return {
     name: "component-examples",
@@ -34,15 +31,13 @@ const plugin = (options) => {
     configureServer(server) {
       server.watcher.on("all", async (event, id) => {
         if (id.startsWith(cacheDir)) return
-        const pages = await getPagesFromOptions(options)
         // TODO: only rebuild when examples change
-        build({ pages, base, cacheDir, getPath })
+        build({ ...options, cacheDir })
       })
     },
 
     async buildStart() {
-      const pages = await getPagesFromOptions(options)
-      await build({ pages, base, cacheDir, getPath })
+      await build({ ...options, cacheDir })
     },
   }
 }

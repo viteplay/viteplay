@@ -2,7 +2,7 @@
 import { SideBarItem } from "./SideBar.types"
 import SideBarLinks from "./SideBarLinks.vue"
 
-defineProps<{ open: boolean; items: SideBarItem[]; base: string }>()
+defineProps<{ open: boolean; items: SideBarItem[] }>()
 </script>
 
 <template>
@@ -11,7 +11,7 @@ defineProps<{ open: boolean; items: SideBarItem[]; base: string }>()
 
     <!-- <slot name="sidebar-top" /> -->
 
-    <SideBarLinks :items="items" :base="base" />
+    <SideBarLinks :items="items" />
 
     <!-- <slot name="sidebar-bottom" /> -->
   </aside>

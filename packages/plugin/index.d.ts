@@ -21,10 +21,30 @@ export declare type Options = {
    * @example '/dev'
    */
   base?: string
+  /**
+   * Navbar title
+   */
+  title?: string
+  /**
+   * Navbar logo
+   */
+  logo?: string
   pages?: Page[]
   cacheDir?: string
   getPath?: (slug: string) => string
 }
+
+/** Mark some properties as required, leaving others unchanged */
+type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
+  Required<Pick<T, RK>>
+
+export type GetPagesFromOptions = (options: {
+  pages?: Page[]
+  components?: string
+  componentExamples?: string
+}) => Promise<Page[]>
+
+export declare type BuildOptions = MarkRequired<Options, "cacheDir">
 
 export declare type CreatePlugin = (opts: Options) => Plugin
 

@@ -5,6 +5,7 @@ import glob from "fast-glob"
 import { kebabCase } from "case-anything"
 import { getImports } from "./get-imports.js"
 import { outputFileIfChanged } from "./fs.js"
+import { getPagesFromOptions } from "./utils.js"
 
 /**
  * @param {string} input
@@ -14,12 +15,16 @@ const slash = (input) => input.replace(/\\/g, "/")
 
 /**
  *
- * @param {{pages:import('../index').Page[], base:string, cacheDir: string, getPath: (slug: string) => string}} opts
+ * @param {import('../').BuildOptions} opts
  */
 export const build = async (opts) => {
   console.log("building!")
+
+  const getPath = opts.getPath || ((slug) => `${slug}`)
+
+  const _pages = await getPagesFromOptions(opts)
   const pages = await Promise.all(
-    opts.pages.map(async (page, index) => {
+    _pages.map(async (page, index) => {
       const files = await glob(page.examples).then((files) =>
         Promise.all(
           files.sort().map(async (file) => {
@@ -108,7 +113,7 @@ export const build = async (opts) => {
 
       return {
         title: page.title,
-        path: opts.getPath(slug),
+        path: getPath(slug),
         component,
         children: files,
       }
@@ -128,14 +133,19 @@ export const build = async (opts) => {
     }))
   const layoutContents = `
 <script setup>
-import { RouteLayout } from "@viteplay/vue"
+import { RouteLayout, provideConfig } from "@viteplay/vue"
 
 const items = ${JSON.stringify(sideBarItems)}
-const base = "${opts.base}"
+
+provideConfig(${JSON.stringify({
+    base: opts.base,
+    title: opts.title,
+    logo: opts.logo,
+  })})
 </script>
 
 <template>
-  <RouteLayout :items="items" :base="base" />
+  <RouteLayout :items="items"  />
 </template>
 `
 

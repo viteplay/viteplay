@@ -1,17 +1,23 @@
 <script setup lang="ts">
+import { useConfig } from ".."
 import { withBase } from "./utils"
 
-defineProps<{
-  title: string
-  base: string
-  logo: string
-}>()
+const config = useConfig()
 </script>
 
 <template>
-  <a class="nav-bar-title" :href="base" :aria-label="`${title}, back to home`">
-    <img v-if="logo" class="logo" :src="withBase(base, logo)" alt="Logo" />
-    {{ title }}
+  <a
+    class="nav-bar-title"
+    :href="config.base"
+    :aria-label="`${config.title}, back to home`"
+  >
+    <img
+      v-if="config.logo"
+      class="logo"
+      :src="withBase(config.base, config.logo)"
+      alt="Logo"
+    />
+    {{ config.title }}
   </a>
 </template>
 
