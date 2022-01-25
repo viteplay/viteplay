@@ -7,8 +7,6 @@
   "type": "module",
   "files": [
     "index.js",
-    "client.js",
-    "client.d.ts",
     "index.d.ts",
     "lib"
   ],

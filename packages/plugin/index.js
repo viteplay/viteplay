@@ -1,15 +1,12 @@
 import path from "path"
 import { build } from "./lib/build.js"
-import {
-  getDirnameFromImportMetaUrl,
-  getPagesFromOptions,
-} from "./lib/utils.js"
+import { getPagesFromOptions } from "./lib/utils.js"
 
 /**
  * @type {import('./index').CreatePlugin}
  */
 const plugin = (options) => {
-  let cacheDir = options.cacheDir || ".cache/vite-plugin-component-examples"
+  let cacheDir = options.cacheDir || ".cache/viteplay"
   const getPath = options.getPath || ((slug) => `${slug}`)
   // TODO: maybe rename to `base`?
   const pathParent = options.pathParent || "/"
@@ -24,14 +21,8 @@ const plugin = (options) => {
     },
 
     resolveId(id) {
-      if (id.startsWith("component-examples-cache/")) {
-        return id.replace("component-examples-cache", cacheDir)
-      }
-      if (id === "vite-plugin-component-examples/client") {
-        return path.join(
-          getDirnameFromImportMetaUrl(import.meta.url),
-          "client.js",
-        )
+      if (id.startsWith("viteplay-cache/")) {
+        return id.replace("viteplay-cache", cacheDir)
       }
     },
 

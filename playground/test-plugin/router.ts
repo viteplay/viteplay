@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"
-import { pages } from "vite-plugin-component-examples/client"
+import { pages } from "@viteplay/vue/client"
 
 console.log(`%c 🛣`, "font-size: 2rem", `generatedRoutes → `, pages)
 

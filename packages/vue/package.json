@@ -6,7 +6,9 @@
     "access": "public"
   },
   "files": [
-    "dist"
+    "dist",
+    "/client.d.ts",
+    "/client.js"
   ],
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
@@ -15,7 +17,8 @@
       "require": "./dist/index.cjs.js",
       "import": "./dist/index.es.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/style.css": "./dist/style.css",
+    "./client": "./client.js"
   },
   "types": "./dist/index.d.ts",
   "scripts": {
