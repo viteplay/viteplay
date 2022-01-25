@@ -5,6 +5,7 @@
   "description": "My awesome typescript library",
   "license": "MIT",
   "scripts": {
+    "build": "pnpm run build -r",
     "dev": "node scripts/dev.js"
   },
   "devDependencies": {

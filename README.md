@@ -8,12 +8,6 @@ After cloning the repo, run:
 pnpm i
 ```
 
-To build all packages, run:
-
-```
-pnpm run build -r
-```
-
 To run a playground in the `playground` director:
 
 ```bash
