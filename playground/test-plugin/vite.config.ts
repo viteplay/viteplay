@@ -13,6 +13,8 @@ export default defineConfig({
       componentExamples: "./components/*/examples/*.vue",
       pathParent: "/dev",
     }),
-    tsconfigPaths(),
+    tsconfigPaths({
+      loose: true,
+    }),
   ],
 })
