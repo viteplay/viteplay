@@ -13,7 +13,7 @@ import { PrismEditor } from "vue-prism-editor"
 import { debounce, ensureSFC } from "./utils"
 import { transformCodeToComponent, Transformed } from "./transform"
 import { highlight } from "./highlight"
-import { usePlaygroundContext } from "."
+import { usePlaygroundOptions } from "."
 import { useCopy } from "./hooks/useCopy"
 
 const props = defineProps({
@@ -48,7 +48,7 @@ const transformed = shallowRef<Transformed | null>(null)
 let errors = ref<string[]>([])
 const copy = useCopy(() => displayCode.value)
 
-const context = usePlaygroundContext()
+const context = usePlaygroundOptions()
 const modules = computed(() => ({ ...props.modules, ...context.modules }))
 
 const transform = (code: string) => {

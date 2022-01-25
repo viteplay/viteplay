@@ -93,6 +93,6 @@ export function joinPath(base: string, path: string): string {
   return `${base}${path}`.replace(/\/+/g, "/")
 }
 
-export function withBase(pathParent: string, path: string) {
-  return EXTERNAL_URL_RE.test(path) ? path : joinPath(pathParent, path)
+export function withBase(base: string, path: string) {
+  return EXTERNAL_URL_RE.test(path) ? path : joinPath(base, path)
 }

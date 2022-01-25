@@ -16,11 +16,11 @@ export declare type Options = {
    */
   componentExamples?: string
   /**
-   * The path the generated routes should be nested under as children.
+   * The base path the generated routes should be nested under as children.
    *
    * @example '/dev'
    */
-  pathParent?: string
+  base?: string
   pages?: Page[]
   cacheDir?: string
   getPath?: (slug: string) => string

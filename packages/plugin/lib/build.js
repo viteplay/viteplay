@@ -14,7 +14,7 @@ const slash = (input) => input.replace(/\\/g, "/")
 
 /**
  *
- * @param {{pages:import('../index').Page[], pathParent: string, cacheDir: string, getPath: (slug: string) => string}} opts
+ * @param {{pages:import('../index').Page[], base:string, cacheDir: string, getPath: (slug: string) => string}} opts
  */
 export const build = async (opts) => {
   console.log("building!")
@@ -131,11 +131,11 @@ export const build = async (opts) => {
 import { RouteLayout } from "@viteplay/vue"
 
 const items = ${JSON.stringify(sideBarItems)}
-const pathParent = "${opts.pathParent}"
+const base = "${opts.base}"
 </script>
 
 <template>
-  <RouteLayout :items="items" :pathParent="pathParent" />
+  <RouteLayout :items="items" :base="base" />
 </template>
 `
 
@@ -146,7 +146,7 @@ const pathParent = "${opts.pathParent}"
   const clientContent = `
     let pages = [
       {
-        path: "${opts.pathParent}",
+        path: "${opts.base}",
         component: () => import("${slash(layoutComponent)}"),
         children: [
           ${pages

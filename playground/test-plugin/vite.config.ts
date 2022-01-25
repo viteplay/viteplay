@@ -11,7 +11,7 @@ export default defineConfig({
       components: "./components/*/*.vue",
       // Path to extract component examples from to put on each dev page
       componentExamples: "./components/*/examples/*.vue",
-      pathParent: "/dev",
+      base: "/dev",
     }),
     tsconfigPaths({
       loose: true,

@@ -3,23 +3,14 @@ import { withBase } from "./utils"
 
 defineProps<{
   title: string
-  pathParent: string
+  base: string
   logo: string
 }>()
 </script>
 
 <template>
-  <a
-    class="nav-bar-title"
-    :href="pathParent"
-    :aria-label="`${title}, back to home`"
-  >
-    <img
-      v-if="logo"
-      class="logo"
-      :src="withBase(pathParent, logo)"
-      alt="Logo"
-    />
+  <a class="nav-bar-title" :href="base" :aria-label="`${title}, back to home`">
+    <img v-if="logo" class="logo" :src="withBase(base, logo)" alt="Logo" />
     {{ title }}
   </a>
 </template>

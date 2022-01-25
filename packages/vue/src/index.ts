@@ -12,7 +12,7 @@ export { Playground, RouteLayout }
 
 export { highlight } from "./highlight"
 
-export type Options = {
+export type GlobalPlaygroundOptions = {
   modules?: Record<string, any>
 }
 
@@ -20,15 +20,15 @@ export type { SideBarItem } from "./components/SideBar.types"
 
 const PROVIDE_KEY = Symbol("for-viteplay")
 
-export const createPlaygroundContext = (options: Options = {}) => {
-  return {
-    install(app: App) {
-      app.provide(PROVIDE_KEY, options)
-    },
-  }
+// @viteplay/plugin uses this to provide global options for the playground component
+export const providePlaygroundOptions = (
+  app: App,
+  options: GlobalPlaygroundOptions,
+) => {
+  app.provide(PROVIDE_KEY, options)
 }
 
-export const usePlaygroundContext = () => {
-  const options = inject<Options>(PROVIDE_KEY, {})
+export const usePlaygroundOptions = () => {
+  const options = inject<GlobalPlaygroundOptions>(PROVIDE_KEY, {})
   return options
 }

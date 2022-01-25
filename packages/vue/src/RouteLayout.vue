@@ -10,7 +10,7 @@ const navLogo = "https://v3.vuejs.org/logo.png"
 
 defineProps<{
   items: SideBarItem[]
-  pathParent: string
+  base: string
 }>()
 
 // sidebar
@@ -24,12 +24,12 @@ const toggleSidebar = (to?: boolean) => {
 <template>
   <NavBar
     :title="navTitle"
-    :pathParent="pathParent"
+    :base="base"
     :logo="navLogo"
     @toggle="toggleSidebar"
   />
 
-  <SideBar :items="items" :pathParent="pathParent" :open="openSideBar" />
+  <SideBar :items="items" :base="base" :open="openSideBar" />
 
   <Page />
 </template>

@@ -4,7 +4,7 @@ import ToggleSideBarButton from "./ToggleSideBarButton.vue"
 
 defineProps<{
   title: string
-  pathParent: string
+  base: string
   logo: string
 }>()
 
@@ -17,7 +17,7 @@ const emit = defineEmits<{
   <header class="nav-bar">
     <ToggleSideBarButton @toggle="emit('toggle')" />
 
-    <NavBarTitle :title="title" :pathParent="pathParent" :logo="logo" />
+    <NavBarTitle :title="title" :base="base" :logo="logo" />
 
     <div class="flex-grow" />
 

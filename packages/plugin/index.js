@@ -8,8 +8,7 @@ import { getPagesFromOptions } from "./lib/utils.js"
 const plugin = (options) => {
   let cacheDir = options.cacheDir || ".cache/viteplay"
   const getPath = options.getPath || ((slug) => `${slug}`)
-  // TODO: maybe rename to `base`?
-  const pathParent = options.pathParent || "/"
+  const base = options.base || "/"
 
   return {
     name: "component-examples",
@@ -37,13 +36,13 @@ const plugin = (options) => {
         if (id.startsWith(cacheDir)) return
         const pages = await getPagesFromOptions(options)
         // TODO: only rebuild when examples change
-        build({ pages, pathParent, cacheDir, getPath })
+        build({ pages, base, cacheDir, getPath })
       })
     },
 
     async buildStart() {
       const pages = await getPagesFromOptions(options)
-      await build({ pages, pathParent, cacheDir, getPath })
+      await build({ pages, base, cacheDir, getPath })
     },
   }
 }

@@ -9,7 +9,7 @@ interface HeaderWithChildren extends Header {
 
 export const SideBarLink: FunctionalComponent<{
   item: SideBarItem
-  pathParent?: string
+  base?: string
   depth?: number
 }> = (props) => {
   const route = useRoute()
@@ -17,12 +17,12 @@ export const SideBarLink: FunctionalComponent<{
   const maxDepth = Infinity
 
   const text = props.item.text
-  const link = resolveLink(props.pathParent || "", props.item.link)
+  const link = resolveLink(props.base || "", props.item.link)
   const children = (props.item as SideBarGroup).children
   const headers = (props.item as SideBarItem).headers
   const active = isActive(
     route,
-    joinUrl(props.pathParent || "", props.item.link || ""),
+    joinUrl(props.base || "", props.item.link || ""),
   )
   const childItems =
     depth < maxDepth
