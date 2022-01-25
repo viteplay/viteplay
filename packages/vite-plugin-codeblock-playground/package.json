@@ -1,6 +1,6 @@
 {
-  "version": "0.0.0",
   "name": "vite-plugin-codeblock-playground",
+  "version": "0.0.0-alpha.0",
   "files": [
     "dist"
   ],
