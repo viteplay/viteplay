@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pages } from "vite-plugin-component-examples/client"
+import { pages } from "@viteplay/vue/client"
 import { computed, ref, defineAsyncComponent } from "vue"
 let selected = ref(pages[0].title)
 
