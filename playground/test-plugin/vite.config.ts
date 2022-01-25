@@ -1,6 +1,7 @@
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import viteplay from "@viteplay/plugin"
+import tsconfigPaths from "vite-tsconfig-paths"
 
 export default defineConfig({
   plugins: [
@@ -12,5 +13,6 @@ export default defineConfig({
       componentExamples: "./components/*/examples/*.vue",
       pathParent: "/dev",
     }),
+    tsconfigPaths(),
   ],
 })

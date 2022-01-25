@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue"
+import Button from "@my-repo/button/Button.vue"
 
 const props = defineProps({
   modelValue: { type: Boolean },
@@ -19,4 +20,6 @@ const model = computed({
 
 <template>
   <input type="checkbox" v-model="model" />
+
+  <Button>test button</Button>
 </template>
