@@ -16,6 +16,12 @@ const plugin = (options) => {
 
     enforce: "pre",
 
+    config(config) {
+      config.optimizeDeps = config.optimizeDeps || {}
+      config.optimizeDeps.exclude = config.optimizeDeps.exclude || []
+      config.optimizeDeps.exclude.push("@viteplay/vue/client")
+    },
+
     configResolved(config) {
       cacheDir = path.resolve(config.root, cacheDir)
     },
