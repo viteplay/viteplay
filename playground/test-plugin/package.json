@@ -11,8 +11,7 @@
     "prismjs": "1.25.0",
     "vite": "2.7.10",
     "@viteplay/plugin": "workspace:*",
-    "vue": "^3.2.26",
-    "@viteplay/vue": "workspace:*"
+    "vue": "^3.2.26"
   },
   "dependencies": {
     "vue-router": "^4.0.12"
