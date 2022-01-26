@@ -52,5 +52,3 @@ watch(
 
   <Page />
 </template>
-
-<style></style>

@@ -57,10 +57,7 @@ export const build = async (opts) => {
       const contents = `
         <script setup>
         import { Playground } from "@viteplay/vue"
-        
-        // Can't use "style src" tag because of this issue https://github.com/vitejs/vite/pull/6233
-        import "@viteplay/vue/dist/style.css"
-
+                
         ${files
           .map((file, index) => {
             return `
@@ -99,7 +96,6 @@ export const build = async (opts) => {
               .join("\n")}
           </div>
         </template>
-        <style src="prismjs/themes/prism-tomorrow.css"></style>
       `
 
       const component = path.join(
@@ -133,6 +129,8 @@ export const build = async (opts) => {
     }))
   const layoutContents = `
 <script setup>
+import "@viteplay/vue/dist/style.css"
+import "prismjs/themes/prism-tomorrow.css"
 import { RouteLayout, provideConfig } from "@viteplay/vue"
 
 const items = ${JSON.stringify(sideBarItems)}
