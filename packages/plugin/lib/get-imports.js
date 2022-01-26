@@ -11,12 +11,14 @@ export const getImports = async (contents, file) => {
   const compiler = localRequire("vue/compiler-sfc")
   const sfc = compiler.parse(contents, { filename: file })
 
-  if (!sfc.descriptor.script && !sfc.descriptor.scriptSetup) return []
+  if (!sfc.descriptor.script && !sfc.descriptor.scriptSetup) {
+    return []
+  }
 
   const scriptResult = compiler.compileScript(sfc.descriptor, {
     id: "foo",
     sourceMap: false,
   })
 
-  return Object.values(scriptResult.imports || {})
+  return Object.values(scriptResult.imports ?? {})
 }

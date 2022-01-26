@@ -2,7 +2,7 @@
 import { watch, onMounted, ref } from "vue"
 import { SideBarItem } from "./components/SideBar.types"
 import SideBar from "./components/SideBar.vue"
-import Page from "./components/Page.vue"
+import PageLayout from "./components/PageLayout.vue"
 import NavBar from "./components/NavBar.vue"
 import { useRoute } from "vue-router"
 
@@ -48,7 +48,10 @@ watch(
 <template>
   <NavBar @toggle="toggleSidebar" />
 
-  <SideBar :items="items" :open="openSideBar" />
+  <SideBar
+    :items="items"
+    :open="openSideBar"
+  />
 
-  <Page />
+  <PageLayout />
 </template>

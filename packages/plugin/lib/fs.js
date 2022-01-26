@@ -1,5 +1,5 @@
-import fs from "fs"
-import path from "path"
+import fs from "node:fs"
+import path from "node:path"
 
 /**
  *
@@ -24,11 +24,12 @@ export const outputFileIfChanged = (filepath, content) => {
       return
     }
   }
+
   outputFileSync(filepath, content)
 }
 
 /**
- * like mkdir -p
+ * Like mkdir -p
  * @param {string} dir
  */
 export const ensureDirSync = (dir) => {

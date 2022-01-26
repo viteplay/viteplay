@@ -21,17 +21,13 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  components: {
-    type: Object,
-  },
   modules: {
     type: Object,
-  },
-  setup: {
-    type: Function as PropType<() => any>,
+    default: () => ({}),
   },
   lineNumbers: {
     type: Boolean,
+    default: false,
   },
   highlight: {
     type: Function as PropType<(code: string) => string>,
@@ -90,29 +86,27 @@ onMounted(() => {
 
 <template>
   <div class="vrepl">
-    <div class="vrepl-preview" v-if="transformed">
-      <component
-        v-if="transformed.css"
-        is="style"
-        v-html="transformed.css"
-      ></component>
-      <component v-if="transformed.component" :is="transformed.component" />
+    <div v-if="transformed" class="vrepl-preview">
+      <component is="style" v-if="transformed.css" v-html="transformed.css" />
+      <component :is="transformed.component" v-if="transformed.component" />
     </div>
     <div class="vrepl-editor">
       <div class="vrepl-editor--header">
         <h3>Editable Example</h3>
-        <button @click="copy.copy" class="vrepl-copy-button">
+        <button class="vrepl-copy-button" @click="copy.copy">
           {{ copy.copied.value ? "Copied" : "Copy" }}
         </button>
       </div>
       <PrismEditor
+        v-model="displayCode"
         :line-numbers="props.lineNumbers"
         :highlight="props.highlight"
-        v-model="displayCode"
       />
     </div>
-    <div class="vrepl-error" v-if="errors.length > 0">
-      <div v-for="(error, index) in errors" :key="index">{{ error }}</div>
+    <div v-if="errors.length > 0" class="vrepl-error">
+      <div v-for="(error, index) in errors" :key="index">
+        {{ error }}
+      </div>
     </div>
   </div>
 </template>

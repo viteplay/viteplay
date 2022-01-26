@@ -1,7 +1,8 @@
-import path from "path"
+import path from "node:path"
+import { createRequire } from "node:module"
+import { fileURLToPath } from "node:url"
+import process from "node:process"
 import glob from "fast-glob"
-import { createRequire } from "module"
-import { fileURLToPath } from "url"
 
 /**
  *
@@ -26,7 +27,9 @@ export const getDirnameFromImportMetaUrl = (url) => {
  * @type {import('../').GetPagesFromOptions}
  */
 export async function getPagesFromOptions(options) {
-  if (options.pages) return options.pages
+  if (options.pages) {
+    return options.pages
+  }
 
   const { components, componentExamples } = options
 
@@ -41,7 +44,7 @@ export async function getPagesFromOptions(options) {
   const componentFiles = files.filter((p) => !exampleFiles.includes(p))
 
   return componentFiles.map((p) => {
-    const fileName = (p.split("/").pop() || "").replace(/\.vue$/, "")
+    const fileName = (p.split("/").pop() ?? "").replace(/\.vue$/, "")
     const folder = path.dirname(p)
     const examples = exampleFiles.filter((_p) => _p.startsWith(folder))
     return { title: fileName, examples }

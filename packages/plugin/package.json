@@ -12,11 +12,17 @@
   ],
   "main": "index.js",
   "types": "index.d.ts",
+  "scripts": {
+    "lint": "eslint ."
+  },
   "dependencies": {
     "case-anything": "^2.1.3",
     "fast-glob": "^3.2.7"
   },
   "devDependencies": {
+    "eslint": "^8.7.0",
+    "eslint-config-viteplay": "workspace:*",
+    "vite": "^2.7.13",
     "vue": "^3.2.26"
   }
 }

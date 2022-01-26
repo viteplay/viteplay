@@ -16,7 +16,7 @@ const config = useConfig()
       class="logo"
       :src="withBase(config.base, config.logo)"
       alt="Logo"
-    />
+    >
     {{ config.title }}
   </a>
 </template>

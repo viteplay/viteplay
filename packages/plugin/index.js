@@ -1,11 +1,11 @@
-import path from "path"
+import path from "node:path"
 import { build } from "./lib/build.js"
 
 /**
  * @type {import('./index').CreatePlugin}
  */
 const plugin = (options) => {
-  let cacheDir = options.cacheDir || ".cache/viteplay"
+  let cacheDir = options.cacheDir ?? ".cache/viteplay"
 
   return {
     name: "component-examples",
@@ -13,8 +13,8 @@ const plugin = (options) => {
     enforce: "pre",
 
     config(config) {
-      config.optimizeDeps = config.optimizeDeps || {}
-      config.optimizeDeps.exclude = config.optimizeDeps.exclude || []
+      config.optimizeDeps = config.optimizeDeps ?? {}
+      config.optimizeDeps.exclude = config.optimizeDeps.exclude ?? []
       config.optimizeDeps.exclude.push("@viteplay/vue/client")
     },
 
@@ -30,9 +30,12 @@ const plugin = (options) => {
 
     configureServer(server) {
       server.watcher.on("all", async (event, id) => {
-        if (id.startsWith(cacheDir)) return
+        if (id.startsWith(cacheDir)) {
+          return
+        }
+
         // TODO: only rebuild when examples change
-        build({ ...options, cacheDir })
+        await build({ ...options, cacheDir })
       })
     },
 
