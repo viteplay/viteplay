@@ -1,9 +1,24 @@
 module.exports = {
+  env: {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "vue/setup-compiler-macros": true, // enables `<script setup>`
+  },
+  parser: "vue-eslint-parser",
   parserOptions: {
     parser: "@typescript-eslint/parser",
     sourceType: "module",
+    ecmaVersion: 2022,
   },
-  extends: ["plugin:vue/vue3-recommended", "prettier"],
+  plugins: ["@typescript-eslint"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/vue3-recommended",
+    "prettier",
+  ],
   rules: {
     "no-unused-vars": [
       "error",
@@ -11,6 +26,13 @@ module.exports = {
       // catches unused variables but not args.
       { varsIgnorePattern: ".*", args: "none" },
     ],
+    /** TypeScript rules */
+    "@typescript-eslint/array-type": ["error", { default: "array" }],
+    /** Vue rules */
+    "vue/script-setup-uses-vars": "error", // enables `<script setup>`
     "vue/require-component-is": "off",
+    "vue/component-tags-order": ["error", { order: ["script", "template", "style"] }],
+    "vue/attribute-hyphenation": ["error", "never", { ignore: [] }],
+    "vue/v-on-event-hyphenation": ["error", "never"],
   },
 }
