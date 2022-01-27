@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "pnpm run build -r",
-    "dev": "node scripts/dev.js"
+    "dev": "node scripts/dev.js",
+    "publish": "cd packages/vue && npm publish --otp $otp && cd ../plugin && npm publish --otp $otp"
   },
   "devDependencies": {
     "@types/node": "17.0.7",
