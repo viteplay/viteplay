@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ["dist", "node_modules"],
   env: {
     "browser": true,
     "es2021": true,
@@ -20,6 +21,7 @@ module.exports = {
     "prettier",
   ],
   rules: {
+    "no-empty": "off",
     "no-unused-vars": [
       "error",
       // we are only using this rule to check for unused arguments since TS
@@ -28,11 +30,13 @@ module.exports = {
     ],
     /** TypeScript rules */
     "@typescript-eslint/array-type": ["error", { default: "array" }],
+    "@typescript-eslint/no-explicit-any": "off",
     /** Vue rules */
     "vue/script-setup-uses-vars": "error", // enables `<script setup>`
     "vue/require-component-is": "off",
     "vue/component-tags-order": ["error", { order: ["script", "template", "style"] }],
     "vue/attribute-hyphenation": ["error", "never", { ignore: [] }],
     "vue/v-on-event-hyphenation": ["error", "never"],
+    "vue/no-v-html": "off",
   },
 }
