@@ -11,10 +11,7 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: [
-        ...Object.keys(pkg.dependencies),
-        ...Object.keys(pkg.peerDependencies),
-      ],
+      external: [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)],
     },
   },
   plugins: [

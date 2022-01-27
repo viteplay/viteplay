@@ -21,8 +21,7 @@ const route = useRoute()
 
 const scrollTo = (hash: string) => {
   try {
-    const el =
-      hash && document.querySelector<HTMLElement>(decodeURIComponent(hash))
+    const el = hash && document.querySelector<HTMLElement>(decodeURIComponent(hash))
     if (el) {
       setTimeout(() => {
         window.scrollTo({
@@ -48,10 +47,7 @@ watch(
 <template>
   <NavBar @toggle="toggleSidebar" />
 
-  <SideBar
-    :items="items"
-    :open="openSideBar"
-  />
+  <SideBar :items="items" :open="openSideBar" />
 
   <PageLayout />
 </template>

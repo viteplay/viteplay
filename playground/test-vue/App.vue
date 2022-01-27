@@ -38,11 +38,7 @@ const Button = defineComponent({
   },
   setup({ bg }, { slots }) {
     return () => {
-      return h(
-        "button",
-        { style: `background:${bg}` },
-        slots.default && slots.default(),
-      )
+      return h("button", { style: `background:${bg}` }, slots.default && slots.default())
     }
   },
 })
