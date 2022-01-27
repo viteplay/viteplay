@@ -1,4 +1,6 @@
-export function debounce(fn: Function, n = 100) {
+type AnyFunction = (...params: any[]) => any
+
+export function debounce(fn: AnyFunction, n = 100) {
   let handle: any
   return (...args: any[]) => {
     if (handle) clearTimeout(handle)

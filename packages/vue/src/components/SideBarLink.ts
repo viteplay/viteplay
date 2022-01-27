@@ -21,14 +21,9 @@ export const SideBarLink: FunctionalComponent<{
   const link = resolveLink(config.base || "", props.item.link)
   const children = (props.item as SideBarGroup).children
   const headers = (props.item as SideBarItem).headers
-  const active = isActive(
-    route,
-    joinUrl(config.base || "", props.item.link || ""),
-  )
+  const active = isActive(route, joinUrl(config.base || "", props.item.link || ""))
   const childItems =
-    depth < maxDepth
-      ? createChildren(active, children, headers as any, depth + 1)
-      : null
+    depth < maxDepth ? createChildren(active, children, headers as any, depth + 1) : null
   return h("li", { class: "sidebar-link" }, [
     h(
       link ? "a" : "p",
@@ -70,9 +65,7 @@ function createChildren(
       }),
     )
   }
-  return active && headers
-    ? createChildren(false, resolveHeaders(headers), undefined, depth)
-    : null
+  return active && headers ? createChildren(false, resolveHeaders(headers), undefined, depth) : null
 }
 
 function resolveHeaders(headers: Header[]): SideBarItem[] {

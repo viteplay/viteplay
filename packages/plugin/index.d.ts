@@ -8,41 +8,40 @@ export declare type Options = {
    *
    * @example './components/*\/*.vue'
    */
-  components?: string;
+  components?: string
   /**
    * Path to extract component examples from to put on each dev page
    *
    * @example './components/*\/*.example.vue'
    */
-  componentExamples?: string;
+  componentExamples?: string
   /**
    * The base path the generated routes should be nested under as children.
    *
    * @example '/dev'
    */
-  base?: string;
+  base?: string
   /**
    * Navbar title
    */
-  title?: string;
+  title?: string
   /**
    * Navbar logo
    */
-  logo?: string;
-  pages?: Page[];
-  cacheDir?: string;
-  getPath?: (slug: string) => string;
+  logo?: string
+  pages?: Page[]
+  cacheDir?: string
+  getPath?: (slug: string) => string
 }
 
 /** Mark some properties as required, leaving others unchanged */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
-Required<Pick<T, RK>>
+type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> & Required<Pick<T, RK>>
 
 export type GetPagesFromOptions = (options: {
-  pages?: Page[];
-  components?: string;
-  componentExamples?: string;
+  pages?: Page[]
+  components?: string
+  componentExamples?: string
 }) => Promise<Page[]>
 
 export declare type BuildOptions = MarkRequired<Options, "cacheDir">

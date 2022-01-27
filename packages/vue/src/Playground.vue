@@ -99,7 +99,7 @@ onMounted(() => {
       </div>
       <PrismEditor
         v-model="displayCode"
-        :line-numbers="props.lineNumbers"
+        :lineNumbers="props.lineNumbers"
         :highlight="props.highlight"
       />
     </div>

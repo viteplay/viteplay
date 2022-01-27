@@ -1,10 +1,5 @@
 import * as Vue from "vue"
-import {
-  parse,
-  compileScript,
-  compileTemplate,
-  compileStyle,
-} from "vue/compiler-sfc"
+import { parse, compileScript, compileTemplate, compileStyle } from "vue/compiler-sfc"
 import { transform, Transform } from "../vendor/sucrase"
 
 export type Transformed = {
@@ -51,17 +46,14 @@ export const transformCodeToComponent = (
 
     const evalCode = (code: string, isTS: boolean) => {
       const result = transform(code, {
-        transforms: [isTS && "typescript", "imports"].filter(
-          Boolean,
-        ) as Transform[],
+        transforms: [isTS && "typescript", "imports"].filter(Boolean) as Transform[],
       })
       const exports: Record<string, any> = {}
       const fn = new Function("require", "exports", result.code)
       fn(require, exports)
       return exports
     }
-    const isTS =
-      descriptor.script?.lang === "ts" || descriptor.scriptSetup?.lang === "ts"
+    const isTS = descriptor.script?.lang === "ts" || descriptor.scriptSetup?.lang === "ts"
 
     if (descriptor.script || descriptor.scriptSetup) {
       // Get the setup function from script setup, template is inlined in setup function
@@ -86,9 +78,7 @@ export const transformCodeToComponent = (
 
       if (templateResult.errors.length > 0) {
         return {
-          errors: templateResult.errors.map((e) =>
-            typeof e === "string" ? e : e.message,
-          ),
+          errors: templateResult.errors.map((e) => (typeof e === "string" ? e : e.message)),
         }
       }
       const exports = evalCode(templateResult.code, false)
@@ -106,9 +96,7 @@ export const transformCodeToComponent = (
         return {
           errors: styleResult.errors.map((e: any) => {
             if (e.name === "CssSyntaxError") {
-              return `${e.file}:${e.line + style.loc.start.line - 1}:${
-                e.column
-              }: ${e.reason}`
+              return `${e.file}:${e.line + style.loc.start.line - 1}:${e.column}: ${e.reason}`
             }
             return e.message
           }),

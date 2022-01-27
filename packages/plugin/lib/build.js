@@ -100,10 +100,7 @@ export const build = async (options) => {
         </template>
       `
 
-      const component = path.join(
-        options.cacheDir,
-        `${index}-${kebabCase(page.title)}.vue`,
-      )
+      const component = path.join(options.cacheDir, `${index}-${kebabCase(page.title)}.vue`)
 
       outputFileIfChanged(component, contents)
 

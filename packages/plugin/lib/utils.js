@@ -34,9 +34,7 @@ export async function getPagesFromOptions(options) {
   const { components, componentExamples } = options
 
   if (!components || !componentExamples) {
-    throw new Error(
-      "You must provide both `components` and `componentExamples` in `options`",
-    )
+    throw new Error("You must provide both `components` and `componentExamples` in `options`")
   }
 
   const exampleFiles = await glob(componentExamples)
