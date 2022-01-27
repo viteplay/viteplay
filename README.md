@@ -8,14 +8,17 @@ After cloning the repo, run:
 pnpm i
 ```
 
-To run a playground in the `playground` director:
+To run a playground in the `playground` directory:
 
 ```bash
-# Run dev script for all packages first:
+# This will prompt you to select a playground package
 pnpm dev
+```
 
-# Then run specific playground like:
-pnpm dev --filter test-vue
+To build all public packages:
+
+```bash
+pnpm build
 ```
 
 ## License

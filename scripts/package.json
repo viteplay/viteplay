@@ -3,6 +3,7 @@
   "private": true,
   "name": "scripts",
   "dependencies": {
+    "enquirer": "^2.3.6",
     "execa": "^6.0.0"
   }
 }
