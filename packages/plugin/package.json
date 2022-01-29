@@ -13,7 +13,8 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "echo skip"
   },
   "dependencies": {
     "case-anything": "^2.1.3",
