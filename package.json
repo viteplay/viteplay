@@ -9,8 +9,8 @@
     "build": "turbo run build --scope=\"@viteplay/*\" --no-deps",
     "dev": "node scripts/dev.js",
     "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r publish --access public",
-    "test": "turbo run test --scope=\"@viteplay/*\" --no-deps",
-    "lint": "turbo run lint --scope=\"@viteplay/*\" --no-deps"
+    "test": "turbo run test --scope=\"@viteplay/*\"",
+    "lint": "turbo run lint --scope=\"@viteplay/*\""
   },
   "devDependencies": {
     "@types/node": "17.0.7",

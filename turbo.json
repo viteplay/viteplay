@@ -5,6 +5,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "@viteplay/vue#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "vendor/**"]
+    },
     "test": {
       "dependsOn": ["^build"],
       "outputs": []
