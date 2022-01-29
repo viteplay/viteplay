@@ -1,33 +1,31 @@
 import { execa } from "execa"
+import fs from "fs"
 import Enquirer from "enquirer"
 
 /**
- * @returns {Promise<Array<{name: string, path:string,private:boolean}>>}
+ * @returns {string[]}
  */
-const getPackages = async () => {
-  const { stdout } = await execa("pnpm", [`ls`, `-r`, `--depth`, `-1`, `--json`])
-  return JSON.parse(stdout)
+const getPackages = () => {
+  return fs.readdirSync("./playground")
 }
 
 async function main() {
-  const packages = await getPackages()
+  const names = getPackages()
   const result = await Enquirer.prompt([
     {
-      name: "package",
+      name: "name",
       type: "select",
       message: "Choose a playground to run dev script",
-      choices: packages
-        .filter((p) => p.name.startsWith("test-"))
-        .map((p) => {
-          return {
-            name: p.name,
-            value: p.name,
-          }
-        }),
+      choices: names.map((name) => {
+        return {
+          name,
+          value: name,
+        }
+      }),
     },
   ])
 
-  await execa("turbo", ["run", "dev", `--scope=${result.package}`, `--include-dependencies^C`], {
+  await execa("nx", ["run", `${result.name}:dev`], {
     preferLocal: true,
     stdio: "inherit",
   })

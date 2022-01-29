@@ -11,5 +11,8 @@
     "vue": "3.2.26",
     "@viteplay/vue": "workspace:*",
     "prismjs": "1.25.0"
+  },
+  "nx": {
+    "ignore": true
   }
 }

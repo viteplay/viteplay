@@ -9,5 +9,8 @@
     "eslint-plugin-vue": "^8.3.0",
     "eslint-config-prettier": "^8.3.0"
   },
-  "version": "0.0.1-alpha.1"
+  "version": "0.0.1-alpha.1",
+  "nx": {
+    "ignore": true
+  }
 }

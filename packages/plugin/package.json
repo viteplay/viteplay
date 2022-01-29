@@ -14,7 +14,8 @@
   "types": "index.d.ts",
   "scripts": {
     "lint": "eslint .",
-    "test": "echo skip"
+    "test": "echo no-test",
+    "build": "echo no-build"
   },
   "dependencies": {
     "case-anything": "^2.1.3",
