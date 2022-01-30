@@ -3,30 +3,25 @@ import { createRequire } from "node:module"
 import { fileURLToPath } from "node:url"
 import process from "node:process"
 import glob from "fast-glob"
+import { Page } from "."
 
-/**
- *
- * @param {string} id
- */
-export const localRequire = (id) => {
-  const require = createRequire(import.meta.url)
-  const resolved = require.resolve(id, { paths: [process.cwd()] })
-  return require(resolved)
+export const localRequire = (id: string) => {
+  const req =
+    typeof globalThis.require === "function" ? globalThis.require : createRequire(import.meta.url)
+  const resolved = req.resolve(id, { paths: [process.cwd()] })
+  return req(resolved)
 }
 
-/**
- *
- * @param {string} url
- */
-export const getDirnameFromImportMetaUrl = (url) => {
+export const getDirnameFromImportMetaUrl = (url: string) => {
   const p = fileURLToPath(url)
   return path.dirname(p)
 }
 
-/**
- * @type {import('../').GetPagesFromOptions}
- */
-export async function getPagesFromOptions(options) {
+export async function getPagesFromOptions(options: {
+  pages?: Page[]
+  components?: string
+  componentExamples?: string
+}): Promise<Page[]> {
   if (options.pages) {
     return options.pages
   }

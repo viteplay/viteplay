@@ -1,0 +1,80 @@
+import path from "node:path"
+import { Plugin } from "vite"
+import { build } from "./build"
+
+export type Page = { title: string; examples: string | string[] }
+
+export type Options = {
+  /**
+   * Path to extract components from to create dev pages for
+   *
+   * @example './components/*\/*.vue'
+   */
+  components?: string
+  /**
+   * Path to extract component examples from to put on each dev page
+   *
+   * @example './components/*\/*.example.vue'
+   */
+  componentExamples?: string
+  /**
+   * The base path the generated routes should be nested under as children.
+   *
+   * @example '/dev'
+   */
+  base?: string
+  /**
+   * Navbar title
+   */
+  title?: string
+  /**
+   * Navbar logo
+   */
+  logo?: string
+  pages?: Page[]
+  cacheDir?: string
+  getPath?: (slug: string) => string
+}
+
+const plugin = (options: Options): Plugin => {
+  let cacheDir = options.cacheDir ?? ".cache/viteplay"
+
+  return {
+    name: "component-examples",
+
+    enforce: "pre",
+
+    config(config) {
+      config.optimizeDeps = config.optimizeDeps ?? {}
+      config.optimizeDeps.exclude = config.optimizeDeps.exclude ?? []
+      config.optimizeDeps.exclude.push("@viteplay/vue/client")
+    },
+
+    configResolved(config) {
+      cacheDir = path.resolve(config.root, cacheDir)
+    },
+
+    resolveId(id) {
+      if (id.startsWith("viteplay-cache/")) {
+        return id.replace("viteplay-cache", cacheDir)
+      }
+    },
+
+    configureServer(server) {
+      server.watcher.on("all", async (_event, id) => {
+        if (id.startsWith(cacheDir)) {
+          return
+        }
+
+        // TODO: only rebuild when examples change
+        await build({ ...options, cacheDir })
+      })
+    },
+
+    async buildStart() {
+      await build({ ...options, cacheDir })
+    },
+  }
+}
+
+export default plugin

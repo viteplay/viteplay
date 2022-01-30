@@ -3,21 +3,17 @@ import fs from "node:fs"
 import path from "node:path"
 import glob from "fast-glob"
 import { kebabCase } from "case-anything"
-import { getImports } from "./get-imports.js"
-import { outputFileIfChanged } from "./fs.js"
-import { getPagesFromOptions } from "./utils.js"
+import { getImports } from "./get-imports"
+import { outputFileIfChanged } from "./fs"
+import { getPagesFromOptions } from "./utils"
+import { MarkRequired } from "./types"
+import { Options } from "./index"
 
-/**
- * @param {string} input
- * @returns string
- */
-const slash = (input) => input.replace(/\\/g, "/")
+const slash = (input: string) => input.replace(/\\/g, "/")
 
-/**
- *
- * @param {import('../').BuildOptions} options
- */
-export const build = async (options) => {
+type BuildOptions = MarkRequired<Options, "cacheDir">
+
+export const build = async (options: BuildOptions) => {
   console.log("building!")
 
   const base = options.base ?? "/"

@@ -13,14 +13,15 @@
     "lint": "nx run-many --target=lint --parallel --all"
   },
   "devDependencies": {
+    "@nrwl/cli": "latest",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/tao": "latest",
+    "@nrwl/workspace": "latest",
     "@types/node": "17.0.7",
     "bumpp": "^7.1.1",
     "prettier": "2.5.1",
+    "tsup": "^5.11.12",
     "typescript": "4.5.4",
-    "vitest": "0.2.1",
-    "@nrwl/workspace": "latest",
-    "@nrwl/cli": "latest",
-    "@nrwl/tao": "latest",
-    "@nrwl/nx-cloud": "latest"
+    "vitest": "0.2.1"
   }
 }

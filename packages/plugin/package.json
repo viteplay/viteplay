@@ -6,16 +6,20 @@
   },
   "type": "module",
   "files": [
-    "index.js",
-    "index.d.ts",
-    "lib"
+    "dist"
   ],
-  "main": "index.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.cjs"
+    }
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "echo no-test",
-    "build": "echo no-build"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "dependencies": {
     "case-anything": "^2.1.3",
