@@ -1,6 +1,6 @@
 {
   "name": "@viteplay/plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publishConfig": {
     "access": "public"
   },
@@ -19,8 +19,7 @@
     "lint": "eslint .",
     "test": "echo no-test",
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
-    "prepublishOnly": "nx run plugin:build"
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "dependencies": {
     "case-anything": "^2.1.3",
