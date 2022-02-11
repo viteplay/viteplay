@@ -3,13 +3,14 @@
   "name": "test-plugin",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "lets-run --on-path-exists ../../packages/plugin/dist --on-path-exists ../../packages/vue/dist  --watch ../../packages/plugin/dist -- vite",
     "build": "vite build"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "2.0.1",
     "@viteplay/plugin": "workspace:*",
     "@viteplay/vue": "workspace:*",
+    "lets-run": "^0.0.3",
     "prismjs": "1.25.0",
     "vite": "2.7.13",
     "vite-tsconfig-paths": "^3.3.17",

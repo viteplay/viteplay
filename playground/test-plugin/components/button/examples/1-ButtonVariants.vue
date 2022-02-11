@@ -6,3 +6,7 @@ import Button from "../Button.vue"
   <Button variant="error">Error</Button>
   <Button variant="warning">Warning</Button>
 </template>
+
+<docs>
+This is another **example** docs that shows above the playground.
+</docs>

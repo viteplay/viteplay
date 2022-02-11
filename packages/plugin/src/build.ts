@@ -3,11 +3,12 @@ import fs from "node:fs"
 import path from "node:path"
 import glob from "fast-glob"
 import { kebabCase } from "case-anything"
-import { getImports } from "./get-imports"
+import { parseSFC } from "./parse-sfc"
 import { outputFileIfChanged } from "./fs"
 import { getPagesFromOptions } from "./utils"
 import { MarkRequired } from "./types"
 import { Options } from "./index"
+import { renderMarkdown } from "./markdown"
 
 const slash = (input: string) => input.replace(/\\/g, "/")
 
@@ -26,7 +27,7 @@ export const build = async (options: BuildOptions) => {
         Promise.all(
           files.sort().map(async (file) => {
             const contents = await fs.promises.readFile(file, "utf8")
-            const imports = await getImports(contents, file)
+            const parsed = await parseSFC(contents, file)
             const title =
               file
                 .split("/")
@@ -42,8 +43,8 @@ export const build = async (options: BuildOptions) => {
               slug,
               path: file,
               absolutePath: path.resolve(file),
-              contents,
-              imports,
+              contents: parsed.component,
+              parsed,
             }
           }),
         ),
@@ -60,7 +61,7 @@ export const build = async (options: BuildOptions) => {
           .map(
             (file, index) => `
             let modules_${index} = {}
-            ${(file.imports || [])
+            ${(file.parsed.imports || [])
               .map(
                 (im, imIndex) => `import ${
                   im.imported === "default" ? "" : "* as "
@@ -85,6 +86,9 @@ export const build = async (options: BuildOptions) => {
                 (file, index) => `
             <section>
             <h2 id="${file.slug}">${file.title}</h2>
+
+            ${renderMarkdown(file.parsed.docs)}
+
             <Playground :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
                   file.contents,
                 )}\`)" />

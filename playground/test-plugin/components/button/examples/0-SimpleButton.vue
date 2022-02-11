@@ -5,3 +5,7 @@ import Button from "@my-repo/button/Button.vue"
 <template>
   <Button variant="primary">Simple Button</Button>
 </template>
+
+<docs>
+This is an **example** docs that shows above the playground.
+</docs>
