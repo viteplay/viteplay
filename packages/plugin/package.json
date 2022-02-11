@@ -20,7 +20,7 @@
     "test": "echo no-test",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
-    "prepublishOnly": "nx run plugin:build"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "case-anything": "^2.1.3",

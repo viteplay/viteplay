@@ -25,7 +25,11 @@ async function main() {
     },
   ])
 
-  await execa("nx", ["run", `${result.name}:dev`], {
+  const client = "pnpm"
+  const args = [`dev`, `--filter`, `${result.name}...`, `--parallel`]
+  console.log(">", client, ...args)
+
+  await execa(client, args, {
     preferLocal: true,
     stdio: "inherit",
   })

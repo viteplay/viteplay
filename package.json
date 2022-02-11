@@ -6,21 +6,19 @@
   "license": "MIT",
   "packageManager": "pnpm@6.28.0",
   "scripts": {
-    "build": "nx run-many --target=build --parallel --all",
+    "build": "turbo run build --scope=@viteplay/vue --scope=@viteplay/plugin --no-deps",
     "dev": "node scripts/dev.js",
     "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r publish --access public",
-    "test": "nx run-many --target=test --parallel --all",
-    "lint": "nx run-many --target=lint --parallel --all"
+    "test": "turbo run test",
+    "lint": "turbo run lint --parallel"
   },
   "devDependencies": {
-    "@nrwl/cli": "latest",
-    "@nrwl/nx-cloud": "latest",
-    "@nrwl/tao": "latest",
-    "@nrwl/workspace": "latest",
     "@types/node": "17.0.7",
     "bumpp": "^7.1.1",
     "prettier": "2.5.1",
+    "tasco": "^0.4.5",
     "tsup": "^5.11.12",
+    "turbo": "^1.1.2",
     "typescript": "4.5.4",
     "vitest": "0.2.1"
   }

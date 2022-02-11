@@ -28,7 +28,7 @@
     "example": "npm run vendor-sucrase && vite example",
     "vendor-sucrase": "node scripts/vendor-sucrase.mjs",
     "lint": "eslint . --ext .ts,.vue",
-    "prepublishOnly": "nx run vue:build"
+    "prepublishOnly": "npm run build"
   },
   "license": "MIT",
   "devDependencies": {
