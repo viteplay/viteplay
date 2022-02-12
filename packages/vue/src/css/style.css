@@ -6,7 +6,6 @@
 
 /** our own styles */
 .vrepl {
-  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   box-sizing: border-box;
 }
 
@@ -26,6 +25,7 @@
 }
 
 .vrepl-editor {
+  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   background-color: rgb(1, 22, 39);
   color: #c4c4c4;
   border-radius: 8px;
