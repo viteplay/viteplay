@@ -1,5 +1,5 @@
 import Prism from "prismjs"
 
 export const highlight = (code: string) => {
-  return Prism.highlight(code, { ...Prism.languages.html, ...Prism.languages.javascript }, "html")
+  return Prism.highlight(code, Prism.languages.html, "html")
 }
