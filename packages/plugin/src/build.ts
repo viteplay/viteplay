@@ -1,7 +1,6 @@
 // Writes the pages.js file to cache dir
 import fs from "node:fs"
 import path from "node:path"
-import glob from "fast-glob"
 import { kebabCase } from "case-anything"
 import { parseSFC } from "./parse-sfc"
 import { outputFileIfChanged } from "./fs"
@@ -15,39 +14,35 @@ const slash = (input: string) => input.replace(/\\/g, "/")
 type BuildOptions = MarkRequired<Options, "cacheDir">
 
 export const build = async (options: BuildOptions) => {
-  console.log("building!")
-
   const base = options.base ?? "/"
   const getPath = options.getPath ?? ((slug) => `${slug}`)
 
-  const _pages = await getPagesFromOptions(options)
+  const { pages: _pages, watchFiles } = await getPagesFromOptions(options)
   const pages = await Promise.all(
     _pages.map(async (page, index) => {
-      const files = await glob(page.examples).then(async (files) =>
-        Promise.all(
-          files.sort().map(async (file) => {
-            const contents = await fs.promises.readFile(file, "utf8")
-            const parsed = await parseSFC(contents, file)
-            const title =
-              file
-                .split("/")
-                .pop()
-                // `[number]-` is used to to control order
-                ?.replace(/^\d+-/, "")
-                ?.replace(/\.vue$/, "")
-                ?.replace(/\.example$/, "") ?? ""
-            // TODO: grab title/description/markdown content from example file content
-            const slug = kebabCase(title)
-            return {
-              title,
-              slug,
-              path: file,
-              absolutePath: path.resolve(file),
-              contents: parsed.component,
-              parsed,
-            }
-          }),
-        ),
+      const files = await Promise.all(
+        page.examples.sort().map(async (file) => {
+          const contents = await fs.promises.readFile(file, "utf8")
+          const parsed = await parseSFC(contents, file)
+          const title =
+            file
+              .split("/")
+              .pop()
+              // `[number]-` is used to to control order
+              ?.replace(/^\d+-/, "")
+              ?.replace(/\.vue$/, "")
+              ?.replace(/\.example$/, "") ?? ""
+          // TODO: grab title/description/markdown content from example file content
+          const slug = kebabCase(title)
+          return {
+            title,
+            slug,
+            path: file,
+            absolutePath: path.resolve(file),
+            contents: parsed.component,
+            parsed,
+          }
+        }),
       )
       if (files.length === 0) {
         console.warn(`No examples found for ${JSON.stringify(page)}`)
@@ -172,4 +167,6 @@ provideConfig(${JSON.stringify({
     `
 
   outputFileIfChanged(path.join(options.cacheDir, "client.js"), clientContent)
+
+  return watchFiles
 }

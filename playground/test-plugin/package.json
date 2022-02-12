@@ -3,7 +3,7 @@
   "name": "test-plugin",
   "type": "module",
   "scripts": {
-    "dev": "lets-run --on-path-exists ../../packages/plugin/dist --on-path-exists ../../packages/vue/dist  --watch ../../packages/plugin/dist -- vite",
+    "dev": "lets-run --on-path-exists ../../packages/plugin/dist --on-path-exists ../../packages/vue/dist  --watch ../../packages/plugin/dist/index.js -- vite",
     "build": "vite build"
   },
   "devDependencies": {

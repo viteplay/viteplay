@@ -1,8 +1,13 @@
 import path from "node:path"
 import { Plugin } from "vite"
+import createDebug from "debug"
 import { build } from "./build"
 
+const debug = createDebug(`viteplay:plugin`)
+
 export type Page = { title: string; examples: string | string[] }
+
+export type NormalizedPage = { title: string; examples: string[] }
 
 export type Options = {
   /**
@@ -38,6 +43,7 @@ export type Options = {
 
 const plugin = (options: Options): Plugin => {
   let cacheDir = options.cacheDir ?? ".cache/viteplay"
+  let watchFiles: Set<string> = new Set()
 
   return {
     name: "component-examples",
@@ -61,18 +67,20 @@ const plugin = (options: Options): Plugin => {
     },
 
     configureServer(server) {
-      server.watcher.on("all", async (_event, id) => {
-        if (id.startsWith(cacheDir)) {
+      server.watcher.on("all", async (event, id) => {
+        if (!watchFiles.has(path.resolve(id))) {
           return
         }
 
-        // TODO: only rebuild when examples change
-        await build({ ...options, cacheDir })
+        debug(`rebuild: %s %s`, event, id)
+
+        watchFiles = await build({ ...options, cacheDir })
       })
     },
 
     async buildStart() {
-      await build({ ...options, cacheDir })
+      debug(`Starting initial build`)
+      watchFiles = await build({ ...options, cacheDir })
     },
   }
 }
