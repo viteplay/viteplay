@@ -1,6 +1,7 @@
 import { FunctionalComponent, h, VNode } from "vue"
 import { useRoute } from "vue-router"
 import { useConfig } from ".."
+import { Pepicon } from "@pepicons/vue"
 import type { SideBarItem, SideBarGroup, Header } from "./SideBar.types"
 import { joinUrl, isActive } from "./utils"
 
@@ -31,7 +32,12 @@ export const SideBarLink: FunctionalComponent<{
         class: { "sidebar-link-item": true, active },
         href: link,
       },
-      text,
+      [
+        text,
+        link && !childItems?.children?.length
+          ? h(Pepicon, { name: "eye", type: "pop", class: "focus-eye" })
+          : undefined,
+      ],
     ),
     childItems,
   ])
