@@ -63,6 +63,7 @@ importers:
 
   packages/vue:
     specifiers:
+      '@pepicons/vue': ^1.0.12
       '@types/prismjs': 1.16.6
       '@vitejs/plugin-vue': 2.1.0
       esbuild: 0.14.10
@@ -76,6 +77,7 @@ importers:
       vue-prism-editor: 2.0.0-alpha.2
       vue-router: ^4.0.12
     dependencies:
+      '@pepicons/vue': 1.0.12_vue@3.2.26
       prismjs: 1.25.0
     devDependencies:
       '@types/prismjs': 1.16.6
@@ -203,6 +205,15 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.4
       fastq: 1.11.0
+
+  /@pepicons/vue/1.0.12_vue@3.2.26:
+    resolution: {integrity: sha512-7JLzkfzRJ+L5hGW8nbNeBx/dBuy8/SZyZeAxNDbkSCMFBtLGarmkEXpHeldSNZyeCLLoNdWswNu+CAkli9TN4A==}
+    peerDependencies:
+      vue: ^3.2.29
+    dependencies:
+      pepicons: 1.0.12
+      vue: 3.2.26
+    dev: false
 
   /@ts-morph/common/0.12.2:
     resolution: {integrity: sha512-m5KjptpIf1K0t0QL38uE+ol1n+aNn9MgRq++G3Zym1FlqfN+rThsXlp3cAgib14pIeXF7jk3UtJQOviwawFyYg==}
@@ -1757,6 +1768,10 @@ packages:
   /pathval/1.1.1:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
     dev: true
+
+  /pepicons/1.0.12:
+    resolution: {integrity: sha512-W+N6N8coy861xKq7qJ3T4/D7rNUys2htDzla91wdKVE26hGE/PmzMImQ1ijT7B2VQlTZB68obFTU4AimipJCiw==}
+    dev: false
 
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}

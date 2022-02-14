@@ -50,7 +50,9 @@ export const build = async (options: BuildOptions) => {
 
       const contents = `
         <script setup>
+        import { computed } from "vue"
         import { Playground } from "@viteplay/vue"
+        import { useRoute, useRouter } from "vue-router"
                 
         ${files
           .map(
@@ -72,14 +74,33 @@ export const build = async (options: BuildOptions) => {
             `,
           )
           .join("\n")}
+
+        let route = useRoute()
+        let router = useRouter()
+        let focusId = computed(() => route.query.focus && route.hash.slice(1))
+        let shouldRender = (slug) => {
+          return !route.query.focus || slug === focusId.value
+        }
+        let hiddenCount = computed(() => {
+          return ${JSON.stringify(
+            files.map((file) => file.slug),
+          )}.filter((slug) => !shouldRender(slug)).length
+        })
+
+        let showAll = () => {
+          router.push({ query: {}, hash: route.hash })
+        }
         </script>
         <template>
           <div>
             <h1>${page.title}</h1>
+            <div v-if="hiddenCount > 0" class="hidden-examples-info">
+              {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <button @click="showAll" type="button">show all</button>
+            </div>
             ${files
               .map(
                 (file, index) => `
-            <section>
+            <section v-if="shouldRender('${file.slug}')">
             <h2 id="${file.slug}">${file.title}</h2>
 
             ${renderMarkdown(file.parsed.docs)}

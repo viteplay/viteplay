@@ -1,8 +1,9 @@
 import { FunctionalComponent, h, VNode } from "vue"
-import { useRoute } from "vue-router"
+import { useRoute, RouterLink, useRouter } from "vue-router"
 import { useConfig } from ".."
+import { Pepicon } from "@pepicons/vue"
 import type { SideBarItem, SideBarGroup, Header } from "./SideBar.types"
-import { joinUrl, isActive } from "./utils"
+import { joinUrl } from "./utils"
 
 interface HeaderWithChildren extends Header {
   children?: Header[]
@@ -16,22 +17,44 @@ export const SideBarLink: FunctionalComponent<{
   const depth = props.depth || 1
   const maxDepth = Infinity
   const config = useConfig()
+  const router = useRouter()
 
+  const isPageLink = depth === 1
   const text = props.item.text
-  const link = resolveLink(config.base || "", props.item.link)
+  const link = isPageLink ? resolveLink(config.base || "", props.item.link) : props.item.link
   const children = (props.item as SideBarGroup).children
   const headers = (props.item as SideBarItem).headers
-  const active = isActive(route, joinUrl(config.base || "", props.item.link || ""))
+  const active = isPageLink ? route.path === link : route.hash === props.item.link
   const childItems =
     depth < maxDepth ? createChildren(active, children, headers as any, depth + 1) : null
+  const handleEyeClick = (e: any) => {
+    e.preventDefault()
+    if (link?.startsWith("#")) {
+      router.push({ hash: link, query: { focus: "true" } })
+    }
+  }
   return h("li", { class: "sidebar-link" }, [
     h(
-      link ? "a" : "p",
+      link ? (RouterLink as any) : "p",
       {
-        class: { "sidebar-link-item": true, active },
-        href: link,
+        "class": { "sidebar-link-item": true, active },
+        "to": link,
+        "data-depth": depth,
       },
-      text,
+      () => [
+        text,
+        link?.startsWith("#")
+          ? h(
+              "button",
+              {
+                onClick: handleEyeClick,
+                class: { "focus-button": true, "active": active && route.query.focus },
+                title: `Show this example only`,
+              },
+              [h(Pepicon, { name: "eye", type: "pop" })],
+            )
+          : undefined,
+      ],
     ),
     childItems,
   ])

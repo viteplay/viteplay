@@ -5,10 +5,11 @@
 }
 
 .sidebar-link-item {
-  display: block;
+  display: flex;
   margin: 0;
   border-left: 0.25rem solid transparent;
   color: var(--c-text);
+  justify-content: space-between;
 }
 
 a.sidebar-link-item:hover {
@@ -51,27 +52,12 @@ a.sidebar-link-item.active {
   font-weight: 600;
 }
 
-.sidebar
-  > .sidebar-links
-  > .sidebar-link
-  > .sidebar-links
-  > .sidebar-link
-  > .sidebar-link-item {
-  display: block;
+.sidebar > .sidebar-links > .sidebar-link > .sidebar-links > .sidebar-link > .sidebar-link-item {
+  display: flex;
   padding: 0.35rem 1.5rem 0.35rem 2rem;
   line-height: 1.4;
   font-size: 1rem;
   font-weight: 400;
-}
-
-.sidebar
-  > .sidebar-links
-  > .sidebar-link
-  > .sidebar-links
-  > .sidebar-link
-  > a.sidebar-link-item.active {
-  border-left-color: var(--c-brand);
-  font-weight: 600;
 }
 
 .sidebar
@@ -104,4 +90,19 @@ a.sidebar-link-item.active {
   line-height: 1.4;
   font-size: 0.9rem;
   font-weight: 400;
+}
+
+.focus-button {
+  border: none;
+  background-color: transparent;
+  color: var(--c-white-dark);
+  cursor: pointer;
+}
+
+.focus-button:hover {
+  color: var(--c-brand);
+}
+
+.focus-button.active {
+  color: var(--c-brand);
 }
