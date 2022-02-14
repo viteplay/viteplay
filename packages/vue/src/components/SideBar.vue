@@ -47,14 +47,4 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
 .sidebar.open {
   transform: translateX(0);
 }
-
-.nav {
-  display: block;
-}
-
-@media (min-width: 720px) {
-  .nav {
-    display: none;
-  }
-}
 </style>

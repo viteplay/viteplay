@@ -85,15 +85,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="vrepl">
-    <div v-if="transformed" class="vrepl-preview">
+  <div class="playground">
+    <div v-if="transformed" class="playground-preview">
       <component is="style" v-if="transformed.css" v-html="transformed.css" />
       <component :is="transformed.component" v-if="transformed.component" />
     </div>
-    <div class="vrepl-editor">
-      <div class="vrepl-editor--header">
+    <div class="playground-editor">
+      <div class="playground-editor__header">
         <h3>Editable Example</h3>
-        <button class="vrepl-copy-button" @click="copy.copy">
+        <button class="playground-copy-button" @click="copy.copy">
           {{ copy.copied.value ? "Copied" : "Copy" }}
         </button>
       </div>
@@ -103,7 +103,7 @@ onMounted(() => {
         :highlight="props.highlight"
       />
     </div>
-    <div v-if="errors.length > 0" class="vrepl-error">
+    <div v-if="errors.length > 0" class="playground-error">
       <div v-for="(error, index) in errors" :key="index">
         {{ error }}
       </div>

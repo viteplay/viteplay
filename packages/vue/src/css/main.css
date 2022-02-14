@@ -199,42 +199,6 @@ form {
   margin: 0;
 }
 
-.theme.sidebar-open .sidebar-mask {
-  display: block;
-}
-
-.theme.no-navbar > h1,
-.theme.no-navbar > h2,
-.theme.no-navbar > h3,
-.theme.no-navbar > h4,
-.theme.no-navbar > h5,
-.theme.no-navbar > h6 {
-  margin-top: 1.5rem;
-  padding-top: 0;
-}
-
-.theme.no-navbar aside {
-  top: 0;
-}
-
-@media screen and (min-width: 720px) {
-  .theme.no-sidebar aside {
-    display: none;
-  }
-
-  .theme.no-sidebar main {
-    margin-left: 0;
-  }
-}
-
-.sidebar-mask {
-  position: fixed;
-  z-index: 2;
-  display: none;
-  width: 100vw;
-  height: 100vh;
-}
-
 .hidden-examples-info {
   margin: 20px 0;
 }

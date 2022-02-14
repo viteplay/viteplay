@@ -1,5 +1,3 @@
-import { RouteLocation } from "vue-router"
-
 export const hashRE = /#.*$/
 export const extRE = /(index)?\.(md|html)$/
 export const endingSlashRE = /\/$/

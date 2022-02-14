@@ -1,15 +1,12 @@
+/** CSS for the playground component */
+
 /** override vue-prism-editor */
 .prism-editor-wrapper .prism-editor__editor,
 .prism-editor-wrapper .prism-editor__textarea {
   padding: 10px;
 }
 
-/** our own styles */
-.vrepl {
-  box-sizing: border-box;
-}
-
-.vrepl-error {
+.playground-error {
   background-color: red;
   color: white;
   white-space: pre-wrap;
@@ -17,14 +14,14 @@
   border-radius: 6px;
 }
 
-.vrepl-preview {
+.playground-preview {
   border: 1px solid #e2e2e2;
   border-radius: 8px;
   padding: 20px;
   margin: 15px 0;
 }
 
-.vrepl-editor {
+.playground-editor {
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   background-color: rgb(1, 22, 39);
   color: #c4c4c4;
@@ -34,7 +31,7 @@
   padding-top: 0;
 }
 
-.vrepl-editor--header {
+.playground-editor__header {
   text-align: center;
   font-size: 0.75em;
   text-transform: uppercase;
@@ -46,14 +43,14 @@
   position: relative;
 }
 
-.vrepl-editor--header h3 {
+.playground-editor__header h3 {
   font-weight: normal;
   font-size: 1rem;
   font-size: inherit;
   margin: 0;
 }
 
-.vrepl-copy-button {
+.playground-copy-button {
   position: absolute;
   right: 0px;
   top: 14px;
@@ -68,6 +65,6 @@
   text-transform: uppercase;
 }
 
-.vrepl-copy-button:focus {
+.playground-copy-button:focus {
   outline: 1px solid #6694f8;
 }

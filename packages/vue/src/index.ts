@@ -1,8 +1,8 @@
 import "vue-prism-editor/dist/prismeditor.min.css"
 import "./css/vars.css"
-import "./css/layout.css"
-import "./css/sidebar-links.css"
-import "./css/style.css"
+import "./css/main.css"
+import "./css/sidebar.css"
+import "./css/playground.css"
 import { provide, inject } from "vue"
 
 import Playground from "./Playground.vue"

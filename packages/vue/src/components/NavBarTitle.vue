@@ -6,14 +6,14 @@ const config = useConfig()
 </script>
 
 <template>
-  <a class="nav-bar-title" :href="config.base" :aria-label="`${config.title}, back to home`">
+  <a class="navbar-title" :href="config.base" :aria-label="`${config.title}, back to home`">
     <img v-if="config.logo" class="logo" :src="withBase(config.base, config.logo)" alt="Logo" />
     {{ config.title }}
   </a>
 </template>
 
 <style scoped>
-.nav-bar-title {
+.navbar-title {
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--c-text);
@@ -22,7 +22,7 @@ const config = useConfig()
   align-items: center;
 }
 
-.nav-bar-title:hover {
+.navbar-title:hover {
   text-decoration: none;
 }
 

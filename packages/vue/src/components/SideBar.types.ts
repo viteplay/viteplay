@@ -1,22 +1,9 @@
-export type SideBarItem = SideBarLink | SideBarGroup
+export type SideBarItem = SideBarLink
 
 export interface SideBarLink {
   text: string
   link: string
   headers?: Header[]
-}
-
-export interface SideBarGroup {
-  text: string
-  link?: string
-  headers?: Header[]
-
-  /**
-   * @default false
-   */
-  collapsable?: boolean
-
-  children: SideBarItem[]
 }
 
 export interface Header {
