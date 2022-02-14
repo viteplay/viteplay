@@ -20,7 +20,26 @@ export const parseSFC = async (contents: string, file: string): Promise<Parsed> 
     sourceMap: false,
   })
 
-  result.imports = Object.values(scriptResult.imports ?? {})
+  const dynamicImports: { imported: string; source: string }[] = []
+  const extractDynamicImports = (ast?: any) => {
+    if (!ast) return
+    compiler.walk(ast, {
+      // @ts-expect-error todo
+      enter(node) {
+        if (node.type === "CallExpression" && node.callee.type === "Import") {
+          const arg = node.arguments[0]
+          if (arg.type !== "StringLiteral") {
+            throw new Error(`Expected string literal for import, got ${arg.type}`)
+          }
+          dynamicImports.push({ imported: "*", source: arg.value })
+        }
+      },
+    })
+  }
+  extractDynamicImports(scriptResult.scriptSetupAst)
+  extractDynamicImports(scriptResult.scriptAst)
+
+  result.imports = [...Object.values(scriptResult.imports ?? {}), ...dynamicImports]
 
   for (const block of sfc.descriptor.customBlocks) {
     if (block.type === "docs") {

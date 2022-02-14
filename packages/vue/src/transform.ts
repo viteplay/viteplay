@@ -18,9 +18,7 @@ export const transformCodeToComponent = (
     filename,
   })
 
-  const errors: string[] = []
-
-  if (errors.length > 0) {
+  if (parseErrors.length > 0) {
     return { errors: parseErrors.map((e) => e.message) }
   }
 
@@ -48,6 +46,7 @@ export const transformCodeToComponent = (
       const result = transform(code, {
         transforms: [isTS && "typescript", "imports"].filter(Boolean) as Transform[],
       })
+
       const exports: Record<string, any> = {}
       const fn = new Function("require", "exports", result.code)
       fn(require, exports)
@@ -61,7 +60,9 @@ export const transformCodeToComponent = (
         id,
         inlineTemplate: true,
       })
+
       const exports = evalCode(scriptResult.content, isTS)
+
       Object.assign(component, exports.default)
     }
 
@@ -105,7 +106,7 @@ export const transformCodeToComponent = (
       css += styleResult.code + "\n"
     }
 
-    return { component, css, errors }
+    return { component, css }
   } catch (error: any) {
     console.error(error)
     return { errors: [error.message] }

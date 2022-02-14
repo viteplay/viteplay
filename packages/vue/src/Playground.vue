@@ -88,7 +88,9 @@ onMounted(() => {
   <div class="playground">
     <div v-if="transformed" class="playground-preview">
       <component is="style" v-if="transformed.css" v-html="transformed.css" />
-      <component :is="transformed.component" v-if="transformed.component" />
+      <Suspense>
+        <component :is="transformed.component" v-if="transformed.component" />
+      </Suspense>
     </div>
     <div class="playground-editor">
       <div class="playground-editor__header">
