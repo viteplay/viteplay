@@ -9,6 +9,7 @@
   margin: 0;
   border-left: 0.25rem solid transparent;
   color: var(--c-text);
+  justify-content: space-between;
 }
 
 a.sidebar-link-item:hover {
@@ -64,16 +65,6 @@ a.sidebar-link-item.active {
   > .sidebar-link
   > .sidebar-links
   > .sidebar-link
-  > a.sidebar-link-item.active {
-  border-left-color: var(--c-brand);
-  font-weight: 600;
-}
-
-.sidebar
-  > .sidebar-links
-  > .sidebar-link
-  > .sidebar-links
-  > .sidebar-link
   > .sidebar-links
   > .sidebar-link
   > .sidebar-link-item {
@@ -101,10 +92,17 @@ a.sidebar-link-item.active {
   font-weight: 400;
 }
 
-.focus-eye {
-  margin-left: auto;
+.focus-button {
+  border: none;
+  background-color: transparent;
   color: var(--c-white-dark);
+  cursor: pointer;
 }
-.focus-eye:hover {
+
+.focus-button:hover {
+  color: var(--c-brand);
+}
+
+.focus-button.active {
   color: var(--c-brand);
 }

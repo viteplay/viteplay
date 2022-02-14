@@ -17,17 +17,6 @@ export function isExternal(path: string): boolean {
   return outboundRE.test(path)
 }
 
-export function isActive(route: RouteLocation, path?: string): boolean {
-  if (path === undefined) {
-    return false
-  }
-
-  const routePath = normalize(route.path)
-  const pagePath = normalize(path)
-
-  return routePath === pagePath
-}
-
 export function normalize(path: string): string {
   return decodeURI(path).replace(hashRE, "").replace(extRE, "")
 }
