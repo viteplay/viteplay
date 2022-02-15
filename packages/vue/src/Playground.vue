@@ -11,7 +11,7 @@ import {
 } from "vue"
 import { PrismEditor } from "vue-prism-editor"
 import { debounce, ensureSFC } from "./utils"
-import { transformCodeToComponent, Transformed } from "./transform"
+import { transformCodeToComponent, Transformed, getNearestComponent } from "./transform"
 import { highlight } from "./highlight"
 import { useConfig } from "."
 import { useCopy } from "./hooks/useCopy"
@@ -62,6 +62,17 @@ const setComponent = () => {
 
 const setComponentDebounced = debounce(setComponent, 250)
 
+const handleKeyDown = (e: any) => {
+  if (e.key === ":") {
+    console.log(e.target.selectionStart)
+    const ast = transformed.value?.templateAst
+    if (ast) {
+      const componentName = getNearestComponent(ast, e.target.selectionStart - 1)
+      console.log(componentName)
+    }
+  }
+}
+
 watchEffect(() => {
   displayCode.value = props.code.trim()
 })
@@ -103,6 +114,7 @@ onMounted(() => {
         v-model="displayCode"
         :lineNumbers="props.lineNumbers"
         :highlight="props.highlight"
+        @keydown="handleKeyDown"
       />
     </div>
     <div v-if="errors.length > 0" class="playground-error">
