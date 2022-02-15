@@ -64,7 +64,7 @@ export const SideBarLink: FunctionalComponent<{
   ])
 }
 
-function resolveLink(base: string, path: string): string {
+export function resolveLink(base: string, path: string): string {
   // keep relative hash to the same page
   if (path.startsWith("#")) {
     return path

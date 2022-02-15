@@ -46,6 +46,8 @@
   },
   "dependencies": {
     "@pepicons/vue": "^1.0.12",
+    "@vueuse/core": "^7.6.2",
+    "naive-ui": "^2.25.2",
     "prismjs": "^1.25.0"
   },
   "peerDependencies": {
