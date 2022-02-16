@@ -6,7 +6,7 @@ type Parsed = {
   component: string
 }
 
-export const parseSFC = async (contents: string, file: string): Promise<Parsed> => {
+export const parseExample = async (contents: string, file: string): Promise<Parsed> => {
   const compiler: typeof import("vue/compiler-sfc") = localRequire("vue/compiler-sfc")
   const sfc = compiler.parse(contents, { filename: file })
   const result: Parsed = { imports: [], docs: "", component: contents }

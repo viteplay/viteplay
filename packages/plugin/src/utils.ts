@@ -57,7 +57,7 @@ export async function getPagesFromOptions(options: {
       const fileName = path.basename(p, path.extname(p))
       const folder = path.dirname(p)
       const examples = exampleFiles.filter((_p) => _p.startsWith(folder))
-      return { title: fileName, examples }
+      return { title: fileName, component: p, examples }
     }),
   }
 }

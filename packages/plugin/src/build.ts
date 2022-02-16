@@ -2,7 +2,7 @@
 import fs from "node:fs"
 import path from "node:path"
 import { kebabCase } from "case-anything"
-import { parseSFC } from "./parse-sfc"
+import { parseExample } from "./parse-example"
 import { outputFileIfChanged } from "./fs"
 import { getPagesFromOptions } from "./utils"
 import { MarkRequired } from "./types"
@@ -18,12 +18,13 @@ export const build = async (options: BuildOptions) => {
   const getPath = options.getPath ?? ((slug) => `${slug}`)
 
   const { pages: _pages, watchFiles } = await getPagesFromOptions(options)
+
   const pages = await Promise.all(
     _pages.map(async (page, index) => {
       const files = await Promise.all(
         page.examples.sort().map(async (file) => {
           const contents = await fs.promises.readFile(file, "utf8")
-          const parsed = await parseSFC(contents, file)
+          const parsed = await parseExample(contents, file)
           const title =
             file
               .split("/")
