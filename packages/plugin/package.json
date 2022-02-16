@@ -26,7 +26,8 @@
     "case-anything": "^2.1.3",
     "debug": "^4.3.3",
     "fast-glob": "^3.2.7",
-    "markdown-it": "^12.3.2"
+    "markdown-it": "^12.3.2",
+    "@viteplay/types": "workspace:*"
   },
   "devDependencies": {
     "@types/debug": "^4.1.7",

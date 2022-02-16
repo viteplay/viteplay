@@ -1,16 +1,10 @@
 // Parse component to get props definition
 
+import { PropDefinition } from "@viteplay/types"
 import { localRequire } from "./utils"
 
-type Prop = {
-  name: string
-  desc: string
-  type: "string" | "number" | "array" | "boolean" | "object" | "any"
-  required?: boolean
-}
-
 type Parsed = {
-  props: Prop[]
+  props: PropDefinition[]
 }
 
 export const parseComponent = (contents: string, file: string): Parsed => {
@@ -18,7 +12,7 @@ export const parseComponent = (contents: string, file: string): Parsed => {
   const sfc = compiler.parse(contents, { filename: file })
   const { scriptSetup } = sfc.descriptor
 
-  const props: Prop[] = []
+  const props: PropDefinition[] = []
 
   if (scriptSetup) {
     const ast = compiler.babelParse(scriptSetup.content, {

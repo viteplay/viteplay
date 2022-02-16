@@ -46,7 +46,8 @@
   },
   "dependencies": {
     "@pepicons/vue": "^1.0.12",
-    "prismjs": "^1.25.0"
+    "prismjs": "^1.25.0",
+    "@viteplay/types": "workspace:*"
   },
   "peerDependencies": {
     "vue": "^3.2.26",

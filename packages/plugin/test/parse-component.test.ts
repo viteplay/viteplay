@@ -5,6 +5,7 @@ test("parseComponent", () => {
   const { props } = parseComponent(
     `<script setup lang="ts">
 defineProps<{
+    /** required foo */
     requiredFoo: string,
     /**
      * bar
@@ -20,7 +21,7 @@ defineProps<{
   )
 
   expect(props).toEqual([
-    { name: "requiredFoo", type: "string", desc: "", required: true },
+    { name: "requiredFoo", type: "string", desc: "required foo", required: true },
     {
       name: "optionalBar",
       type: "number",

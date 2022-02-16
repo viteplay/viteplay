@@ -1,9 +1,8 @@
 <script setup lang="ts">
-const props = defineProps({
-  variant: {
-    type: String,
-  },
-})
+const props = defineProps<{
+  /** Choose a button variant */
+  variant?: string
+}>()
 </script>
 
 <template>
