@@ -1,7 +1,7 @@
 declare type PropDefinition = {
   name: string
   desc: string
-  type: "string" | "number" | "array" | "boolean" | "object" | "any"
+  type: "string" | "number" | "array" | "boolean" | "object" | "any" | string
   required?: boolean
 }
 

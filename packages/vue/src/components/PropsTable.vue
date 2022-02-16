@@ -7,7 +7,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div v-if="props.props.length > 0">
+  <div v-if="props.props.length > 0" class="props-table">
     <h2>Props</h2>
     <table>
       <thead>
@@ -29,3 +29,9 @@ const props = defineProps<{
     </table>
   </div>
 </template>
+
+<style scoped>
+.props-table thead {
+  font-weight: bold;
+}
+</style>

@@ -1,7 +1,7 @@
 import { expect, test } from "vitest"
 import { parseComponent } from "../src/parse-component"
 
-test("parseComponent", () => {
+test("defineProps with typescript", () => {
   const { props } = parseComponent(
     `<script setup lang="ts">
 defineProps<{
@@ -29,5 +29,26 @@ defineProps<{
       required: false,
     },
     { name: "someObject", type: "object", desc: "", required: true },
+  ])
+})
+
+test("defineProps with js", () => {
+  const { props } = parseComponent(
+    `<script setup lang="ts">
+defineProps({
+  foo: String,
+  /** bar prop  */
+  bar: {
+    type: Number,
+    required: true
+  }
+})
+</script>`,
+    "test.vue",
+  )
+
+  expect(props).toEqual([
+    { name: "foo", type: "string", required: false, desc: "" },
+    { name: "bar", type: "number", required: true, desc: "bar prop" },
   ])
 })
