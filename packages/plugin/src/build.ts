@@ -2,12 +2,13 @@
 import fs from "node:fs"
 import path from "node:path"
 import { kebabCase } from "case-anything"
-import { parseSFC } from "./parse-sfc"
+import { parseExample } from "./parse-example"
 import { outputFileIfChanged } from "./fs"
 import { getPagesFromOptions } from "./utils"
 import { MarkRequired } from "./types"
 import { Options } from "./index"
 import { renderMarkdown } from "./markdown"
+import { parseComponent } from "./parse-component"
 
 const slash = (input: string) => input.replace(/\\/g, "/")
 
@@ -18,12 +19,17 @@ export const build = async (options: BuildOptions) => {
   const getPath = options.getPath ?? ((slug) => `${slug}`)
 
   const { pages: _pages, watchFiles } = await getPagesFromOptions(options)
+
   const pages = await Promise.all(
     _pages.map(async (page, index) => {
+      const { props } = await parseComponent(
+        await fs.promises.readFile(page.component, "utf8"),
+        page.component,
+      )
       const files = await Promise.all(
         page.examples.sort().map(async (file) => {
           const contents = await fs.promises.readFile(file, "utf8")
-          const parsed = await parseSFC(contents, file)
+          const parsed = await parseExample(contents, file)
           const title =
             file
               .split("/")
@@ -51,7 +57,7 @@ export const build = async (options: BuildOptions) => {
       const contents = `
         <script setup>
         import { computed } from "vue"
-        import { Playground } from "@viteplay/vue"
+        import { Playground, PropsTable } from "@viteplay/vue"
         import { useRoute, useRouter } from "vue-router"
                 
         ${files
@@ -75,6 +81,7 @@ export const build = async (options: BuildOptions) => {
           )
           .join("\n")}
 
+        let props = ${JSON.stringify(props)}
         let route = useRoute()
         let router = useRouter()
         let focusId = computed(() => route.query.focus && route.hash.slice(1))
@@ -97,6 +104,7 @@ export const build = async (options: BuildOptions) => {
             <div v-if="hiddenCount > 0" class="hidden-examples-info">
               {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <button @click="showAll" type="button">show all</button>
             </div>
+            <PropsTable :props="props" />
             ${files
               .map(
                 (file, index) => `

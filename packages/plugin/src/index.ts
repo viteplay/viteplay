@@ -5,9 +5,9 @@ import { build } from "./build"
 
 const debug = createDebug(`viteplay:plugin`)
 
-export type Page = { title: string; examples: string | string[] }
+export type Page = { title: string; component: string; examples: string | string[] }
 
-export type NormalizedPage = { title: string; examples: string[] }
+export type NormalizedPage = { title: string; component: string; examples: string[] }
 
 export type Options = {
   /**

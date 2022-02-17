@@ -32,6 +32,7 @@ export async function getPagesFromOptions(options: {
           exampleFiles.forEach((file) => {
             watchFiles.add(file)
           })
+          watchFiles.add(path.resolve(page.component))
           return {
             ...page,
             examples: exampleFiles,
@@ -52,12 +53,12 @@ export async function getPagesFromOptions(options: {
   const componentFiles = files.filter((p) => !exampleFiles.includes(p))
 
   return {
-    watchFiles: new Set(exampleFiles),
+    watchFiles: new Set([...componentFiles, ...exampleFiles]),
     pages: componentFiles.map((p) => {
       const fileName = path.basename(p, path.extname(p))
       const folder = path.dirname(p)
       const examples = exampleFiles.filter((_p) => _p.startsWith(folder))
-      return { title: fileName, examples }
+      return { title: fileName, component: p, examples }
     }),
   }
 }

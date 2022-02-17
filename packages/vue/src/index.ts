@@ -7,8 +7,9 @@ import { provide, inject } from "vue"
 
 import Playground from "./Playground.vue"
 import RouteLayout from "./RouteLayout.vue"
+import PropsTable from "./components/PropsTable.vue"
 
-export { Playground, RouteLayout }
+export { Playground, RouteLayout, PropsTable }
 
 export { highlight } from "./highlight"
 

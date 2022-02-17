@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-const props = defineProps({
-  kind: { type: String },
-  value: {
-    type: String,
-    required: true,
-  },
-})
+const props = defineProps<{
+  kind?: string
+  value: string
+  complex?: {
+    foo: string
+    bar?: number
+  }
+}>()
 
 const emit = defineEmits<{ (event: "change", value: string): void }>()
 </script>
