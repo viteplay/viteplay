@@ -8,7 +8,7 @@ const config = useConfig()
 <template>
   <a class="navbar-title" :href="config.base" :aria-label="`${config.title}, back to home`">
     <img v-if="config.logo" class="logo" :src="withBase(config.base, config.logo)" alt="Logo" />
-    {{ config.title }}
+    <span>{{ config.title }}</span>
   </a>
 </template>
 
@@ -20,6 +20,7 @@ const config = useConfig()
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 }
 
 .navbar-title:hover {

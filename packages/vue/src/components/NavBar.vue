@@ -3,7 +3,7 @@ import { computed, ref } from "vue"
 import { NAutoComplete } from "naive-ui"
 import { useRouter } from "vue-router"
 import { Pepicon } from "@pepicons/vue"
-import { onKeyStroke } from "@vueuse/core"
+import { onKeyStroke, useMediaQuery } from "@vueuse/core"
 import { useConfig } from ".."
 import { resolveLink } from "./SideBarLink"
 import NavBarTitle from "./NavBarTitle.vue"
@@ -18,6 +18,10 @@ const emit = defineEmits<{
 
 const router = useRouter()
 const config = useConfig()
+
+const searchFocused = ref(false)
+const searchBarWidth = computed(() => (searchFocused.value ? "100%" : "160px"))
+const isSmallScreen = useMediaQuery(`(max-width: 768px)`)
 
 const searchInput = ref<undefined | string>(undefined)
 const autocompleteOptions = computed(() =>
@@ -69,7 +73,7 @@ onKeyStroke(["/"], (e) => {
   <header class="navbar">
     <ToggleSideBarButton @toggle="emit('toggle')" />
 
-    <NavBarTitle />
+    <NavBarTitle v-if="!searchFocused || !isSmallScreen" />
     <div class="navbar-right">
       <NAutoComplete
         v-model:value="searchInput"
@@ -79,6 +83,8 @@ onKeyStroke(["/"], (e) => {
         :blurAfterSelect="true"
         :clearAfterSelect="true"
         @select="openPage"
+        @focus="searchFocused = true"
+        @blur="searchFocused = false"
       >
         <template #prefix><Pepicon name="loop" type="pop" class="loop-icon" /></template>
         <template #suffix><kbd class="kbd">/</kbd></template>
@@ -111,6 +117,8 @@ onKeyStroke(["/"], (e) => {
 
 .navbar-right {
   display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .loop-icon {
@@ -125,12 +133,12 @@ onKeyStroke(["/"], (e) => {
 }
 
 .auto-complete {
-  width: initial;
-  margin: 0 auto;
+  width: 260px;
 }
-@media (min-width: 720px) {
+
+@media (max-width: 720px) {
   .auto-complete {
-    width: 360px;
+    width: v-bind(searchBarWidth);
   }
 }
 </style>
