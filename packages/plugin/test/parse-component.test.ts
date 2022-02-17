@@ -1,8 +1,8 @@
 import { expect, test } from "vitest"
 import { parseComponent } from "../src/parse-component"
 
-test("defineProps with typescript", () => {
-  const { props } = parseComponent(
+test("defineProps with typescript", async () => {
+  const { props } = await parseComponent(
     `<script setup lang="ts">
 defineProps<{
     /** required foo */
@@ -20,20 +20,35 @@ defineProps<{
     "test.vue",
   )
 
-  expect(props).toEqual([
-    { name: "requiredFoo", type: "string", desc: "required foo", required: true },
-    {
-      name: "optionalBar",
-      type: "number",
-      desc: "bar\nThis prop is optional",
-      required: false,
-    },
-    { name: "someObject", type: "object", desc: "", required: true },
-  ])
+  expect(props).toMatchInlineSnapshot(`
+    [
+      {
+        "desc": "required foo",
+        "name": "requiredFoo",
+        "required": true,
+        "type": "string",
+      },
+      {
+        "desc": "bar
+    This prop is optional",
+        "name": "optionalBar",
+        "required": false,
+        "type": "number",
+      },
+      {
+        "desc": "",
+        "name": "someObject",
+        "required": true,
+        "type": "{
+      foo: string;
+    }",
+      },
+    ]
+  `)
 })
 
-test("defineProps with js", () => {
-  const { props } = parseComponent(
+test("defineProps with js", async () => {
+  const { props } = await parseComponent(
     `<script setup lang="ts">
 defineProps({
   foo: String,

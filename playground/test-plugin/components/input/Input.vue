@@ -2,6 +2,10 @@
 const props = defineProps<{
   kind?: string
   value: string
+  complex?: {
+    foo: string
+    bar?: number
+  }
 }>()
 
 const emit = defineEmits<{ (event: "change", value: string): void }>()

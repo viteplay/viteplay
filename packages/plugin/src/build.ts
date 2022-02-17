@@ -22,7 +22,7 @@ export const build = async (options: BuildOptions) => {
 
   const pages = await Promise.all(
     _pages.map(async (page, index) => {
-      const { props } = parseComponent(
+      const { props } = await parseComponent(
         await fs.promises.readFile(page.component, "utf8"),
         page.component,
       )

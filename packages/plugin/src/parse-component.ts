@@ -1,11 +1,13 @@
 // Parse component to get props definition
-
+import { createRequire } from "node:module"
 import { PropDefinition } from "@viteplay/types"
 import { localRequire } from "./utils"
 
 type Parsed = {
   props: PropDefinition[]
 }
+
+const require = createRequire(import.meta.url)
 
 const inferTsTypeFromIdentifier = (identifier: string): PropDefinition["type"] => {
   switch (identifier) {
@@ -35,10 +37,12 @@ const getDescFromComments = (comments?: any[]) => {
     : ""
 }
 
-export const parseComponent = (contents: string, file: string): Parsed => {
+export const parseComponent = async (contents: string, file: string): Promise<Parsed> => {
   const compiler: typeof import("vue/compiler-sfc") = localRequire("vue/compiler-sfc")
   const sfc = compiler.parse(contents, { filename: file })
   const { scriptSetup } = sfc.descriptor
+
+  const generator: typeof import("@babel/generator") = require("@babel/generator")
 
   const props: PropDefinition[] = []
 
@@ -55,21 +59,11 @@ export const parseComponent = (contents: string, file: string): Parsed => {
           const firstArg = node.arguments && node.arguments[0]
           if (typeParam) {
             for (const member of typeParam.members) {
-              const { type } = member.typeAnnotation.typeAnnotation
               props.push({
                 name: member.key.name,
-                type:
-                  type === "TSStringKeyword"
-                    ? "string"
-                    : type === "TSNumberKeyword"
-                    ? "number"
-                    : type === "TSBooleanKeyword"
-                    ? "boolean"
-                    : type === "TSTypeLiteral"
-                    ? "object"
-                    : type === "TSArrayType"
-                    ? "array"
-                    : "any",
+                type: generator.default(member.typeAnnotation.typeAnnotation, {
+                  sourceFileName: file,
+                }).code,
                 desc: getDescFromComments(member.leadingComments),
                 required: !member.optional,
               })
