@@ -18,7 +18,4 @@ export default defineConfig({
       loose: true,
     }),
   ],
-  server: {
-    open: true,
-  },
 })

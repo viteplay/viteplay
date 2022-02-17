@@ -26,6 +26,10 @@ export const build = async (options: BuildOptions) => {
         await fs.promises.readFile(page.component, "utf8"),
         page.component,
       )
+      const componentName = path.basename(page.component, path.extname(page.component))
+      const componentProps = {
+        [componentName]: props,
+      }
       const files = await Promise.all(
         page.examples.sort().map(async (file) => {
           const contents = await fs.promises.readFile(file, "utf8")
@@ -81,7 +85,7 @@ export const build = async (options: BuildOptions) => {
           )
           .join("\n")}
 
-        let props = ${JSON.stringify(props)}
+        let componentProps = ${JSON.stringify(componentProps)}
         let route = useRoute()
         let router = useRouter()
         let focusId = computed(() => route.query.focus && route.hash.slice(1))
@@ -104,7 +108,7 @@ export const build = async (options: BuildOptions) => {
             <div v-if="hiddenCount > 0" class="hidden-examples-info">
               {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <button @click="showAll" type="button">show all</button>
             </div>
-            <PropsTable :props="props" />
+            <PropsTable componentName="${componentName}" :componentProps="componentProps" />
             ${files
               .map(
                 (file, index) => `
@@ -113,7 +117,7 @@ export const build = async (options: BuildOptions) => {
 
             ${renderMarkdown(file.parsed.docs)}
 
-            <Playground :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
+            <Playground :componentProps="componentProps" :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
                   file.contents,
                 )}\`)" />
             </section>
@@ -153,7 +157,6 @@ export const build = async (options: BuildOptions) => {
   const layoutContents = `
 <script setup>
 import "@viteplay/vue/dist/style.css"
-import "prismjs/themes/prism-tomorrow.css"
 import { RouteLayout, provideConfig } from "@viteplay/vue"
 
 const items = ${JSON.stringify(sideBarItems)}

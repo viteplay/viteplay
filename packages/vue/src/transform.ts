@@ -1,11 +1,18 @@
 import * as Vue from "vue"
-import { parse, compileScript, compileTemplate, compileStyle } from "vue/compiler-sfc"
+import {
+  parse,
+  compileScript,
+  compileTemplate,
+  compileStyle,
+  SFCTemplateBlock,
+} from "vue/compiler-sfc"
 import { transform, Transform } from "../vendor/sucrase"
 
 export type Transformed = {
   component?: any
   css?: string
   errors?: string[]
+  templateAst?: SFCTemplateBlock["ast"]
 }
 
 export const transformCodeToComponent = (
@@ -106,9 +113,45 @@ export const transformCodeToComponent = (
       css += styleResult.code + "\n"
     }
 
-    return { component, css }
+    return {
+      component,
+      css,
+      templateAst: descriptor.template?.ast,
+    }
   } catch (error: any) {
     console.error(error)
     return { errors: [error.message] }
   }
+}
+
+export function getNearestComponent(ast: SFCTemplateBlock["ast"], index: number) {
+  let component: string | undefined
+
+  const traverse = (children: SFCTemplateBlock["ast"]["children"]) => {
+    for (const child of children) {
+      if (child.type === 1 && index > child.loc.start.offset && index < child.loc.end.offset) {
+        console.log(child)
+        let inNonElementChildren = false
+        for (const c of child.children) {
+          if (c.type !== 1 && index > c.loc.start.offset && index < c.loc.end.offset) {
+            inNonElementChildren = true
+            break
+          }
+        }
+        console.log(inNonElementChildren)
+        if (inNonElementChildren) {
+          break
+        } else {
+          component = child.tag
+          if (child.children) {
+            traverse(child.children)
+          }
+        }
+      }
+    }
+  }
+
+  traverse(ast.children)
+
+  return component
 }

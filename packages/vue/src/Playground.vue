@@ -9,12 +9,12 @@ import {
   watch,
   watchEffect,
 } from "vue"
-import { PrismEditor } from "vue-prism-editor"
+import Editor from "./components/Editor.vue"
 import { debounce, ensureSFC } from "./utils"
 import { transformCodeToComponent, Transformed } from "./transform"
-import { highlight } from "./highlight"
 import { useConfig } from "."
 import { useCopy } from "./hooks/useCopy"
+import { PropDefinition } from "@viteplay/types"
 
 const props = defineProps({
   code: {
@@ -29,9 +29,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  highlight: {
-    type: Function as PropType<(code: string) => string>,
-    default: highlight,
+  componentProps: {
+    type: Object as PropType<Record<string, PropDefinition[]>>,
+    default: () => ({}),
   },
 })
 
@@ -99,11 +99,7 @@ onMounted(() => {
           {{ copy.copied.value ? "Copied" : "Copy" }}
         </button>
       </div>
-      <PrismEditor
-        v-model="displayCode"
-        :lineNumbers="props.lineNumbers"
-        :highlight="props.highlight"
-      />
+      <Editor v-model="displayCode" :componentProps="componentProps" />
     </div>
     <div v-if="errors.length > 0" class="playground-error">
       <div v-for="(error, index) in errors" :key="index">

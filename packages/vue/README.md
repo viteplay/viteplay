@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-npm i @viteplay/vue prismjs
+npm i @viteplay/vue
 ```
 
 ## Usage
@@ -13,7 +13,6 @@ npm i @viteplay/vue prismjs
 ```vue
 <script lang="ts" setup>
 import "@viteplay/vue/dist/style.css"
-import "prismjs/themes/prism-tomorrow.css"
 import { Repl } from "@viteplay/vue"
 
 const code = `
@@ -29,8 +28,6 @@ const code = `
   <Repl :code="code" />
 </template>
 ```
-
-You can use other Prism themes, but some styling tweaks might be required.
 
 ## License
 

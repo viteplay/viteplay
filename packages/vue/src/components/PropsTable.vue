@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import { PropDefinition } from "@viteplay/types"
+import { computed } from "vue"
 
 const props = defineProps<{
-  props: PropDefinition[]
+  componentName: string
+  componentProps: Record<string, PropDefinition[]>
 }>()
+
+const arr = computed(() => props.componentProps[props.componentName])
 </script>
 
 <template>
-  <div v-if="props.props.length > 0" class="props-table">
+  <div v-if="arr && arr.length > 0" class="props-table">
     <h2>Props</h2>
     <table>
       <thead>
@@ -19,7 +23,7 @@ const props = defineProps<{
         </tr>
       </thead>
       <tbody>
-        <tr v-for="prop in props.props" :key="prop.name">
+        <tr v-for="prop in arr" :key="prop.name">
           <td>{{ prop.name }}</td>
           <td>{{ prop.type }}</td>
           <td>{{ prop.required ? "required" : "optional" }}</td>
