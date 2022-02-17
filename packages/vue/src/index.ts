@@ -1,4 +1,3 @@
-import "vue-prism-editor/dist/prismeditor.min.css"
 import "./css/vars.css"
 import "./css/main.css"
 import "./css/sidebar.css"
@@ -10,8 +9,6 @@ import RouteLayout from "./RouteLayout.vue"
 import PropsTable from "./components/PropsTable.vue"
 
 export { Playground, RouteLayout, PropsTable }
-
-export { highlight } from "./highlight"
 
 export type Config = {
   modules?: Record<string, any>

@@ -9,12 +9,12 @@ import {
   watch,
   watchEffect,
 } from "vue"
-import { PrismEditor } from "vue-prism-editor"
+import Editor from "./components/Editor.vue"
 import { debounce, ensureSFC } from "./utils"
-import { transformCodeToComponent, Transformed, getNearestComponent } from "./transform"
-import { highlight } from "./highlight"
+import { transformCodeToComponent, Transformed } from "./transform"
 import { useConfig } from "."
 import { useCopy } from "./hooks/useCopy"
+import { PropDefinition } from "@viteplay/types"
 
 const props = defineProps({
   code: {
@@ -29,9 +29,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  highlight: {
-    type: Function as PropType<(code: string) => string>,
-    default: highlight,
+  componentProps: {
+    type: Object as PropType<Record<string, PropDefinition[]>>,
+    default: () => ({}),
   },
 })
 
@@ -61,17 +61,6 @@ const setComponent = () => {
 }
 
 const setComponentDebounced = debounce(setComponent, 250)
-
-const handleKeyDown = (e: any) => {
-  if (e.key === ":") {
-    console.log(e.target.selectionStart)
-    const ast = transformed.value?.templateAst
-    if (ast) {
-      const componentName = getNearestComponent(ast, e.target.selectionStart - 1)
-      console.log(componentName)
-    }
-  }
-}
 
 watchEffect(() => {
   displayCode.value = props.code.trim()
@@ -110,12 +99,7 @@ onMounted(() => {
           {{ copy.copied.value ? "Copied" : "Copy" }}
         </button>
       </div>
-      <PrismEditor
-        v-model="displayCode"
-        :lineNumbers="props.lineNumbers"
-        :highlight="props.highlight"
-        @keydown="handleKeyDown"
-      />
+      <Editor v-model="displayCode" :componentProps="componentProps" />
     </div>
     <div v-if="errors.length > 0" class="playground-error">
       <div v-for="(error, index) in errors" :key="index">

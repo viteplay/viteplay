@@ -32,7 +32,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/prismjs": "1.16.6",
+    "@lezer/common": "^0.15.11",
     "@vitejs/plugin-vue": "2.1.0",
     "esbuild": "0.14.10",
     "eslint": "^8.7.0",
@@ -41,12 +41,20 @@
     "vite": "2.7.13",
     "vite-plugin-dts": "0.9.7",
     "vue": "3.2.26",
-    "vue-prism-editor": "2.0.0-alpha.2",
     "vue-router": "^4.0.12"
   },
   "dependencies": {
+    "@codemirror/autocomplete": "^0.19.12",
+    "@codemirror/basic-setup": "^0.19.1",
+    "@codemirror/commands": "^0.19.8",
+    "@codemirror/highlight": "^0.19.7",
+    "@codemirror/lang-css": "^0.19.3",
+    "@codemirror/lang-javascript": "^0.19.7",
+    "@codemirror/language": "^0.19.7",
+    "@codemirror/state": "^0.19.9",
+    "@codemirror/view": "^0.19.43",
+    "@lezer/html": "^0.15.1",
     "@pepicons/vue": "^1.0.12",
-    "prismjs": "^1.25.0",
     "@viteplay/types": "workspace:*",
     "@vueuse/core": "^7.6.2",
     "naive-ui": "^2.25.2"

@@ -1,11 +1,5 @@
 /** CSS for the playground component */
 
-/** override vue-prism-editor */
-.prism-editor-wrapper .prism-editor__editor,
-.prism-editor-wrapper .prism-editor__textarea {
-  padding: 10px;
-}
-
 .playground-error {
   background-color: red;
   color: white;
@@ -22,7 +16,6 @@
 }
 
 .playground-editor {
-  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   background-color: rgb(1, 22, 39);
   color: #c4c4c4;
   border-radius: 8px;

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import "@viteplay/vue/dist/style.css"
-import "prismjs/themes/prism-tomorrow.css"
 import { defineComponent, h } from "vue"
 import { Playground } from "@viteplay/vue"
 
