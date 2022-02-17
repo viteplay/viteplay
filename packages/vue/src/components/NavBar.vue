@@ -22,7 +22,12 @@ const config = useConfig()
 const searchInput = ref<undefined | string>(undefined)
 const autocompleteOptions = computed(() =>
   props.items
-    .map((s) => ({ label: s.text, value: s.link }))
+    .map((s) => {
+      return (s.headers || []).map((header) => {
+        return { label: `${s.text} > ${header.title}`, value: `${s.link}#${header.slug}` }
+      })
+    })
+    .flat()
     .filter(({ label, value }) => {
       const s = (searchInput.value || "").toLowerCase()
       const l = label.toLowerCase()
