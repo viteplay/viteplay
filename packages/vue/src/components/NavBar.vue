@@ -70,7 +70,7 @@ onKeyStroke(["/"], (e) => {
     <ToggleSideBarButton @toggle="emit('toggle')" />
 
     <NavBarTitle />
-    <div class="flex-grow">
+    <div class="navbar-right">
       <NAutoComplete
         v-model:value="searchInput"
         class="auto-complete"
@@ -109,8 +109,7 @@ onKeyStroke(["/"], (e) => {
   }
 }
 
-.flex-grow {
-  flex-grow: 1;
+.navbar-right {
   display: flex;
 }
 
