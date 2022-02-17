@@ -1,19 +1,95 @@
 <script setup lang="ts">
+import { computed, ref } from "vue"
+import { NAutoComplete } from "naive-ui"
+import { useRouter } from "vue-router"
+import { Pepicon } from "@pepicons/vue"
+import { onKeyStroke, useMediaQuery } from "@vueuse/core"
+import { useConfig } from ".."
+import { resolveLink } from "./SideBarLink"
 import NavBarTitle from "./NavBarTitle.vue"
 import ToggleSideBarButton from "./ToggleSideBarButton.vue"
+import { SideBarItem } from "./SideBar.types"
+
+const props = defineProps<{ items: SideBarItem[] }>()
 
 const emit = defineEmits<{
   (e: "toggle"): void
 }>()
+
+const router = useRouter()
+const config = useConfig()
+
+const searchFocused = ref(false)
+const searchBarWidth = computed(() => (searchFocused.value ? "100%" : "160px"))
+const isSmallScreen = useMediaQuery(`(max-width: 768px)`)
+
+const searchInput = ref<undefined | string>(undefined)
+const autocompleteOptions = computed(() =>
+  props.items
+    .map((s) => {
+      return (s.headers || []).map((header) => {
+        return { label: `${s.text} > ${header.title}`, value: `${s.link}#${header.slug}` }
+      })
+    })
+    .flat()
+    .filter(({ label, value }) => {
+      const s = (searchInput.value || "").toLowerCase()
+      const l = label.toLowerCase()
+      const v = value.toLowerCase()
+      return l.includes(s) || v.includes(s)
+    }),
+)
+
+function openPage(link: string | number) {
+  const to = resolveLink(config.base || "", `${link}`)
+  router.push(to)
+}
+
+function isEditingContent(event: any) {
+  const element = event.target
+  const tagName = element.tagName
+  return (
+    element.isContentEditable ||
+    tagName === "INPUT" ||
+    tagName === "SELECT" ||
+    tagName === "TEXTAREA"
+  )
+}
+
+onKeyStroke(["/"], (e) => {
+  if (isEditingContent(e)) return
+
+  e.preventDefault()
+  const inputEl = document.querySelector(".navbar .auto-complete input")
+  try {
+    if (inputEl) (inputEl as any).focus()
+  } catch (e) {
+    /** do nothing */
+  }
+})
 </script>
 
 <template>
   <header class="navbar">
     <ToggleSideBarButton @toggle="emit('toggle')" />
 
-    <NavBarTitle />
-
-    <div class="flex-grow" />
+    <NavBarTitle v-if="!searchFocused || !isSmallScreen" />
+    <div class="navbar-right">
+      <NAutoComplete
+        v-model:value="searchInput"
+        class="auto-complete"
+        placeholder="Search"
+        :options="autocompleteOptions"
+        :blurAfterSelect="true"
+        :clearAfterSelect="true"
+        @select="openPage"
+        @focus="searchFocused = true"
+        @blur="searchFocused = false"
+      >
+        <template #prefix><Pepicon name="loop" type="pop" class="loop-icon" /></template>
+        <template #suffix><kbd class="kbd">/</kbd></template>
+      </NAutoComplete>
+    </div>
   </header>
 </template>
 
@@ -39,7 +115,30 @@ const emit = defineEmits<{
   }
 }
 
-.flex-grow {
-  flex-grow: 1;
+.navbar-right {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.loop-icon {
+  color: #e2e2e2;
+}
+.kbd {
+  line-height: 1;
+  border: thin solid var(--c-text-light-3);
+  color: var(--c-text-light-3);
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+}
+
+.auto-complete {
+  width: 260px;
+}
+
+@media (max-width: 720px) {
+  .auto-complete {
+    width: v-bind(searchBarWidth);
+  }
 }
 </style>

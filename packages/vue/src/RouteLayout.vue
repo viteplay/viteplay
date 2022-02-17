@@ -45,7 +45,7 @@ watch(
 </script>
 
 <template>
-  <NavBar @toggle="toggleSidebar" />
+  <NavBar :items="items" @toggle="toggleSidebar" />
 
   <SideBar :items="items" :open="openSideBar" />
 
