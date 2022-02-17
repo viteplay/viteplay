@@ -41,7 +41,20 @@ function openPage(link: string | number) {
   router.push(to)
 }
 
+function isEditingContent(event: any) {
+  const element = event.target
+  const tagName = element.tagName
+  return (
+    element.isContentEditable ||
+    tagName === "INPUT" ||
+    tagName === "SELECT" ||
+    tagName === "TEXTAREA"
+  )
+}
+
 onKeyStroke(["/"], (e) => {
+  if (isEditingContent(e)) return
+
   e.preventDefault()
   const inputEl = document.querySelector(".navbar .auto-complete input")
   try {
