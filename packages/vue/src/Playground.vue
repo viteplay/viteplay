@@ -58,6 +58,9 @@ const setComponent = () => {
   if (result) {
     transformed.value = result
     errors.value = result.errors || []
+    if (errors.value.length === 0) {
+      showingError.value = false
+    }
   }
 }
 
