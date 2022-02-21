@@ -5,6 +5,8 @@ import process from "node:process"
 import glob from "fast-glob"
 import { Page, NormalizedPage } from "."
 
+export const slash = (input: string) => input.replace(/\\/g, "/")
+
 export const localRequire = (id: string) => {
   const req =
     typeof globalThis.require === "function" ? globalThis.require : createRequire(import.meta.url)
@@ -48,8 +50,12 @@ export async function getPagesFromOptions(options: {
     throw new Error("You must provide both `components` and `componentExamples` in `options`")
   }
 
-  const exampleFiles = await glob(componentExamples, { absolute: true, onlyFiles: true })
-  const files = await glob(components, { absolute: true, onlyFiles: true })
+  const exampleFiles = await glob(componentExamples, { absolute: true, onlyFiles: true }).then(
+    (items) => items.map((v) => slash(v)),
+  )
+  const files = await glob(components, { absolute: true, onlyFiles: true }).then((items) =>
+    items.map((v) => slash(v)),
+  )
   const componentFiles = files.filter((p) => !exampleFiles.includes(p))
 
   return {
@@ -57,7 +63,7 @@ export async function getPagesFromOptions(options: {
     pages: componentFiles.map((p) => {
       const fileName = path.basename(p, path.extname(p))
       const folder = path.dirname(p)
-      const examples = exampleFiles.filter((_p) => _p.startsWith(folder))
+      const examples = exampleFiles.filter((_p) => _p.startsWith(folder + "/"))
       return { title: fileName, component: p, examples }
     }),
   }

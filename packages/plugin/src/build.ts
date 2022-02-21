@@ -4,13 +4,11 @@ import path from "node:path"
 import { kebabCase } from "case-anything"
 import { parseExample } from "./parse-example"
 import { outputFileIfChanged } from "./fs"
-import { getPagesFromOptions } from "./utils"
+import { getPagesFromOptions, slash } from "./utils"
 import { MarkRequired } from "./types"
 import { Options } from "./index"
 import { renderMarkdown } from "./markdown"
 import { parseComponent } from "./parse-component"
-
-const slash = (input: string) => input.replace(/\\/g, "/")
 
 type BuildOptions = MarkRequired<Options, "cacheDir">
 
@@ -113,7 +111,7 @@ export const build = async (options: BuildOptions) => {
               .map(
                 (file, index) => `
             <section v-if="shouldRender('${file.slug}')">
-            
+
             <ExampleHeader slug="${file.slug}" title="${file.title}" />
 
             ${renderMarkdown(file.parsed.docs)}
