@@ -15,6 +15,7 @@ import { transformCodeToComponent, Transformed } from "./transform"
 import { useConfig } from "."
 import { useCopy } from "./hooks/useCopy"
 import { PropDefinition } from "@viteplay/types"
+import { Pepicon } from "@pepicons/vue"
 
 const props = defineProps({
   code: {
@@ -79,6 +80,8 @@ onErrorCaptured((error) => {
 
 watch(code, setComponentDebounced)
 
+const showingError = ref(false)
+
 onMounted(() => {
   setComponent()
 })
@@ -92,16 +95,26 @@ onMounted(() => {
         <component :is="transformed.component" v-if="transformed.component" />
       </Suspense>
     </div>
-    <div class="playground-editor">
+    <div :class="`playground-editor ${errors.length ? 'has-error' : ''}`">
       <div class="playground-editor__header">
         <h3>Editable Example</h3>
-        <button class="playground-copy-button" @click="copy.copy">
-          {{ copy.copied.value ? "Copied" : "Copy" }}
-        </button>
+        <div class="playground-buttons">
+          <button v-if="!errors.length" class="playground-copy-button" @click="copy.copy">
+            {{ copy.copied.value ? "Copied" : "Copy" }}
+          </button>
+          <Pepicon
+            v-if="errors.length"
+            :class="`playground-icon-error ${showingError ? 'enabled' : ''}`"
+            name="exclamation"
+            type="pop"
+            size="xl"
+            @click="() => (showingError = !showingError)"
+          />
+        </div>
       </div>
       <Editor v-model="displayCode" :componentProps="componentProps" />
     </div>
-    <div v-if="errors.length > 0" class="playground-error">
+    <div v-show="showingError" class="playground-error">
       <div v-for="(error, index) in errors" :key="index">
         {{ error }}
       </div>

@@ -1,7 +1,7 @@
 /** CSS for the playground component */
 
 .playground-error {
-  background-color: red;
+  background-color: crimson;
   color: white;
   white-space: pre-wrap;
   padding: 20px;
@@ -24,6 +24,10 @@
   padding-top: 0;
 }
 
+.playground-editor.has-error {
+  outline: thick solid crimson;
+}
+
 .playground-editor__header {
   text-align: center;
   font-size: 0.75em;
@@ -43,10 +47,13 @@
   margin: 0;
 }
 
-.playground-copy-button {
+.playground-buttons {
   position: absolute;
   right: 0px;
   top: 14px;
+}
+
+.playground-copy-button {
   background-color: white;
   font-weight: bold;
   color: #333;
@@ -60,4 +67,16 @@
 
 .playground-copy-button:focus {
   outline: 1px solid #6694f8;
+}
+
+.playground-icon-error {
+  color: crimson;
+  cursor: pointer;
+  user-select: none;
+}
+
+.playground-icon-error.enabled {
+  border-radius: 100%;
+  outline: 2px solid #6694f8;
+  outline-offset: -2px;
 }
