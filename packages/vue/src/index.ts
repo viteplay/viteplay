@@ -7,8 +7,9 @@ import { provide, inject } from "vue"
 import Playground from "./Playground.vue"
 import RouteLayout from "./RouteLayout.vue"
 import PropsTable from "./components/PropsTable.vue"
+import ExampleHeader from "./components/ExampleHeader.vue"
 
-export { Playground, RouteLayout, PropsTable }
+export { Playground, RouteLayout, PropsTable, ExampleHeader }
 
 export type Config = {
   modules?: Record<string, any>

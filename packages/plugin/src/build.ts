@@ -61,7 +61,7 @@ export const build = async (options: BuildOptions) => {
       const contents = `
         <script setup>
         import { computed } from "vue"
-        import { Playground, PropsTable } from "@viteplay/vue"
+        import { Playground, PropsTable, ExampleHeader } from "@viteplay/vue"
         import { useRoute, useRouter } from "vue-router"
                 
         ${files
@@ -113,7 +113,8 @@ export const build = async (options: BuildOptions) => {
               .map(
                 (file, index) => `
             <section v-if="shouldRender('${file.slug}')">
-            <h2 id="${file.slug}">${file.title}</h2>
+            
+            <ExampleHeader slug="${file.slug}" title="${file.title}" />
 
             ${renderMarkdown(file.parsed.docs)}
 
