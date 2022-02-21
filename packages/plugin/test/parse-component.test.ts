@@ -67,3 +67,26 @@ defineProps({
     { name: "bar", type: "number", required: true, desc: "bar prop" },
   ])
 })
+
+test("defineComponent props", async () => {
+  const { props } = await parseComponent(
+    `<script lang="ts">
+defineComponent({
+  props: {
+    foo: String,
+    /** bar prop  */
+    bar: {
+      type: Number,
+      required: true
+    }
+  }
+})
+</script>`,
+    "test.vue",
+  )
+
+  expect(props).toEqual([
+    { name: "foo", type: "string", required: false, desc: "" },
+    { name: "bar", type: "number", required: true, desc: "bar prop" },
+  ])
+})
