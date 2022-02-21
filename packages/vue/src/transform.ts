@@ -119,7 +119,6 @@ export const transformCodeToComponent = (
       templateAst: descriptor.template?.ast,
     }
   } catch (error: any) {
-    console.error(error)
     return { errors: [error.message] }
   }
 }
