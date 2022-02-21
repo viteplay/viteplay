@@ -3,27 +3,35 @@ import { createRequire } from "node:module"
 import { PropDefinition } from "@viteplay/types"
 import { localRequire } from "./utils"
 
+const require = createRequire(import.meta.url)
+
+const generator: typeof import("@babel/generator") = require("@babel/generator")
+
 type Parsed = {
   props: PropDefinition[]
 }
 
-const require = createRequire(import.meta.url)
-
-const inferTsTypeFromIdentifier = (identifier: string): PropDefinition["type"] => {
-  switch (identifier) {
-    case "String":
-      return "string"
-    case "Number":
-      return "number"
-    case "Boolean":
-      return "boolean"
-    case "Object":
-      return "object"
-    case "Array":
-      return "array"
-    default:
-      return identifier
+const inferTsType = (node: any): string => {
+  if (node.type === "Identifier") {
+    switch (node.name) {
+      case "String":
+        return "string"
+      case "Number":
+        return "number"
+      case "Boolean":
+        return "boolean"
+      case "Object":
+        return "object"
+      case "Array":
+        return "array"
+      default:
+        return node.name
+    }
+  } else if (node.type === "TSAsExpression") {
+    return generateCodeFromTypeAnnotation(node.typeAnnotation, "foo.ts")
   }
+
+  throw new Error(`unsupported node type: ${node.type}`)
 }
 
 const getDescFromComments = (comments?: any[]) => {
@@ -37,12 +45,16 @@ const getDescFromComments = (comments?: any[]) => {
     : ""
 }
 
+const generateCodeFromTypeAnnotation = (node: any, file: string) => {
+  return generator.default(node, {
+    sourceFileName: file,
+  }).code
+}
+
 export const parseComponent = async (contents: string, file: string): Promise<Parsed> => {
   const compiler: typeof import("vue/compiler-sfc") = localRequire("vue/compiler-sfc")
   const sfc = compiler.parse(contents, { filename: file })
   const { scriptSetup, script } = sfc.descriptor
-
-  const generator: typeof import("@babel/generator") = require("@babel/generator")
 
   const props: PropDefinition[] = []
 
@@ -55,11 +67,11 @@ export const parseComponent = async (contents: string, file: string): Promise<Pa
       const desc = getDescFromComments(prop.leadingComments)
 
       if (prop.value.type === "Identifier") {
-        type = inferTsTypeFromIdentifier(prop.value.name)
+        type = inferTsType(prop.value)
       } else if (prop.value.type === "ObjectExpression") {
         for (const item of prop.value.properties) {
           if (item.key.name === "type") {
-            type = inferTsTypeFromIdentifier(item.value.name)
+            type = inferTsType(item.value)
           } else if (item.key.name === "required") {
             required = item.value.value === true
           }
@@ -92,9 +104,7 @@ export const parseComponent = async (contents: string, file: string): Promise<Pa
             for (const member of typeParam.members) {
               props.push({
                 name: member.key.name,
-                type: generator.default(member.typeAnnotation.typeAnnotation, {
-                  sourceFileName: file,
-                }).code,
+                type: generateCodeFromTypeAnnotation(member.typeAnnotation.typeAnnotation, file),
                 desc: getDescFromComments(member.leadingComments),
                 required: !member.optional,
               })

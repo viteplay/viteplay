@@ -78,6 +78,9 @@ defineComponent({
     bar: {
       type: Number,
       required: true
+    },
+    baz: {
+      type: Object as Record<string, number>
     }
   }
 })
@@ -88,5 +91,11 @@ defineComponent({
   expect(props).toEqual([
     { name: "foo", type: "string", required: false, desc: "" },
     { name: "bar", type: "number", required: true, desc: "bar prop" },
+    {
+      desc: "",
+      name: "baz",
+      required: false,
+      type: "Record<string, number>",
+    },
   ])
 })
