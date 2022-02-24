@@ -10,7 +10,9 @@ import { Options } from "./index"
 import { renderMarkdown } from "./markdown"
 import { parseComponent } from "./parse-component"
 
-type BuildOptions = MarkRequired<Options, "cacheDir">
+type BuildOptions = MarkRequired<Options, "cacheDir"> & {
+  dev: boolean
+}
 
 export const build = async (options: BuildOptions) => {
   const base = options.base ?? "/"
@@ -99,6 +101,14 @@ export const build = async (options: BuildOptions) => {
         let showAll = () => {
           router.push({ query: {}, hash: route.hash })
         }
+
+        let openInEditor = ${
+          options.dev
+            ? `() => {
+           fetch('/__open-in-editor?file=' + encodeURIComponent("${page.component}"))
+        }`
+            : `undefined`
+        }
         </script>
         <template>
           <div>
@@ -116,7 +126,7 @@ export const build = async (options: BuildOptions) => {
 
             ${renderMarkdown(file.parsed.docs)}
 
-            <Playground :componentProps="componentProps" :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
+            <Playground :componentProps="componentProps" :openInEditor="openInEditor" :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
                   file.contents,
                 )}\`)" />
             </section>

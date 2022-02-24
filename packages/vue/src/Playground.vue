@@ -34,12 +34,16 @@ const props = defineProps({
     type: Object as PropType<Record<string, PropDefinition[]>>,
     default: () => ({}),
   },
+  openInEditor: {
+    type: Function as () => void,
+  },
 })
 
 // Code to be actually evaluated
 let code = ref("")
 // Code to display
 let displayCode = ref("")
+const editorExpanded = ref(true)
 
 const transformed = shallowRef<Transformed | null>(null)
 let errors = ref<string[]>([])
@@ -98,24 +102,42 @@ onMounted(() => {
         <component :is="transformed.component" v-if="transformed.component" />
       </Suspense>
     </div>
-    <div :class="`playground-editor ${errors.length ? 'has-error' : ''}`">
-      <div class="playground-editor__header">
-        <h3>Editable Example</h3>
+    <div :class="['playground-editor', errors.length && 'has-error', editorExpanded && 'expanded']">
+      <div class="playground-header">
+        <h3 @click="editorExpanded = !editorExpanded">
+          <Pepicon :name="editorExpanded ? 'angle-down' : 'angle-right'" :size="16" />
+          <span>Editable Example</span>
+        </h3>
         <div class="playground-buttons">
-          <button v-if="!errors.length" class="playground-copy-button" @click="copy.copy">
-            {{ copy.copied.value ? "Copied" : "Copy" }}
-          </button>
+          <Pepicon
+            v-if="props.openInEditor"
+            name="open"
+            type="pop"
+            size="sm"
+            role="button"
+            @click="props.openInEditor"
+          />
+          <Pepicon
+            v-if="!errors.length"
+            title="Copy to clipboard"
+            :name="copy.copied.value ? 'checkmark' : 'clipboard'"
+            type="pop"
+            size="sm"
+            role="button"
+            @click="copy.copy"
+          />
           <Pepicon
             v-if="errors.length"
             :class="`playground-icon-error ${showingError ? 'enabled' : ''}`"
             name="exclamation"
             type="pop"
             size="xl"
+            role="button"
             @click="() => (showingError = !showingError)"
           />
         </div>
       </div>
-      <Editor v-model="displayCode" :componentProps="componentProps" />
+      <Editor v-if="editorExpanded" v-model="displayCode" :componentProps="componentProps" />
     </div>
     <div v-show="showingError" class="playground-error">
       <div v-for="(error, index) in errors" :key="index">
@@ -124,3 +146,91 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.playground-error {
+  background-color: crimson;
+  color: white;
+  white-space: pre-wrap;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.playground-preview {
+  border: 1px solid var(--c-divider);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 0;
+}
+
+.playground-editor {
+  background-color: rgb(1, 22, 39);
+  color: #c4c4c4;
+  border-radius: 8px;
+  margin: 15px 0;
+  padding: 0 15px;
+}
+
+.playground-editor.expanded {
+  padding-bottom: 15px;
+}
+
+.playground-editor.has-error {
+  outline: thick solid crimson;
+}
+
+.playground-header {
+  font-size: 0.75em;
+  text-transform: uppercase;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgb(155, 155, 155);
+  position: relative;
+}
+
+.playground-header h3 {
+  font-weight: normal;
+  font-size: 1rem;
+  font-size: inherit;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.playground-header h3 span {
+  margin-left: 5px;
+}
+
+.playground-buttons {
+  display: flex;
+}
+
+.playground-buttons > div + div {
+  margin-left: 5px;
+}
+
+.playground-buttons > div {
+  cursor: pointer;
+}
+
+.playground-buttons > div:hover:not(.playground-icon-error) {
+  color: var(--c-white);
+}
+
+.playground-icon-error {
+  color: crimson;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 10px;
+}
+
+.playground-icon-error.enabled {
+  border-radius: 100%;
+  outline: 2px solid #6694f8;
+  outline-offset: -2px;
+}
+</style>

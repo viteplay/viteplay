@@ -38,5 +38,6 @@ module.exports = {
     "vue/attribute-hyphenation": ["error", "never", { ignore: [] }],
     "vue/v-on-event-hyphenation": ["error", "never"],
     "vue/no-v-html": "off",
+    "vue/require-default-prop": "off",
   },
 }

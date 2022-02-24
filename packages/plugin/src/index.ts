@@ -44,6 +44,7 @@ export type Options = {
 const plugin = (options: Options): Plugin => {
   let cacheDir = options.cacheDir ?? ".cache/viteplay"
   let watchFiles: Set<string> = new Set()
+  let dev = false
 
   return {
     name: "component-examples",
@@ -67,6 +68,8 @@ const plugin = (options: Options): Plugin => {
     },
 
     configureServer(server) {
+      dev = true
+
       server.watcher.on("all", async (event, id) => {
         if (!watchFiles.has(path.resolve(id))) {
           return
@@ -74,13 +77,13 @@ const plugin = (options: Options): Plugin => {
 
         debug(`rebuild: %s %s`, event, id)
 
-        watchFiles = await build({ ...options, cacheDir })
+        watchFiles = await build({ ...options, cacheDir, dev })
       })
     },
 
     async buildStart() {
       debug(`Starting initial build`)
-      watchFiles = await build({ ...options, cacheDir })
+      watchFiles = await build({ ...options, cacheDir, dev })
     },
   }
 }
