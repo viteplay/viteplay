@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref } from "vue"
 import { EditorState, basicSetup } from "@codemirror/basic-setup"
-import { EditorView, ViewUpdate } from "@codemirror/view"
+import { EditorView, ViewUpdate, keymap } from "@codemirror/view"
+import { indentWithTab } from "@codemirror/commands"
 import { html } from "../codemirror/lang-html"
 import { oneDark } from "../codemirror/theme"
 import { PropDefinition } from "@viteplay/types"
@@ -34,6 +35,7 @@ onMounted(() => {
       extensions: [
         basicSetup,
         EditorView.lineWrapping,
+        keymap.of([indentWithTab]),
         html({ componentProps: props.componentProps }),
         oneDark,
         updateListener,
