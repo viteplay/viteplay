@@ -35,7 +35,7 @@ const props = defineProps({
     default: () => ({}),
   },
   openInEditor: {
-    type: Function as () => void,
+    type: Function as PropType<() => void>,
   },
 })
 
@@ -115,6 +115,7 @@ onMounted(() => {
             type="pop"
             size="sm"
             role="button"
+            title="Open the example in editor"
             @click="props.openInEditor"
           />
           <Pepicon

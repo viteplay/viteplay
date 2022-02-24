@@ -7,8 +7,9 @@ import Playground from "./Playground.vue"
 import RouteLayout from "./RouteLayout.vue"
 import PropsTable from "./components/PropsTable.vue"
 import ExampleHeader from "./components/ExampleHeader.vue"
+import PageTitle from "./components/PageTitle.vue"
 
-export { Playground, RouteLayout, PropsTable, ExampleHeader }
+export { Playground, RouteLayout, PropsTable, ExampleHeader, PageTitle }
 
 export type Config = {
   modules?: Record<string, any>

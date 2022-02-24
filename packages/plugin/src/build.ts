@@ -61,7 +61,7 @@ export const build = async (options: BuildOptions) => {
       const contents = `
         <script setup>
         import { computed } from "vue"
-        import { Playground, PropsTable, ExampleHeader } from "@viteplay/vue"
+        import { Playground, PropsTable, ExampleHeader, PageTitle } from "@viteplay/vue"
         import { useRoute, useRouter } from "vue-router"
                 
         ${files
@@ -102,17 +102,15 @@ export const build = async (options: BuildOptions) => {
           router.push({ query: {}, hash: route.hash })
         }
 
-        let openInEditor = ${
-          options.dev
-            ? `() => {
-           fetch('/__open-in-editor?file=' + encodeURIComponent("${page.component}"))
-        }`
-            : `undefined`
+        let openInEditor = (file) => {
+           fetch('/__open-in-editor?file=' + encodeURIComponent(file))
         }
         </script>
         <template>
           <div>
-            <h1>${page.title}</h1>
+            <PageTitle title="${page.title}" ${
+        options.dev ? `:openInEditor="() => openInEditor('${page.component}')"` : ``
+      } />
             <div v-if="hiddenCount > 0" class="hidden-examples-info">
               {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <button @click="showAll" type="button">show all</button>
             </div>
@@ -126,9 +124,9 @@ export const build = async (options: BuildOptions) => {
 
             ${renderMarkdown(file.parsed.docs)}
 
-            <Playground :componentProps="componentProps" :openInEditor="openInEditor" :modules="modules_${index}" :code="decodeURI(\`${encodeURI(
-                  file.contents,
-                )}\`)" />
+            <Playground :componentProps="componentProps" ${
+              options.dev ? `:openInEditor="() => openInEditor('${file.absolutePath}')"` : ``
+            } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(file.contents)}\`)" />
             </section>
               `,
               )
