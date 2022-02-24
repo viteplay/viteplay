@@ -33,6 +33,7 @@ onMounted(() => {
       doc: props.modelValue,
       extensions: [
         basicSetup,
+        EditorView.lineWrapping,
         html({ componentProps: props.componentProps }),
         oneDark,
         updateListener,
