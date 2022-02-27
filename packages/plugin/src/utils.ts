@@ -51,10 +51,10 @@ export async function getPagesFromOptions(options: {
   }
 
   const exampleFiles = await glob(componentExamples, { absolute: true, onlyFiles: true }).then(
-    (items) => items.map((v) => slash(v)),
+    (items) => items.map((v) => slash(v)).sort(),
   )
   const files = await glob(components, { absolute: true, onlyFiles: true }).then((items) =>
-    items.map((v) => slash(v)),
+    items.map((v) => slash(v)).sort(),
   )
   const componentFiles = files.filter((p) => !exampleFiles.includes(p))
 
