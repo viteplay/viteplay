@@ -39,6 +39,10 @@ export type Options = {
   pages?: Page[]
   cacheDir?: string
   getPath?: (slug: string) => string
+  /**
+   * By default it generates an index page which redirects to the first page.
+   */
+  disableIndex?: boolean
 }
 
 const plugin = (options: Options): Plugin => {

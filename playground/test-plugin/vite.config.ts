@@ -11,7 +11,6 @@ export default defineConfig({
       components: "./components/*/*.vue",
       // Path to extract component examples from to put on each dev page
       componentExamples: "./components/*/examples/*.vue",
-      base: "/dev",
       title: "VitePlay Demo",
     }),
     tsconfigPaths({

@@ -184,12 +184,25 @@ provideConfig(${JSON.stringify({
 
   outputFileIfChanged(layoutComponent, layoutContents)
 
+  const firstPage = pages[0]
+
   const clientContent = `
     let pages = [
       {
         path: "${base}",
         component: () => import("${slash(layoutComponent)}"),
         children: [
+          ${
+            firstPage && !options.disableIndex
+              ? `{
+            path: "",
+            redirect: "${[base, firstPage.path]
+              .join("/")
+              // Replace repeated slashes with a single slash
+              .replace(/\/+/g, "/")}"
+          },`
+              : ``
+          }
           ${pages
             .map(
               (page) => `{
