@@ -26,8 +26,8 @@ const getDefaultConfig = () => {
   return {
     base: "/",
     modules: {},
-    title: "VitePlay",
-    logo: "https://v2.vuejs.org/images/logo.png",
+    title: "",
+    logo: "https://user-images.githubusercontent.com/3253920/155922729-fdc9a3f8-3088-4601-a23d-bcd5c23f019b.svg",
   }
 }
 

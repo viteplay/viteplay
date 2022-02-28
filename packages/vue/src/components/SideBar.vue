@@ -32,11 +32,11 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
   transition: transform 0.25s ease;
 }
 
-@media (min-width: 720px) {
+/* @media (min-width: 720px) {
   .sidebar {
     transform: translateX(0);
   }
-}
+} */
 
 @media (min-width: 960px) {
   .sidebar {

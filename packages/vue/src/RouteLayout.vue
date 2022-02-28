@@ -22,5 +22,5 @@ const toggleSidebar = (to?: boolean) => {
 
   <SideBar :items="items" :open="openSideBar" />
 
-  <PageLayout />
+  <PageLayout :sideBarOpen="openSideBar" />
 </template>
