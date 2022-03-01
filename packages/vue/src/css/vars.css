@@ -15,8 +15,17 @@
   --c-text-light-2: #476582;
   --c-text-light-3: #90a4b7;
 
-  --c-brand: #24008c;
-  --c-brand-light: #3f258e;
+  --c-wordmark: #24008c;
+
+  --c-brand: #3f258e;
+  --c-brand-light: #543aa4;
+
+  --c-yellow-light: #ffeab7;
+  --c-yellow-dark: #fed369;
+  --c-red-light: #fd98e6;
+  --c-red-dark: #e357c4;
+  --c-blue-light: #babeff;
+  --c-blue-dark: #666ff0;
 
   /**
    * Typography

@@ -121,12 +121,12 @@ onKeyStroke(["/"], (e) => {
 }
 
 .loop-icon {
-  color: #e2e2e2;
+  color: var(--c-divider);
 }
 .kbd {
   line-height: 1;
-  border: thin solid var(--c-text-light-3);
-  color: var(--c-text-light-3);
+  border: thin solid var(--c-divider);
+  color: var(--c-divider);
   padding: 0.3rem;
   border-radius: 0.3rem;
 }
@@ -143,10 +143,11 @@ onKeyStroke(["/"], (e) => {
 
 ::v-deep(.auto-complete > *) {
   --n-caret-color: var(--c-brand) !important;
+  --n-border: 1px solid var(--c-divider) !important;
   --n-border-hover: 1px solid var(--c-brand) !important;
   --n-border-focus: 1px solid var(--c-brand) !important;
   --n-loading-color: var(--c-brand) !important;
-  --n-box-shadow-focus: 0 0 0 2px rgba(36, 0, 140, 0.2) !important;
+  --n-box-shadow-focus: 0 0 0 1px var(--c-brand) !important;
 }
 
 ::v-deep(.n-auto-complete-menu) {
