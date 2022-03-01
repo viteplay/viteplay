@@ -56,6 +56,9 @@ defineProps({
   bar: {
     type: Number,
     required: true
+  },
+  bar2: {
+    type: [String, Number],
   }
 })
 </script>`,
@@ -65,6 +68,12 @@ defineProps({
   expect(props).toEqual([
     { name: "foo", type: "string", required: false, desc: "" },
     { name: "bar", type: "number", required: true, desc: "bar prop" },
+    {
+      desc: "",
+      name: "bar2",
+      required: false,
+      type: "string | number",
+    },
   ])
 })
 

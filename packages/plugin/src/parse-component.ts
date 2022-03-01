@@ -30,9 +30,14 @@ const inferTsType = (node: Node): string => {
     }
   } else if (node.type === "TSAsExpression") {
     return generateCodeFromTypeAnnotation(node.typeAnnotation, "foo.ts")
+  } else if (node.type === "ArrayExpression") {
+    return node.elements
+      .map((node) => (node ? inferTsType(node) : null))
+      .filter(Boolean)
+      .join(" | ")
   }
 
-  throw new Error(`unsupported node type: ${node.type}`)
+  return "unknown"
 }
 
 const getDescFromComments = (comments?: readonly Comment[] | null) => {
