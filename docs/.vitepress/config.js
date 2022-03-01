@@ -2,14 +2,14 @@ import { defineConfig } from "vitepress"
 
 export default defineConfig({
   lang: "en-US",
-  title: "VitePlay",
+  title: " ",
   description: "Fully Automated Component Development Environment",
   markdown: {
     // options for markdown-it-toc
     toc: { includeLevel: [1, 2] },
   },
   themeConfig: {
-    logo: "/Logo.svg",
+    logo: "/viteplay-logo.svg",
     repo: "viteplay/viteplay",
 
     docsBranch: "main",
