@@ -3,15 +3,13 @@ import { useConfig } from ".."
 import { withBase } from "./utils"
 
 const config = useConfig()
-
-const emit = defineEmits(["click"])
 </script>
 
 <template>
   <a
     class="navbar-title"
-    :aria-label="`${config.title || 'VitePlay'}, show menu`"
-    @click.prevent="() => emit('click')"
+    :href="config.base"
+    :aria-label="`${config.title || 'VitePlay'}, back to home`"
   >
     <img v-if="config.logo" class="logo" :src="withBase(config.base, config.logo)" alt="Logo" />
     <span v-if="config.title">{{ config.title }}</span>
@@ -27,7 +25,6 @@ const emit = defineEmits(["click"])
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  cursor: pointer;
 }
 
 .navbar-title:hover {
@@ -35,7 +32,6 @@ const emit = defineEmits(["click"])
 }
 
 .logo {
-  margin-right: 0.75rem;
   height: 1.3rem;
   vertical-align: bottom;
 }

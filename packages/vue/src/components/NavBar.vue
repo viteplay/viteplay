@@ -8,6 +8,7 @@ import { useConfig } from ".."
 import { resolveLink } from "./SideBarLink"
 import NavBarTitle from "./NavBarTitle.vue"
 import { SideBarItem } from "./SideBar.types"
+import ToggleSideBarButton from "./ToggleSideBarButton.vue"
 
 const props = defineProps<{ items: SideBarItem[] }>()
 
@@ -70,7 +71,9 @@ onKeyStroke(["/"], (e) => {
 
 <template>
   <header class="navbar">
-    <NavBarTitle v-if="!searchFocused || !isSmallScreen" @click="() => emit('toggle')" />
+    <ToggleSideBarButton @toggle="emit('toggle')" />
+
+    <NavBarTitle v-if="!searchFocused || !isSmallScreen" />
 
     <div class="navbar-right">
       <NAutoComplete
@@ -107,9 +110,13 @@ onKeyStroke(["/"], (e) => {
   background-color: var(--c-bg);
 }
 
+.navbar > *:first-child {
+  margin-right: 0.8rem;
+}
+
 .navbar-right {
   display: flex;
-  width: 100%;
+  flex: 1;
   justify-content: flex-end;
 }
 
