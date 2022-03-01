@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress"
 export default defineConfig({
   lang: "en-US",
   title: " ",
-  description: "Fully Automated Component Development Environment",
+  description: "Automated Component Development Environment",
   markdown: {
     // options for markdown-it-toc
     toc: { includeLevel: [1, 2] },

@@ -23,6 +23,8 @@
   --c-brand: #3f258e;
   --c-brand-light: #543aa4;
 
+  --c-bg: #fef9ec;
+
   --c-yellow-light: #ffeab7;
   --c-yellow-dark: #fed369;
   --c-red-light: #fd98e6;
@@ -34,9 +36,10 @@
    * Typography
    * --------------------------------------------------------------------- */
 
-  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-family-base: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  --font-family-title: "Krona One", sans-serif;
 
   /**
    * Z Indexes

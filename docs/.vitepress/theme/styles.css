@@ -1,3 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:wght@400&display=swap");
+
+h1,
+h2,
+h3 {
+  color: var(--c-wordmark);
+  font-family: var(--font-family-title);
+}
+
+h2 {
+  position: relative;
+  border: none;
+}
+h2:after {
+  content: "";
+  background: linear-gradient(90deg, #ffd679, #ed6dc3, #7176e1);
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 /* Internal Links */
 main p > a:not([aria-hidden="true"])[href^="#"]:before,
 main p > a:not([aria-hidden="true"])[href^="/"]:before {
