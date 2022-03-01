@@ -41,6 +41,7 @@ importers:
   packages/plugin:
     specifiers:
       '@babel/generator': ^7.17.3
+      '@babel/types': ^7.17.0
       '@types/babel__generator': ^7.6.4
       '@types/debug': ^4.1.7
       '@types/markdown-it': ^12.2.3
@@ -62,6 +63,7 @@ importers:
       fast-glob: 3.2.7
       markdown-it: 12.3.2
     devDependencies:
+      '@babel/types': 7.17.0
       '@types/babel__generator': 7.6.4
       '@types/debug': 4.1.7
       '@types/markdown-it': 12.2.3
