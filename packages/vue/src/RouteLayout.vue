@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref } from "vue"
+import { ref, watch } from "vue"
+import { useMediaQuery } from "@vueuse/core"
 import { SideBarItem } from "./components/SideBar.types"
 import SideBar from "./components/SideBar.vue"
 import PageLayout from "./components/PageLayout.vue"
@@ -15,6 +16,15 @@ const openSideBar = ref(false)
 const toggleSidebar = (to?: boolean) => {
   openSideBar.value = typeof to === "boolean" ? to : !openSideBar.value
 }
+
+watch(
+  useMediaQuery(`(max-width: 768px)`),
+  (isSmallScreen, wasSmallScreen) => {
+    if (isSmallScreen === wasSmallScreen) return
+    toggleSidebar(!isSmallScreen)
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
