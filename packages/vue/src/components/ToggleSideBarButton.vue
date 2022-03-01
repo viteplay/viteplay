@@ -70,6 +70,7 @@ const emit = defineEmits<{
   cursor: pointer;
   padding: 0 0.2rem;
   line-height: 0;
+  user-select: none;
 }
 .sidebar-button .icon {
   color: var(--c-text);
