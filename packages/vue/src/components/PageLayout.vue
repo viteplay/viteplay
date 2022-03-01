@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps<{
+  sideBarOpen: boolean
+}>()
+</script>
 
 <template>
-  <main class="page">
+  <main :class="`page ${sideBarOpen ? 'side-bar-open' : ''}`">
     <div class="container">
       <!-- <slot name="top" /> -->
 
@@ -19,16 +23,17 @@
 <style scoped>
 .page {
   padding-top: var(--header-height);
+  transition: margin-left 150ms ease-out;
 }
 
 @media (min-width: 720px) {
-  .page {
+  .page.side-bar-open {
     margin-left: 16.4rem;
   }
 }
 
 @media (min-width: 960px) {
-  .page {
+  .page.side-bar-open {
     margin-left: 20rem;
   }
 }

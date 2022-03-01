@@ -6,9 +6,26 @@ const config = useConfig()
 </script>
 
 <template>
-  <a class="navbar-title" :href="config.base" :aria-label="`${config.title}, back to home`">
-    <img v-if="config.logo" class="logo" :src="withBase(config.base, config.logo)" alt="Logo" />
-    <span>{{ config.title }}</span>
+  <a
+    class="navbar-title"
+    :href="config.base"
+    :aria-label="`${config.title || 'VitePlay'}, back to home`"
+  >
+    <img
+      v-if="!config.logo"
+      class="logo"
+      src="../../../../assets/logo.svg"
+      alt="Logo"
+      :draggable="false"
+    />
+    <img
+      v-if="config.logo"
+      class="logo"
+      :src="withBase(config.base, config.logo)"
+      alt="Logo"
+      :draggable="false"
+    />
+    <span v-if="config.title">{{ config.title }}</span>
   </a>
 </template>
 
@@ -28,8 +45,8 @@ const config = useConfig()
 }
 
 .logo {
-  margin-right: 0.75rem;
   height: 1.3rem;
   vertical-align: bottom;
+  user-select: none;
 }
 </style>

@@ -7,8 +7,8 @@ import { onKeyStroke, useMediaQuery } from "@vueuse/core"
 import { useConfig } from ".."
 import { resolveLink } from "./SideBarLink"
 import NavBarTitle from "./NavBarTitle.vue"
-import ToggleSideBarButton from "./ToggleSideBarButton.vue"
 import { SideBarItem } from "./SideBar.types"
+import ToggleSideBarButton from "./ToggleSideBarButton.vue"
 
 const props = defineProps<{ items: SideBarItem[] }>()
 
@@ -74,6 +74,7 @@ onKeyStroke(["/"], (e) => {
     <ToggleSideBarButton @toggle="emit('toggle')" />
 
     <NavBarTitle v-if="!searchFocused || !isSmallScreen" />
+
     <div class="navbar-right">
       <NAutoComplete
         v-model:value="searchInput"
@@ -104,30 +105,28 @@ onKeyStroke(["/"], (e) => {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--c-divider);
-  padding: 0.7rem 1.5rem 0.7rem 4rem;
+  padding: 0.7rem 1.5rem;
   height: var(--header-height);
   background-color: var(--c-bg);
 }
 
-@media (min-width: 720px) {
-  .navbar {
-    padding: 0.7rem 1.5rem;
-  }
+.navbar > *:first-child {
+  margin-right: 0.8rem;
 }
 
 .navbar-right {
   display: flex;
-  width: 100%;
+  flex: 1;
   justify-content: flex-end;
 }
 
 .loop-icon {
-  color: #e2e2e2;
+  color: var(--c-divider);
 }
 .kbd {
   line-height: 1;
-  border: thin solid var(--c-text-light-3);
-  color: var(--c-text-light-3);
+  border: thin solid var(--c-divider);
+  color: var(--c-divider);
   padding: 0.3rem;
   border-radius: 0.3rem;
 }
@@ -140,5 +139,25 @@ onKeyStroke(["/"], (e) => {
   .auto-complete {
     width: v-bind(searchBarWidth);
   }
+}
+
+::v-deep(.auto-complete > *) {
+  --n-caret-color: var(--c-brand) !important;
+  --n-border: 1px solid var(--c-divider) !important;
+  --n-border-hover: 1px solid var(--c-brand) !important;
+  --n-border-focus: 1px solid var(--c-brand) !important;
+  --n-loading-color: var(--c-brand) !important;
+  --n-box-shadow-focus: 0 0 0 1px var(--c-brand) !important;
+}
+
+::v-deep(.n-auto-complete-menu) {
+  --n-group-header-text-color: rgb(118, 124, 130);
+  --n-option-check-color: var(--c-brand) !important;
+  --n-option-color-pending: rgba(36, 0, 140, 0.2) !important;
+  --n-option-color-active: rgba(36, 0, 140, 0.2) !important;
+  --n-option-text-color: rgb(51, 54, 57);
+  --n-option-text-color-active: var(--c-brand-light) !important;
+  --n-option-text-color-pressed: var(--c-brand) !important;
+  --n-loading-color: var(--c-brand) !important;
 }
 </style>

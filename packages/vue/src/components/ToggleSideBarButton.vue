@@ -1,22 +1,65 @@
 <script lang="ts" setup>
+import { Pepicon } from "@pepicons/vue"
+
 const emit = defineEmits<{
   (e: "toggle"): void
 }>()
 </script>
 
 <template>
-  <div class="sidebar-button" @click="() => emit('toggle')">
+  <!-- TODO: release pepicon -->
+  <!-- <Pepicon
+    size="1.25rem"
+    class="sidebar-button"
+    type="pop"
+    name="menu"
+    @click="() => emit('toggle')"
+  /> -->
+  <div class="sidebar-button">
     <svg
       class="icon"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      role="img"
-      viewBox="0 0 448 512"
+      @click="() => emit('toggle')"
     >
-      <path
-        fill="currentColor"
-        d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"
-        class
+      <line
+        x1="3"
+        y1="8"
+        x2="13.3077"
+        y2="8"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <line
+        x1="3"
+        y1="4"
+        x2="17"
+        y2="4"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <line
+        x1="3"
+        y1="12"
+        x2="17"
+        y2="12"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <line
+        x1="3"
+        y1="16"
+        x2="13.3077"
+        y2="16"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
       />
     </svg>
   </div>
@@ -24,23 +67,12 @@ const emit = defineEmits<{
 
 <style>
 .sidebar-button {
-  position: absolute;
-  top: 0.6rem;
-  left: 1rem;
-  display: none;
-  padding: 0.6rem;
   cursor: pointer;
+  padding: 0 0.2rem;
+  line-height: 0;
+  user-select: none;
 }
-
 .sidebar-button .icon {
-  display: block;
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-@media screen and (max-width: 719px) {
-  .sidebar-button {
-    display: block;
-  }
+  color: var(--c-text);
 }
 </style>
