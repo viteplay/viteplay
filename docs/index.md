@@ -13,5 +13,5 @@ features:
     details: Fully automated development environment with only 2 lines of code
   - title: Flexible
     details: HMR & auto detection of new components & examples
-footer: MIT Licensed 　・　 Copyright © 2021-present 　・　 Mesqueeb, Egoist
+footer: MIT Licensed 　・　 Copyright © 2021-present 　・　 Made with 💛 by Mesqueeb, Egoist
 ---

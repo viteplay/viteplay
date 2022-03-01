@@ -4,26 +4,8 @@
  */
 :root {
   /**
-   * Colors
+   * Brand Colors
    * --------------------------------------------------------------------- */
-
-  --c-white: #ffffff;
-  --c-white-dark: #f8f8f8;
-  --c-black: #000000;
-
-  --c-divider-light: rgba(60, 60, 67, 0.12);
-  --c-divider-dark: rgba(84, 84, 88, 0.48);
-
-  --c-text-light-1: #2c3e50;
-  --c-text-light-2: #476582;
-  --c-text-light-3: #90a4b7;
-
-  --c-wordmark: #24008c;
-
-  --c-brand: #3f258e;
-  --c-brand-light: #543aa4;
-
-  --c-bg: #fef9ec;
 
   --c-yellow-light: #ffeab7;
   --c-yellow-dark: #fed369;
@@ -31,6 +13,28 @@
   --c-red-dark: #e357c4;
   --c-blue-light: #babeff;
   --c-blue-dark: #666ff0;
+
+  --c-wordmark: #24008c;
+
+  --c-brand: #3f258e;
+  --c-brand-light: #543aa4;
+
+  /**
+   * Colors
+   * --------------------------------------------------------------------- */
+
+  --c-white: #ffffff;
+  --c-white-dark: #f8f8f8;
+  --c-black: #000000;
+
+  --c-divider-light: var(--c-yellow-light);
+  --c-divider-dark: var(--c-yellow-dark);
+
+  --c-text-light-1: #120047;
+  --c-text-light-2: #1e0a5b;
+  --c-text-light-3: #2a1666;
+
+  --c-bg: #fef9ec;
 
   /**
    * Typography
