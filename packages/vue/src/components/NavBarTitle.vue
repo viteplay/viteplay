@@ -11,6 +11,7 @@ const config = useConfig()
     :href="config.base"
     :aria-label="`${config.title || 'VitePlay'}, back to home`"
   >
+    <img v-if="!config.logo" class="logo" src="../../../../assets/logo.svg" alt="Logo" />
     <img v-if="config.logo" class="logo" :src="withBase(config.base, config.logo)" alt="Logo" />
     <span v-if="config.title">{{ config.title }}</span>
   </a>

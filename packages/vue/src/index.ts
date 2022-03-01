@@ -27,7 +27,7 @@ const getDefaultConfig = () => {
     base: "/",
     modules: {},
     title: "",
-    logo: "https://user-images.githubusercontent.com/3253920/155922729-fdc9a3f8-3088-4601-a23d-bcd5c23f019b.svg",
+    logo: "",
   }
 }
 
