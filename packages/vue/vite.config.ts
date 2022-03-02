@@ -4,9 +4,10 @@ import dts from "vite-plugin-dts"
 import pkg from "./package.json"
 
 export default defineConfig((ctx) => {
+  const prod = ctx.mode !== "development"
   return {
     build: {
-      emptyOutDir: ctx.mode !== "development",
+      emptyOutDir: prod,
       lib: {
         entry: "./src/index.ts",
         formats: ["cjs", "es"],
@@ -18,16 +19,17 @@ export default defineConfig((ctx) => {
     },
     plugins: [
       vue(),
-      dts({
-        skipDiagnostics: false,
-        include: ["./src/**/*"],
-        cleanVueFileName: true,
-        beforeWriteFile(filepath) {
-          return {
-            filePath: filepath.replace("/dist/src/", "/dist/"),
-          }
-        },
-      }),
+      prod &&
+        dts({
+          skipDiagnostics: false,
+          include: ["./src/**/*"],
+          cleanVueFileName: true,
+          beforeWriteFile(filepath) {
+            return {
+              filePath: filepath.replace("/dist/src/", "/dist/"),
+            }
+          },
+        }),
     ],
   }
 })

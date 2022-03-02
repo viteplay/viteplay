@@ -6,9 +6,9 @@ const config = useConfig()
 </script>
 
 <template>
-  <a
+  <router-link
     class="navbar-title"
-    :href="config.base"
+    :to="config.base"
     :aria-label="`${config.title || 'VitePlay'}, back to home`"
   >
     <img
@@ -26,7 +26,7 @@ const config = useConfig()
       :draggable="false"
     />
     <span v-if="config.title">{{ config.title }}</span>
-  </a>
+  </router-link>
 </template>
 
 <style scoped>
