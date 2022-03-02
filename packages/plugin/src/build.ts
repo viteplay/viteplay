@@ -133,6 +133,12 @@ export const build = async (options: BuildOptions) => {
               .join("\n")}
           </div>
         </template>
+
+<style scoped>
+.hidden-examples-info {
+  margin: 20px 0;
+}
+</style>
       `
 
       const component = path.join(options.cacheDir, `${index}-${kebabCase(page.title)}.vue`)

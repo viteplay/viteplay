@@ -8,7 +8,7 @@
   display: flex;
   margin: 0;
   border-left: 0.25rem solid transparent;
-  color: var(--c-text);
+  color: var(--c-text-light);
   justify-content: space-between;
 }
 
@@ -19,6 +19,7 @@ a.sidebar-link-item:hover {
 
 a.sidebar-link-item.active {
   color: var(--c-brand);
+  font-weight: 600;
 }
 
 .sidebar > .sidebar-links {
