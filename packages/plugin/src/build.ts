@@ -145,6 +145,7 @@ export const build = async (options: BuildOptions) => {
         title: page.title,
         path: getPath(slug),
         component,
+        props,
         children: files,
       }
     }),
@@ -152,15 +153,26 @@ export const build = async (options: BuildOptions) => {
 
   const sideBarItems = pages
     .filter((p) => p.children.length > 0)
-    .map((p) => ({
-      text: p.title,
-      link: p.path,
-      headers: p.children.map((c) => ({
-        title: c.title,
-        slug: c.slug,
-        level: 2,
-      })),
-    }))
+    .map((p) => {
+      const item = {
+        text: p.title,
+        link: p.path,
+        headers: p.children.map((c) => ({
+          title: c.title,
+          slug: c.slug,
+          level: 2,
+        })),
+      }
+      if (p.props.length > 0) {
+        item.headers.unshift({
+          title: "Props",
+          slug: "props",
+          level: 2,
+        })
+      }
+      return item
+    })
+
   const layoutContents = `
 <script setup>
 import "@viteplay/vue/dist/style.css"

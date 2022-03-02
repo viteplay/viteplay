@@ -2,9 +2,10 @@
 import { PropDefinition } from "@viteplay/types"
 import { computed } from "vue"
 import { useRoute } from "vue-router"
+import ExampleHeader from "./ExampleHeader.vue"
 
 const route = useRoute()
-const hasFocus = computed(() => route.query.focus)
+const hasFocusedExample = computed(() => route.query.focus && route.hash !== "#props")
 
 const props = defineProps<{
   componentName: string
@@ -15,8 +16,8 @@ const arr = computed(() => props.componentProps[props.componentName])
 </script>
 
 <template>
-  <div v-if="!hasFocus && arr && arr.length > 0" class="props-table">
-    <h2>Props</h2>
+  <div v-if="!hasFocusedExample && arr && arr.length > 0" class="props-table">
+    <ExampleHeader title="Props" slug="props" />
     <table>
       <thead>
         <tr>
