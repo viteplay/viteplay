@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { PropDefinition } from "@viteplay/types"
 import { computed } from "vue"
+import { useRoute } from "vue-router"
+
+const route = useRoute()
+const hasFocus = computed(() => route.query.focus)
 
 const props = defineProps<{
   componentName: string
@@ -11,7 +15,7 @@ const arr = computed(() => props.componentProps[props.componentName])
 </script>
 
 <template>
-  <div v-if="arr && arr.length > 0" class="props-table">
+  <div v-if="!hasFocus && arr && arr.length > 0" class="props-table">
     <h2>Props</h2>
     <table>
       <thead>
