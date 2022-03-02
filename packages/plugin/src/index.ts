@@ -2,6 +2,7 @@ import path from "node:path"
 import { Plugin } from "vite"
 import createDebug from "debug"
 import { build } from "./build"
+import { slash } from "./utils"
 
 const debug = createDebug(`viteplay:plugin`)
 
@@ -71,7 +72,7 @@ const plugin = (options: Options): Plugin => {
       dev = true
 
       server.watcher.on("all", async (event, id) => {
-        if (!watchFiles.has(path.resolve(id))) {
+        if (!watchFiles.has(slash(path.resolve(id)))) {
           return
         }
 
