@@ -5,6 +5,12 @@ h2,
 h3 {
   color: var(--c-wordmark);
   font-family: var(--font-family-title);
+  display: flex;
+}
+
+a.header-anchor {
+  position: absolute;
+  left: -0.2em;
 }
 
 h2 {
