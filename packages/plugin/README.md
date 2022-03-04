@@ -1,81 +1,73 @@
-# vite-plugin-component-examples
+# @viteplay/plugin
 
-## Shorthand version
+## Setup
+
+### Shorthand version
 
 ```ts
+// vite.config.ts
 import { defineConfig } from "vite"
-import componentExamples from "vite-plugin-component-examples"
+import vue from "@vitejs/plugin-vue"
+import viteplay from "@viteplay/plugin"
 
 export default defineConfig({
   plugins: [
-    componentExamples({
-      // Path to extract components from to create dev pages for
+    vue(),
+    viteplay({
+      // Path to extract components from
       components: "./components/*/*.vue",
-      // Path to extract component examples from to put on each dev page
+      // Path to extract examples from
       componentExamples: "./components/*/*.example.vue",
+      // base route for the development pages
+      base: "/dev",
     }),
   ],
 })
 ```
 
-Then it will generate pages from the examples, you can import the pages like this:
-
-```js
-import { pages } from "vite-plugin-component-examples/client"
-
-assert.equal(pages, [
-  {
-    title: "Button",
-    path: "/button",
-    component: () => import("generated/pages/button.vue"),
-  },
-  {
-    title: "Form",
-    path: "/form",
-    component: () => import("generated/pages/form.vue"),
-  },
-])
-```
-
-## Longhand version
+### Longhand version
 
 ```ts
+// vite.config.ts
 import { defineConfig } from "vite"
-import componentExamples from "vite-plugin-component-examples"
+import vue from "@vitejs/plugin-vue"
+import viteplay from "@viteplay/plugin"
 
 export default defineConfig({
   plugins: [
-    componentExamples({
+    vue(),
+    viteplay({
       pages: [
         {
-          title: "Button",
+          title: "MyButton", // (Optional) defaults to the component name
+          component: "./button/MyButton.vue",
           examples: "./button/*.example.vue",
         },
         {
-          title: "Form",
+          title: "MyForm", // (Optional) defaults to the component name
+          component: "./form/MyForm.vue",
           examples: "./form/*.example.vue",
         },
       ],
+      // base route for the development pages
+      base: "/dev",
     }),
   ],
 })
 ```
 
-Then it will generate pages from the examples, you can import the pages like this:
+### Add to Vue Router
 
-```js
-import { pages } from "vite-plugin-component-examples/client"
+```ts
+import { createRouter } from "vue-router"
+import { pages as pagesVitePlay } from "@viteplay/vue/client"
 
-assert.equal(pages, [
-  {
-    title: "Button",
-    path: "/button",
-    component: () => import("generated/pages/button.vue"),
-  },
-  {
-    title: "Form",
-    path: "/form",
-    component: () => import("generated/pages/form.vue"),
-  },
-])
+console.log(`VitePlay development routes → `, pagesVitePlay)
+
+export const router = createRouter({
+  routes: [
+    ...pagesVitePlay,
+    // your other routes here...
+  ],
+})
 ```
