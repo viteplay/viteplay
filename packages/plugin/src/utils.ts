@@ -30,6 +30,7 @@ export async function getPagesFromOptions(options: {
       watchFiles,
       pages: await Promise.all(
         options.pages.map(async (page) => {
+          const title = page.title || path.basename(page.component, path.extname(page.component))
           const exampleFiles = await glob(page.examples, { absolute: true, onlyFiles: true })
           exampleFiles.forEach((file) => {
             watchFiles.add(file)
@@ -37,6 +38,7 @@ export async function getPagesFromOptions(options: {
           watchFiles.add(path.resolve(page.component))
           return {
             ...page,
+            title,
             examples: exampleFiles,
           }
         }),
@@ -47,7 +49,9 @@ export async function getPagesFromOptions(options: {
   const { components, componentExamples } = options
 
   if (!components || !componentExamples) {
-    throw new Error("You must provide both `components` and `componentExamples` in `options`")
+    throw new Error(
+      "You must either provide `pages` or both `components` and `componentExamples` when configuring VitePlay",
+    )
   }
 
   const exampleFiles = await glob(componentExamples, { absolute: true, onlyFiles: true }).then(

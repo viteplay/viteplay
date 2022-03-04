@@ -6,7 +6,24 @@ import { slash } from "./utils"
 
 const debug = createDebug(`viteplay:plugin`)
 
-export type Page = { title: string; component: string; examples: string | string[] }
+export type Page = {
+  /**
+   * Path to a component to create the dev page for
+   *
+   * @example './components/MyButton/*.vue'
+   */
+  component: string
+  /**
+   * Path to the example vue files of a component to put on the dev page
+   *
+   * @example './components/MyButton/*.example.vue'
+   */
+  examples: string | string[]
+  /**
+   * Defaults to the filename
+   */
+  title?: string
+}
 
 export type NormalizedPage = { title: string; component: string; examples: string[] }
 
