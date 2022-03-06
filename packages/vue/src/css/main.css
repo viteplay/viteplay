@@ -1,187 +1,158 @@
-*,
-::before,
-::after {
+div[class^="viteplay-"],
+div[class*=" viteplay-"],
+div[class^="viteplay-"]::before,
+div[class^="viteplay-"]::after,
+div[class*=" viteplay-"]::before,
+div[class*=" viteplay-"]::after {
   box-sizing: border-box;
 }
 
-html {
+div[class^="viteplay-"],
+div[class*=" viteplay-"] {
+  margin: 0;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
   font-family: var(--font-family-base);
   color: var(--c-text);
-  background-color: var(--c-bg);
   direction: ltr;
 }
 
-main {
-  display: block;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  line-height: 1.25;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-strong,
-b {
-  font-weight: 600;
-}
-
-h1:hover .header-anchor,
-h1:focus .header-anchor,
-h2:hover .header-anchor,
-h2:focus .header-anchor,
-h3:hover .header-anchor,
-h3:focus .header-anchor,
-h4:hover .header-anchor,
-h4:focus .header-anchor,
-h5:hover .header-anchor,
-h5:focus .header-anchor,
-h6:hover .header-anchor,
-h6:focus .header-anchor {
-  opacity: 1;
-}
-
-h1 {
-  margin-top: 1.5rem;
-  font-size: 1.9rem;
-}
-
-@media screen and (min-width: 420px) {
-  h1 {
-    font-size: 2.2rem;
+.viteplay-content >,
+.viteplay-example >,
+.viteplay-docs {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    line-height: 1.25;
   }
-}
 
-h2 {
-  margin-top: 2.25rem;
-  margin-bottom: 1.25rem;
-  line-height: 1.25;
-  font-size: 1.65rem;
-  /* overflow-x: auto; */
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    font-weight: 600;
+  }
 
-h2 + h3 {
-  margin-top: 1.5rem;
-}
+  h1 {
+    margin-top: 1.5rem;
+    font-size: 1.9rem;
+  }
 
-h3 {
-  margin-top: 2rem;
-  font-size: 1.35rem;
-}
+  @media screen and (min-width: 420px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+  }
 
-h4 {
-  font-size: 1.15rem;
-}
+  h2 {
+    margin-top: 2.25rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.25;
+    font-size: 1.65rem;
+    /* overflow-x: auto; */
+  }
 
-p,
-ol,
-ul {
-  margin: 1rem 0;
-  line-height: 1.7;
-}
+  h2 + h3 {
+    margin-top: 1.5rem;
+  }
 
-a,
-area,
-button,
-[role="button"],
-input,
-label,
-select,
-summary,
-textarea {
-  touch-action: manipulation;
-}
+  h3 {
+    margin-top: 2rem;
+    font-size: 1.35rem;
+  }
 
-a {
-  text-decoration: none;
-  color: var(--c-brand);
-}
+  h4 {
+    font-size: 1.15rem;
+  }
 
-a:hover {
-  text-decoration: underline;
-}
+  p,
+  ol,
+  ul {
+    margin: 1rem 0;
+    line-height: 1.7;
+  }
 
-a.header-anchor {
-  float: left;
-  margin-top: 0.125em;
-  margin-left: -0.87em;
-  padding-right: 0.23em;
-  font-size: 0.85em;
-  opacity: 0;
-}
+  a,
+  area,
+  button,
+  [role="button"],
+  input,
+  label,
+  select,
+  summary,
+  textarea {
+    touch-action: manipulation;
+  }
 
-a.header-anchor:hover,
-a.header-anchor:focus {
-  text-decoration: none;
-}
+  a {
+    text-decoration: none;
+    color: var(--c-brand);
+  }
 
-figure {
-  margin: 0;
-}
+  a:hover {
+    text-decoration: underline;
+  }
 
-img {
-  max-width: 100%;
-}
+  figure {
+    margin: 0;
+  }
 
-ul,
-ol {
-  padding-left: 1.25em;
-}
+  img {
+    max-width: 100%;
+  }
 
-li > ul,
-li > ol {
-  margin: 0;
-}
+  ul,
+  ol {
+    padding-left: 1.25em;
+  }
 
-table {
-  display: block;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  overflow-x: auto;
-}
+  li > ul,
+  li > ol {
+    margin: 0;
+  }
 
-tr {
-  border-top: 1px solid #dfe2e5;
-}
+  table {
+    display: block;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
 
-tr:nth-child(2n) {
-  background-color: #f6f8fa;
-}
+  tr {
+    border-top: 1px solid #dfe2e5;
+  }
 
-th,
-td {
-  border: 1px solid #dfe2e5;
-  padding: 0.6em 1em;
-}
+  tr:nth-child(2n) {
+    background-color: #f6f8fa;
+  }
 
-blockquote {
-  margin: 1rem 0;
-  border-left: 0.2rem solid #dfe2e5;
-  padding: 0.25rem 0 0.25rem 1rem;
-  font-size: 1rem;
-  color: #999;
-}
+  th,
+  td {
+    border: 1px solid #dfe2e5;
+    padding: 0.6em 1em;
+  }
 
-blockquote > p {
-  margin: 0;
-}
+  blockquote {
+    margin: 1rem 0;
+    border-left: 0.2rem solid #dfe2e5;
+    padding: 0.25rem 0 0.25rem 1rem;
+    font-size: 1rem;
+    color: #999;
+  }
 
-form {
-  margin: 0;
+  blockquote > p {
+    margin: 0;
+  }
+
+  form {
+    margin: 0;
+  }
 }

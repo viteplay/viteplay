@@ -34,13 +34,21 @@ watch(
 </script>
 
 <template>
-  <NavBar
-    :items="items"
-    @toggleSideBar="() => toggleSideBar()"
-    @blurSideBarButton="() => toggleSideBar(false, 'blur')"
-  />
+  <div class="viteplay-layout">
+    <NavBar
+      :items="items"
+      @toggleSideBar="() => toggleSideBar()"
+      @blurSideBarButton="() => toggleSideBar(false, 'blur')"
+    />
 
-  <SideBar :items="items" :open="openSideBar" />
+    <SideBar :items="items" :open="openSideBar" />
 
-  <PageLayout :sideBarOpen="openSideBar" />
+    <PageLayout :sideBarOpen="openSideBar" />
+  </div>
 </template>
+
+<style>
+.viteplay-page > * {
+  background-color: var(--c-bg);
+}
+</style>

@@ -117,15 +117,15 @@ export const build = async (options: BuildOptions) => {
           ${files
             .map(
               (file, index) => `
-          <section v-if="shouldRender('${file.slug}')">
+          <section v-if="shouldRender('${file.slug}')" class="viteplay-example">
 
-          <ExampleHeader slug="${file.slug}" title="${file.title}" />
+            <ExampleHeader slug="${file.slug}" title="${file.title}" />
 
-          ${renderMarkdown(file.parsed.docs)}
+            <div class="viteplay-docs">${renderMarkdown(file.parsed.docs)}</div>
 
-          <Playground :componentProps="componentProps" ${
-            options.dev ? `:openInEditor="() => openInEditor('${file.absolutePath}')"` : ``
-          } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(file.contents)}\`)" />
+            <Playground :componentProps="componentProps" ${
+              options.dev ? `:openInEditor="() => openInEditor('${file.absolutePath}')"` : ``
+            } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(file.contents)}\`)" />
           </section>
             `,
             )
