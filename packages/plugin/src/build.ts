@@ -107,31 +107,29 @@ export const build = async (options: BuildOptions) => {
         }
         </script>
         <template>
-          <div>
-            <PageTitle title="${page.title}" ${
+          <PageTitle title="${page.title}" ${
         options.dev ? `:openInEditor="() => openInEditor('${page.component}')"` : ``
       } />
-            <div v-if="hiddenCount > 0" class="hidden-examples-info">
-              {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <button @click="showAll" type="button">show all</button>
-            </div>
-            <PropsTable componentName="${componentName}" :componentProps="componentProps" />
-            ${files
-              .map(
-                (file, index) => `
-            <section v-if="shouldRender('${file.slug}')">
-
-            <ExampleHeader slug="${file.slug}" title="${file.title}" />
-
-            ${renderMarkdown(file.parsed.docs)}
-
-            <Playground :componentProps="componentProps" ${
-              options.dev ? `:openInEditor="() => openInEditor('${file.absolutePath}')"` : ``
-            } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(file.contents)}\`)" />
-            </section>
-              `,
-              )
-              .join("\n")}
+          <div v-if="hiddenCount > 0" class="hidden-examples-info">
+            {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <button @click="showAll" type="button">show all</button>
           </div>
+          <PropsTable componentName="${componentName}" :componentProps="componentProps" />
+          ${files
+            .map(
+              (file, index) => `
+          <section v-if="shouldRender('${file.slug}')">
+
+          <ExampleHeader slug="${file.slug}" title="${file.title}" />
+
+          ${renderMarkdown(file.parsed.docs)}
+
+          <Playground :componentProps="componentProps" ${
+            options.dev ? `:openInEditor="() => openInEditor('${file.absolutePath}')"` : ``
+          } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(file.contents)}\`)" />
+          </section>
+            `,
+            )
+            .join("\n")}
         </template>
 
 <style scoped>
