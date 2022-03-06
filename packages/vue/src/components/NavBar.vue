@@ -10,7 +10,8 @@ import SearchBox, { GetSuggestions } from "./SearchBox.vue"
 const props = defineProps<{ items: SideBarItem[] }>()
 
 const emit = defineEmits<{
-  (e: "toggle"): void
+  (e: "toggleSideBar"): void
+  (e: "blurSideBarButton"): void
 }>()
 
 const router = useRouter()
@@ -42,7 +43,10 @@ const getSuggesttions: GetSuggestions = (keyword) => {
 
 <template>
   <header class="navbar">
-    <ToggleSideBarButton @toggle="emit('toggle')" />
+    <ToggleSideBarButton
+      @toggle="() => emit('toggleSideBar')"
+      @blur="() => emit('blurSideBarButton')"
+    />
 
     <NavBarTitle />
 

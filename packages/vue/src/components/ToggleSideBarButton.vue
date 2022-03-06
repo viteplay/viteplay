@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { Pepicon } from "@pepicons/vue"
+// TODO: replace with new pepicon WIP
+// import { Pepicon } from "@pepicons/vue"
 
 const emit = defineEmits<{
   (e: "toggle"): void
+  (e: "blur"): void
 }>()
 </script>
 
@@ -15,7 +17,7 @@ const emit = defineEmits<{
     name="menu"
     @click="() => emit('toggle')"
   /> -->
-  <div class="sidebar-button">
+  <button class="sidebar-button" @click="() => emit('toggle')" @blur="() => emit('blur')">
     <svg
       class="icon"
       width="20"
@@ -23,7 +25,6 @@ const emit = defineEmits<{
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      @click="() => emit('toggle')"
     >
       <line
         x1="3"
@@ -62,11 +63,13 @@ const emit = defineEmits<{
         stroke-linecap="round"
       />
     </svg>
-  </div>
+  </button>
 </template>
 
 <style>
 .sidebar-button {
+  background: none;
+  border: none;
   cursor: pointer;
   padding: 0 0.2rem;
   line-height: 0;

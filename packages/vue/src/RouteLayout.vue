@@ -13,7 +13,13 @@ defineProps<{
 // sidebar
 const openSideBar = ref(false)
 
-const toggleSidebar = (to?: boolean) => {
+const toggleSideBar = (to?: boolean, cause?: "blur") => {
+  // TODO: make this 720px a better inter-linked global value
+  const isSmallScreen = !useMediaQuery(`(min-width: 720px)`).value
+  if (cause === "blur" && !isSmallScreen) {
+    // only close menu on blur if the menu is currently overlapping (anything smaller than (min-width: 720px)
+    return
+  }
   openSideBar.value = typeof to === "boolean" ? to : !openSideBar.value
 }
 
@@ -21,14 +27,18 @@ watch(
   useMediaQuery(`(max-width: 768px)`),
   (isSmallScreen, wasSmallScreen) => {
     if (isSmallScreen === wasSmallScreen) return
-    toggleSidebar(!isSmallScreen)
+    toggleSideBar(!isSmallScreen)
   },
   { immediate: true },
 )
 </script>
 
 <template>
-  <NavBar :items="items" @toggle="toggleSidebar" />
+  <NavBar
+    :items="items"
+    @toggleSideBar="() => toggleSideBar()"
+    @blurSideBarButton="() => toggleSideBar(false, 'blur')"
+  />
 
   <SideBar :items="items" :open="openSideBar" />
 
