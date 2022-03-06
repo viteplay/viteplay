@@ -111,7 +111,7 @@ export const build = async (options: BuildOptions) => {
         options.dev ? `:openInEditor="() => openInEditor('${page.component}')"` : ``
       } />
           <div v-if="hiddenCount > 0" class="hidden-examples-info">
-            {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <button @click="showAll" type="button">show all</button>
+            {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a @click.prevent="showAll" type="button" style="cursor: pointer">show all</a>
           </div>
           <PropsTable componentName="${componentName}" :componentProps="componentProps" />
           ${files
