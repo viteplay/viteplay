@@ -141,6 +141,7 @@ onKeyStroke(["Enter"], () => {
 
 .search_input_wrapper__focused {
   border-color: var(--c-brand);
+  outline: 1px solid var(--c-brand);
 }
 
 .search_icon {
@@ -149,6 +150,7 @@ onKeyStroke(["Enter"], () => {
 
 .search_input {
   border: none;
+  min-width: 50px;
 }
 
 .search_input:focus {
