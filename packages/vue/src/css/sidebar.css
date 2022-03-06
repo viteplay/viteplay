@@ -61,17 +61,17 @@ a.sidebar-link-item.active {
   font-weight: 400;
 }
 
-.focus-button {
+.sidebar-link .focus-button {
   border: none;
   background-color: transparent;
   color: var(--c-white-dark);
   cursor: pointer;
 }
 
-.focus-button:hover {
+.sidebar-link .focus-button:hover {
   color: var(--c-brand);
 }
 
-.focus-button.active {
+.sidebar-link .focus-button.active {
   color: var(--c-brand);
 }

@@ -5,11 +5,11 @@ defineProps<{
 </script>
 
 <template>
-  <main :class="`page ${sideBarOpen ? 'side-bar-open' : ''}`">
-    <div class="container">
+  <main :class="`viteplay-page ${sideBarOpen ? 'side-bar-open' : ''}`">
+    <div class="viteplay-container">
       <!-- <slot name="top" /> -->
 
-      <div class="content">
+      <div class="viteplay-content">
         <router-view />
       </div>
       <!-- <PageFooter /> -->
@@ -21,30 +21,31 @@ defineProps<{
 </template>
 
 <style scoped>
-.page {
+.viteplay-page {
+  display: block;
   padding-top: var(--header-height);
   transition: margin-left 150ms ease-out;
 }
 
 @media (min-width: 720px) {
-  .page.side-bar-open {
+  .viteplay-page.side-bar-open {
     margin-left: 16.4rem;
   }
 }
 
 @media (min-width: 960px) {
-  .page.side-bar-open {
+  .viteplay-page.side-bar-open {
     margin-left: 20rem;
   }
 }
 
-.container {
+.viteplay-container {
   margin: 0 auto;
   padding: 0 1.5rem 4rem;
   max-width: 48rem;
 }
 
-.content {
+.viteplay-content {
   position: relative;
   padding-bottom: 1.5rem;
 }
