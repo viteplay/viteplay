@@ -53,8 +53,10 @@ watch(
   </div>
 </template>
 
-<style>
+<style lang="scss">
+@import "./css/variables.scss";
+
 .viteplay-page > * {
-  background-color: var(--c-bg);
+  background-color: $c-bg;
 }
 </style>

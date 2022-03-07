@@ -1,6 +1,5 @@
-import "./css/vars.css"
-import "./css/main.css"
-import "./css/sidebar.css"
+import "./css/main.scss"
+import "./css/sidebar.scss"
 import { provide, inject } from "vue"
 
 import Playground from "./Playground.vue"

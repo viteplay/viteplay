@@ -30,10 +30,11 @@ watchEffect(() => {
   <h2 :id="props.slug" ref="header" class="example-header" tabindex="1">{{ props.title }}</h2>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../css/variables.scss";
 .example-header:focus {
   outline-style: solid;
-  outline-color: var(--c-brand);
+  outline-color: $c-brand;
   outline-width: 2px;
   outline-offset: 2px;
   border-radius: 6px;

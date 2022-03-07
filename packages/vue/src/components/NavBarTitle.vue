@@ -29,11 +29,13 @@ const config = useConfig()
   </router-link>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../css/variables.scss";
+
 .navbar-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: var(--c-text);
+  color: $c-text;
   display: flex;
   justify-content: center;
   align-items: center;

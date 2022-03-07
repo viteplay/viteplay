@@ -22,7 +22,9 @@ const props = defineProps<{
   </h1>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../css/variables.scss";
+
 .page-title {
   display: flex;
 }
@@ -30,10 +32,10 @@ const props = defineProps<{
 .open-in-editor-button {
   margin-left: 5px;
   cursor: pointer;
-  color: var(--c-text-light-3);
+  color: $c-text-light-3;
 }
 
 .open-in-editor-button:hover {
-  color: var(--c-text-light-2);
+  color: $c-text-light-2;
 }
 </style>

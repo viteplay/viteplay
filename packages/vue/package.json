@@ -38,7 +38,7 @@
     "esbuild": "0.14.10",
     "eslint": "^8.7.0",
     "eslint-config-viteplay": "workspace:*",
-    "postcss-nested": "^5.0.6",
+    "sass": "^1.49.9",
     "sucrase": "3.20.3",
     "vite": "2.7.13",
     "vite-plugin-dts": "0.9.7",
