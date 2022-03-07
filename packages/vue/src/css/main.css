@@ -8,14 +8,10 @@ body {
   margin: 0;
 }
 
-*[class^="viteplay-"],
-*[class*=" viteplay-"] {
-  margin: 0;
-  font-size: 16px;
+.viteplay-layout {
   -webkit-text-size-adjust: 100%;
   font-family: var(--font-family-base);
   color: var(--c-text);
-  direction: ltr;
 }
 
 .viteplay-sidebar,
