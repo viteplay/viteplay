@@ -1,9 +1,12 @@
-div[class^="viteplay-"],
-div[class*=" viteplay-"],
-div[class^="viteplay-"]::before,
-div[class^="viteplay-"]::after,
-div[class*=" viteplay-"]::before,
-div[class*=" viteplay-"]::after {
+*[class^="viteplay-"],
+*[class*=" viteplay-"],
+*[class^="viteplay-"]::before,
+*[class^="viteplay-"]::after,
+*[class*=" viteplay-"]::before,
+*[class*=" viteplay-"]::after,
+.viteplay-navbar *,
+.viteplay-sidebar *,
+.viteplay-docs * {
   box-sizing: border-box;
 }
 
@@ -17,6 +20,7 @@ div[class*=" viteplay-"] {
   direction: ltr;
 }
 
+.viteplay-sidebar,
 .viteplay-content >,
 .viteplay-example >,
 .viteplay-docs {

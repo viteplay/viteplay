@@ -6,7 +6,7 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
 </script>
 
 <template>
-  <aside class="sidebar" :class="{ open }">
+  <aside class="viteplay-sidebar" :class="{ open }">
     <!-- <NavLinks class="nav" /> -->
 
     <!-- <slot name="sidebar-top" /> -->
@@ -18,7 +18,7 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
 </template>
 
 <style scoped>
-.sidebar {
+.viteplay-sidebar {
   position: fixed;
   top: var(--header-height);
   bottom: 0;
@@ -32,19 +32,13 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
   transition: transform 0.25s ease;
 }
 
-/* @media (min-width: 720px) {
-  .sidebar {
-    transform: translateX(0);
-  }
-} */
-
 @media (min-width: 960px) {
-  .sidebar {
+  .viteplay-sidebar {
     width: 20rem;
   }
 }
 
-.sidebar.open {
+.viteplay-sidebar.open {
   transform: translateX(0);
 }
 </style>
