@@ -4,7 +4,6 @@
 
 const emit = defineEmits<{
   (e: "toggle"): void
-  (e: "blur"): void
 }>()
 </script>
 
@@ -17,7 +16,7 @@ const emit = defineEmits<{
     name="menu"
     @click="() => emit('toggle')"
   /> -->
-  <button class="sidebar-button" @click="() => emit('toggle')" @blur="() => emit('blur')">
+  <button class="sidebar-button" @click="() => emit('toggle')">
     <svg
       class="icon"
       width="20"

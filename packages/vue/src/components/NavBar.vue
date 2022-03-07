@@ -11,7 +11,6 @@ const props = defineProps<{ items: SideBarItem[] }>()
 
 const emit = defineEmits<{
   (e: "toggleSideBar"): void
-  (e: "blurSideBarButton"): void
 }>()
 
 const router = useRouter()
@@ -43,10 +42,7 @@ const getSuggesttions: GetSuggestions = (keyword) => {
 
 <template>
   <header class="navbar">
-    <ToggleSideBarButton
-      @toggle="() => emit('toggleSideBar')"
-      @blur="() => emit('blurSideBarButton')"
-    />
+    <ToggleSideBarButton @toggle="() => emit('toggleSideBar')" />
 
     <NavBarTitle />
 

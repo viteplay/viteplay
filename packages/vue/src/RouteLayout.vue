@@ -2,6 +2,7 @@
 import { ref, watch } from "vue"
 import { useMediaQuery } from "@vueuse/core"
 import { SideBarItem } from "./components/SideBar.types"
+import { elHasClass } from "./utils"
 import SideBar from "./components/SideBar.vue"
 import PageLayout from "./components/PageLayout.vue"
 import NavBar from "./components/NavBar.vue"
@@ -13,13 +14,19 @@ defineProps<{
 // sidebar
 const openSideBar = ref(false)
 
-const toggleSideBar = (to?: boolean, cause?: "blur") => {
-  const isOverlappingSideBar = !useMediaQuery(`(min-width: 768px)`).value
-  if (cause === "blur" && !isOverlappingSideBar) {
-    // only close menu on blur if the menu is currently overlapping (anything smaller than (min-width: 768px)
-    return
-  }
+function toggleSideBar(to?: boolean) {
   openSideBar.value = typeof to === "boolean" ? to : !openSideBar.value
+}
+
+function maybeCloseSideBar(e: MouseEvent | TouchEvent): void {
+  if (!openSideBar.value) return
+  const isOverlappingSideBar = !useMediaQuery(`(min-width: 768px)`).value
+  if (!isOverlappingSideBar) return
+  const targetShouldCloseSideBar = elHasClass(
+    e.target,
+    /viteplay-page|viteplay-navbar|sidebar-link-item/,
+  )
+  if (targetShouldCloseSideBar) openSideBar.value = false
 }
 
 watch(
@@ -36,10 +43,10 @@ watch(
   <NavBar
     :items="items"
     @toggleSideBar="() => toggleSideBar()"
-    @blurSideBarButton="() => toggleSideBar(false, 'blur')"
+    @click="(e) => maybeCloseSideBar(e)"
   />
 
-  <SideBar :items="items" :open="openSideBar" />
+  <SideBar :items="items" :open="openSideBar" @click="(e) => maybeCloseSideBar(e)" />
 
-  <PageLayout :sideBarOpen="openSideBar" />
+  <PageLayout :sideBarOpen="openSideBar" @click="(e) => maybeCloseSideBar(e)" />
 </template>
