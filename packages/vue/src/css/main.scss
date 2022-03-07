@@ -13,7 +13,8 @@ body {
 .viteplay-navbar,
 .viteplay-sidebar,
 .viteplay-content > *:not(.viteplay-example),
-.viteplay-example > *:not(.playground) {
+.viteplay-example > *:not(.playground),
+.playground > *:not(.playground-preview) {
   -webkit-text-size-adjust: 100%;
   font-family: $font-sans;
   color: $c-text;
