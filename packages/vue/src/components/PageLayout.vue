@@ -27,7 +27,7 @@ defineProps<{
   transition: margin-left 150ms ease-out;
 }
 
-@media (min-width: 720px) {
+@media (min-width: 768px) {
   .viteplay-page.side-bar-open {
     margin-left: 16.4rem;
   }
