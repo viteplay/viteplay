@@ -1,12 +1,6 @@
-*[class^="viteplay-"],
-*[class*=" viteplay-"],
-*[class^="viteplay-"]::before,
-*[class^="viteplay-"]::after,
-*[class*=" viteplay-"]::before,
-*[class*=" viteplay-"]::after,
-.viteplay-navbar *,
-.viteplay-sidebar *,
-.viteplay-docs * {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
