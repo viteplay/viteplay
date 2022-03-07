@@ -28,7 +28,7 @@
   padding: 0.75rem 0 5rem;
 }
 
-@media (min-width: 720px) {
+@media (min-width: 768px) {
   .viteplay-sidebar > .sidebar-links {
     padding: 1.5rem 0;
   }
@@ -38,7 +38,7 @@
   padding-top: 0.5rem;
 }
 
-@media (min-width: 720px) {
+@media (min-width: 768px) {
   .viteplay-sidebar > .sidebar-links > .sidebar-link + .sidebar-link {
     padding-top: 1.25rem;
   }
