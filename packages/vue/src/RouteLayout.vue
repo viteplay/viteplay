@@ -14,10 +14,9 @@ defineProps<{
 const openSideBar = ref(false)
 
 const toggleSideBar = (to?: boolean, cause?: "blur") => {
-  // TODO: make this 720px a better inter-linked global value
-  const isOverlappingSideBar = !useMediaQuery(`(min-width: 720px)`).value
+  const isOverlappingSideBar = !useMediaQuery(`(min-width: 768px)`).value
   if (cause === "blur" && !isOverlappingSideBar) {
-    // only close menu on blur if the menu is currently overlapping (anything smaller than (min-width: 720px)
+    // only close menu on blur if the menu is currently overlapping (anything smaller than (min-width: 768px)
     return
   }
   openSideBar.value = typeof to === "boolean" ? to : !openSideBar.value
