@@ -16,7 +16,7 @@ const emit = defineEmits<{
     name="menu"
     @click="() => emit('toggle')"
   /> -->
-  <button class="sidebar-button" @click="() => emit('toggle')">
+  <button class="sidebar-button" @click.stop="() => emit('toggle')">
     <svg
       class="icon"
       width="20"
