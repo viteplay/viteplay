@@ -25,7 +25,6 @@ const props = defineProps<{
 <style scoped>
 .page-title {
   display: flex;
-  box-sizing: border-box;
 }
 
 .open-in-editor-button {

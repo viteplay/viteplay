@@ -32,7 +32,6 @@ watchEffect(() => {
 
 <style scoped>
 .example-header:focus {
-  box-sizing: border-box;
   outline-style: solid;
   outline-color: var(--c-brand);
   outline-width: 2px;
