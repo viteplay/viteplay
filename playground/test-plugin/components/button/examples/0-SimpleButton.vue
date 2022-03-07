@@ -9,6 +9,6 @@ const foo = await import("./foo.json")
   {{ JSON.stringify(foo) }}
 </template>
 
-<docs>
+<docs darkExample>
 This is an **example** docs that shows above the playground.
 </docs>

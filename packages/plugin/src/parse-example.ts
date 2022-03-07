@@ -3,6 +3,7 @@ import { localRequire } from "./utils"
 type Parsed = {
   imports: { imported: string; source: string }[]
   docs: string
+  darkExample?: boolean
   component: string
 }
 
@@ -48,6 +49,9 @@ export const parseExample = async (contents: string, file: string): Promise<Pars
         0,
         block.loc.start.offset,
       )}${result.component.slice(block.loc.end.offset)}`.replace("<docs></docs>", "")
+      if (block.attrs.darkExample) {
+        result.darkExample = true
+      }
       break
     }
   }

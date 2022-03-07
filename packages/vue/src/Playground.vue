@@ -37,6 +37,9 @@ const props = defineProps({
   openInEditor: {
     type: Function as PropType<() => void>,
   },
+  darkExample: {
+    type: Boolean,
+  },
 })
 
 // Code to be actually evaluated
@@ -89,13 +92,19 @@ watch(code, setComponentDebounced)
 
 const showingError = ref(false)
 
+const playgroundCSSVariables = computed(() =>
+  props.darkExample
+    ? `--viteplay-example-bg: rgb(13, 17, 23); --viteplay-example-color: #fff;`
+    : undefined,
+)
+
 onMounted(() => {
   setComponent()
 })
 </script>
 
 <template>
-  <div class="playground">
+  <div class="playground" :style="playgroundCSSVariables">
     <div v-if="transformed" class="playground-preview">
       <component is="style" v-if="transformed.css" v-html="transformed.css" />
       <Suspense>
@@ -164,6 +173,8 @@ onMounted(() => {
   border-radius: 8px;
   padding: 20px;
   margin: 15px 0;
+  background-color: var(--viteplay-example-bg);
+  color: var(--viteplay-example-color);
 }
 
 .playground-editor {
