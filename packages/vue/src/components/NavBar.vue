@@ -41,7 +41,7 @@ const getSuggesttions: GetSuggestions = (keyword) => {
 </script>
 
 <template>
-  <header class="navbar">
+  <header class="viteplay-navbar">
     <ToggleSideBarButton @toggle="() => emit('toggleSideBar')" />
 
     <NavBarTitle />
@@ -53,7 +53,7 @@ const getSuggesttions: GetSuggestions = (keyword) => {
 </template>
 
 <style scoped>
-.navbar {
+.viteplay-navbar {
   position: fixed;
   top: 0;
   right: 0;
@@ -68,7 +68,7 @@ const getSuggesttions: GetSuggestions = (keyword) => {
   background-color: var(--c-bg);
 }
 
-.navbar > *:first-child {
+.viteplay-navbar > *:first-child {
   margin-right: 0.8rem;
 }
 

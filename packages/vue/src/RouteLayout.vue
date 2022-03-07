@@ -40,13 +40,21 @@ watch(
 </script>
 
 <template>
-  <NavBar
-    :items="items"
-    @toggleSideBar="() => toggleSideBar()"
-    @click="(e) => maybeCloseSideBar(e)"
-  />
+  <div class="viteplay-layout">
+    <NavBar
+      :items="items"
+      @toggleSideBar="() => toggleSideBar()"
+      @click="(e) => maybeCloseSideBar(e)"
+    />
 
-  <SideBar :items="items" :open="openSideBar" @click="(e) => maybeCloseSideBar(e)" />
+    <SideBar :items="items" :open="openSideBar" @click="(e) => maybeCloseSideBar(e)" />
 
-  <PageLayout :sideBarOpen="openSideBar" @click="(e) => maybeCloseSideBar(e)" />
+    <PageLayout :sideBarOpen="openSideBar" @click="(e) => maybeCloseSideBar(e)" />
+  </div>
 </template>
+
+<style>
+.viteplay-page > * {
+  background-color: var(--c-bg);
+}
+</style>

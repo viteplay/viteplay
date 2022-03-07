@@ -16,7 +16,7 @@ const arr = computed(() => props.componentProps[props.componentName])
 </script>
 
 <template>
-  <div v-if="!hasFocusedExample && arr && arr.length > 0" class="props-table">
+  <div v-if="!hasFocusedExample && arr && arr.length > 0" class="props-table viteplay-docs">
     <ExampleHeader title="Props" slug="props" />
     <table>
       <thead>
