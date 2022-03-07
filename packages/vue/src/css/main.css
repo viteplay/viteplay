@@ -8,12 +8,16 @@ body {
   margin: 0;
 }
 
-.viteplay-layout {
+.viteplay-navbar,
+.viteplay-sidebar,
+.viteplay-content > *:not(.viteplay-example),
+.viteplay-example > *:not(.playground) {
   -webkit-text-size-adjust: 100%;
   font-family: var(--font-family-base);
   color: var(--c-text);
 }
 
+.viteplay-navbar,
 .viteplay-sidebar,
 .viteplay-content >,
 .viteplay-example >,
