@@ -66,8 +66,6 @@ const emit = defineEmits<{
 </template>
 
 <style lang="scss">
-@import "../css/variables.scss";
-
 .sidebar-button {
   background: none;
   border: none;
@@ -77,6 +75,6 @@ const emit = defineEmits<{
   user-select: none;
 }
 .sidebar-button .icon {
-  color: $c-text;
+  color: var(--c-text);
 }
 </style>

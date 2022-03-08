@@ -158,8 +158,6 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import "./css/variables.scss";
-
 .playground-error {
   background-color: crimson;
   color: white;
@@ -169,7 +167,7 @@ onMounted(() => {
 }
 
 .playground-preview {
-  border: 1px solid $c-divider;
+  border: 1px solid var(--c-divider);
   border-radius: 8px;
   padding: 20px;
   margin: 15px 0;
@@ -232,7 +230,7 @@ onMounted(() => {
 }
 
 .playground-buttons > div:hover:not(.playground-icon-error) {
-  color: $c-white;
+  color: var(--c-white);
 }
 
 .playground-icon-error {

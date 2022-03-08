@@ -40,7 +40,7 @@ watch(
 </script>
 
 <template>
-  <div class="viteplay-layout">
+  <div class="viteplay viteplay-layout">
     <NavBar
       :items="items"
       @toggleSideBar="() => toggleSideBar()"
@@ -54,9 +54,7 @@ watch(
 </template>
 
 <style lang="scss">
-@import "./css/variables.scss";
-
 .viteplay-page > * {
-  background-color: $c-bg;
+  background-color: var(--c-bg);
 }
 </style>

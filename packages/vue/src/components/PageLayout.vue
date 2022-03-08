@@ -21,11 +21,9 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-@import "../css/variables.scss";
-
 .viteplay-page {
   display: block;
-  padding-top: $header-height;
+  padding-top: var(--header-height);
   transition: margin-left 150ms ease-out;
 }
 

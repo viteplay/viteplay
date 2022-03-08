@@ -1,3 +1,4 @@
+import "./css/variables.css"
 import "./css/main.scss"
 import "./css/sidebar.scss"
 import { provide, inject } from "vue"

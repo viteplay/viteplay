@@ -31,10 +31,9 @@ watchEffect(() => {
 </template>
 
 <style scoped lang="scss">
-@import "../css/variables.scss";
 .example-header:focus {
   outline-style: solid;
-  outline-color: $c-brand;
+  outline-color: var(--c-brand);
   outline-width: 2px;
   outline-offset: 2px;
   border-radius: 6px;

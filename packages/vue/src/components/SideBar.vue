@@ -18,17 +18,15 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
 </template>
 
 <style scoped lang="scss">
-@import "../css/variables.scss";
-
 .viteplay-sidebar {
   position: fixed;
-  top: $header-height;
+  top: var(--header-height);
   bottom: 0;
   left: 0;
-  z-index: $z-index-sidebar;
-  border-right: 1px solid $c-divider;
+  z-index: var(--z-index-sidebar);
+  border-right: 1px solid var(--c-divider);
   width: 16.4rem;
-  background-color: $c-bg;
+  background-color: var(--c-bg);
   overflow-y: auto;
   transform: translateX(-100%);
   transition: transform 0.25s ease;

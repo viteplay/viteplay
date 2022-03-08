@@ -53,21 +53,19 @@ const getSuggesttions: GetSuggestions = (keyword) => {
 </template>
 
 <style scoped lang="scss">
-@import "../css/variables.scss";
-
 .viteplay-navbar {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
-  z-index: $z-index-navbar;
+  z-index: var(--z-index-navbar);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid $c-divider;
+  border-bottom: 1px solid var(--c-divider);
   padding: 0.7rem 1.5rem;
-  height: $header-height;
-  background-color: $c-bg;
+  height: var(--header-height);
+  background-color: var(--c-bg);
 }
 
 .viteplay-navbar > *:first-child {

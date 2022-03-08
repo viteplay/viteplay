@@ -1,5 +1,3 @@
-@import "./variables.scss";
-
 *,
 ::before,
 ::after {
@@ -16,8 +14,8 @@ body {
 .viteplay-example > *:not(.playground),
 .playground > *:not(.playground-preview) {
   -webkit-text-size-adjust: 100%;
-  font-family: $font-sans;
-  color: $c-text;
+  font-family: var(--font-sans);
+  color: var(--c-text);
 }
 
 .viteplay-navbar,
@@ -99,7 +97,7 @@ body {
 
   a {
     text-decoration: none;
-    color: $c-brand;
+    color: var(--c-brand);
   }
 
   a:hover {
