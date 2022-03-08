@@ -14,8 +14,8 @@ body {
 .viteplay-example > *:not(.playground),
 .playground > *:not(.playground-preview) {
   -webkit-text-size-adjust: 100%;
-  font-family: var(--font-sans);
-  color: var(--c-text);
+  font-family: var(--viteplay-font-sans);
+  color: var(--viteplay-c-text);
 }
 
 .viteplay-navbar,
@@ -97,7 +97,7 @@ body {
 
   a {
     text-decoration: none;
-    color: var(--c-brand);
+    color: var(--viteplay-c-brand);
   }
 
   a:hover {

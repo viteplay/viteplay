@@ -23,7 +23,7 @@ defineProps<{
 <style scoped lang="scss">
 .viteplay-page {
   display: block;
-  padding-top: var(--header-height);
+  padding-top: var(--viteplay-header-height);
   transition: margin-left 150ms ease-out;
 }
 

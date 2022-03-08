@@ -33,7 +33,7 @@ watchEffect(() => {
 <style scoped lang="scss">
 .example-header:focus {
   outline-style: solid;
-  outline-color: var(--c-brand);
+  outline-color: var(--viteplay-c-brand);
   outline-width: 2px;
   outline-offset: 2px;
   border-radius: 6px;

@@ -92,20 +92,14 @@ watch(code, setComponentDebounced)
 
 const showingError = ref(false)
 
-const playgroundCSSVariables = computed(() =>
-  props.darkExample
-    ? `--viteplay-example-bg: rgb(13, 17, 23); --viteplay-example-color: #fff;`
-    : undefined,
-)
-
 onMounted(() => {
   setComponent()
 })
 </script>
 
 <template>
-  <div class="playground" :style="playgroundCSSVariables">
-    <div v-if="transformed" class="playground-preview">
+  <div class="playground">
+    <div v-if="transformed" class="playground-preview" :class="props.darkExample && 'dark'">
       <component is="style" v-if="transformed.css" v-html="transformed.css" />
       <Suspense>
         <component :is="transformed.component" v-if="transformed.component" />
@@ -167,12 +161,17 @@ onMounted(() => {
 }
 
 .playground-preview {
-  border: 1px solid var(--c-divider);
+  border: 1px solid var(--viteplay-c-divider);
   border-radius: 8px;
   padding: 20px;
   margin: 15px 0;
   background-color: var(--viteplay-example-bg);
   color: var(--viteplay-example-color);
+}
+
+.playground-preview.dark {
+  background-color: var(--viteplay-example-dark-bg);
+  color: var(--viteplay-example-dark-color);
 }
 
 .playground-editor {
@@ -230,7 +229,7 @@ onMounted(() => {
 }
 
 .playground-buttons > div:hover:not(.playground-icon-error) {
-  color: var(--c-white);
+  color: var(--viteplay-c-white);
 }
 
 .playground-icon-error {

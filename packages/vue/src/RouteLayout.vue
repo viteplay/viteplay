@@ -55,6 +55,6 @@ watch(
 
 <style lang="scss">
 .viteplay-page > * {
-  background-color: var(--c-bg);
+  background-color: var(--viteplay-c-bg);
 }
 </style>

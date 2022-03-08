@@ -20,13 +20,13 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
 <style scoped lang="scss">
 .viteplay-sidebar {
   position: fixed;
-  top: var(--header-height);
+  top: var(--viteplay-header-height);
   bottom: 0;
   left: 0;
-  z-index: var(--z-index-sidebar);
-  border-right: 1px solid var(--c-divider);
+  z-index: var(--viteplay-z-index-sidebar);
+  border-right: 1px solid var(--viteplay-c-divider);
   width: 16.4rem;
-  background-color: var(--c-bg);
+  background-color: var(--viteplay-c-bg);
   overflow-y: auto;
   transform: translateX(-100%);
   transition: transform 0.25s ease;

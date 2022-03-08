@@ -30,10 +30,10 @@ const props = defineProps<{
 .open-in-editor-button {
   margin-left: 5px;
   cursor: pointer;
-  color: var(--c-text-light-3);
+  color: var(--viteplay-c-text-light-3);
 }
 
 .open-in-editor-button:hover {
-  color: var(--c-text-light-2);
+  color: var(--viteplay-c-text-light-2);
 }
 </style>

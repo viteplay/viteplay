@@ -9,17 +9,17 @@
     display: flex;
     margin: 0;
     border-left: 0.25rem solid transparent;
-    color: var(--c-text-light);
+    color: var(--viteplay-c-text-light);
     justify-content: space-between;
   }
 
   a.sidebar-link-item:hover {
     text-decoration: none;
-    color: var(--c-brand);
+    color: var(--viteplay-c-brand);
   }
 
   a.sidebar-link-item.active {
-    color: var(--c-brand);
+    color: var(--viteplay-c-brand);
     font-weight: 600;
   }
 }
@@ -52,7 +52,7 @@
   }
 
   .sidebar-link-item[data-depth="1"].active {
-    border-left-color: var(--c-brand);
+    border-left-color: var(--viteplay-c-brand);
     font-weight: 600;
   }
 
@@ -67,15 +67,15 @@
   .sidebar-link .focus-button {
     border: none;
     background-color: transparent;
-    color: var(--c-white-dark);
+    color: var(--viteplay-c-white-dark);
     cursor: pointer;
   }
 
   .sidebar-link .focus-button:hover {
-    color: var(--c-brand);
+    color: var(--viteplay-c-brand);
   }
 
   .sidebar-link .focus-button.active {
-    color: var(--c-brand);
+    color: var(--viteplay-c-brand);
   }
 }

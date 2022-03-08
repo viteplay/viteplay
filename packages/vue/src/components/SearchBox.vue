@@ -140,8 +140,8 @@ onKeyStroke(["Enter"], () => {
 }
 
 .search_input_wrapper__focused {
-  border-color: var(--c-brand);
-  outline: 1px solid var(--c-divider);
+  border-color: var(--viteplay-c-brand);
+  outline: 1px solid var(--viteplay-c-divider);
 }
 
 .search_icon {
@@ -166,7 +166,7 @@ onKeyStroke(["Enter"], () => {
 
 .search_result_content {
   border: 1px solid #e2e2e2;
-  background: var(--c-bg);
+  background: var(--viteplay-c-bg);
   margin-top: 3px;
   min-width: 260px;
   border-radius: 6px;
@@ -197,7 +197,7 @@ onKeyStroke(["Enter"], () => {
 .search_result_item > div:hover,
 .search_result_item__selected > div {
   background: #e7e7e7;
-  color: var(--c-brand);
+  color: var(--viteplay-c-brand);
 }
 
 .search_result_item > div > span + span {

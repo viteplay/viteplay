@@ -3,8 +3,8 @@
 h1,
 h2,
 h3 {
-  color: var(--c-wordmark);
-  font-family: var(--font-family-title);
+  color: var(--viteplay-c-wordmark);
+  font-family: var(--viteplay-font-family-title);
   display: flex;
 }
 h4 {

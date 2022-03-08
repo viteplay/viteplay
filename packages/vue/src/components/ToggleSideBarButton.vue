@@ -75,6 +75,6 @@ const emit = defineEmits<{
   user-select: none;
 }
 .sidebar-button .icon {
-  color: var(--c-text);
+  color: var(--viteplay-c-text);
 }
 </style>

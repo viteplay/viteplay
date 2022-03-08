@@ -58,14 +58,14 @@ const getSuggesttions: GetSuggestions = (keyword) => {
   top: 0;
   right: 0;
   left: 0;
-  z-index: var(--z-index-navbar);
+  z-index: var(--viteplay-z-index-navbar);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--c-divider);
+  border-bottom: 1px solid var(--viteplay-c-divider);
   padding: 0.7rem 1.5rem;
-  height: var(--header-height);
-  background-color: var(--c-bg);
+  height: var(--viteplay-header-height);
+  background-color: var(--viteplay-c-bg);
 }
 
 .viteplay-navbar > *:first-child {

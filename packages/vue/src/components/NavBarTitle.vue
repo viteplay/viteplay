@@ -33,7 +33,7 @@ const config = useConfig()
 .navbar-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: var(--c-text);
+  color: var(--viteplay-c-text);
   display: flex;
   justify-content: center;
   align-items: center;
