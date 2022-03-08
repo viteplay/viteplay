@@ -27,8 +27,8 @@
   --c-white-dark: #f8f8f8;
   --c-black: #000000;
 
-  --c-divider-light: var(--viteplay-c-yellow-light);
-  --c-divider-dark: var(--viteplay-c-yellow-dark);
+  --c-divider-light: var(--c-yellow-light);
+  --c-divider-dark: var(--c-yellow-dark);
 
   --c-text-light-1: #120047;
   --c-text-light-2: #1e0a5b;
