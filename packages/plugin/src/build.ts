@@ -123,9 +123,10 @@ export const build = async (options: BuildOptions) => {
 
             <div class="viteplay-docs">${renderMarkdown(file.parsed.docs)}</div>
 
-            <Playground :componentProps="componentProps" ${
-              options.dev ? `:openInEditor="() => openInEditor('${file.absolutePath}')"` : ``
-            } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(file.contents)}\`)" />
+            <Playground :darkExample="${!!file.parsed
+              .darkExample}" :componentProps="componentProps" ${
+                options.dev ? `:openInEditor="() => openInEditor('${file.absolutePath}')"` : ``
+              } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(file.contents)}\`)" />
           </section>
             `,
             )
