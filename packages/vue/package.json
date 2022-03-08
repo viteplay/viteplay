@@ -1,6 +1,6 @@
 {
   "name": "@viteplay/vue",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "My awesome typescript library",
   "publishConfig": {
     "access": "public"
