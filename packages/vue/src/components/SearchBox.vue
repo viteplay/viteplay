@@ -171,6 +171,8 @@ onKeyStroke(["Enter"], () => {
   min-width: 260px;
   border-radius: 6px;
   padding: 5px;
+  max-height: 80vh;
+  overflow: auto;
 }
 
 .search_result_content > ul {

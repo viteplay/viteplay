@@ -1,5 +1,5 @@
-import { FunctionalComponent, h } from "vue"
-import { useRoute, RouterLink, useRouter } from "vue-router"
+import { FunctionalComponent, h, ref, UnwrapRef, watchEffect } from "vue"
+import { useRoute, RouterLink, useRouter, useLink } from "vue-router"
 import { useConfig } from ".."
 import { Pepicon } from "@pepicons/vue"
 import type { SideBarItem } from "./SideBar.types"
@@ -8,11 +8,13 @@ import { joinUrl } from "./utils"
 export const SideBarLink: FunctionalComponent<{
   item: SideBarItem
   depth?: number
+  slug?: string
 }> = (props) => {
   const route = useRoute()
   const depth = props.depth || 1
   const config = useConfig()
   const router = useRouter()
+  const sidebarLinkRef = ref<HTMLAnchorElement | null>(null)
 
   const isPageLink = depth === 1
   const text = props.item.text
@@ -25,28 +27,49 @@ export const SideBarLink: FunctionalComponent<{
       router.push({ hash: link, query: { focus: "true" } })
     }
   }
+
+  // Scroll the header in sidebar into view
+  watchEffect(() => {
+    if (route.hash && props.slug && route.hash === `#${props.slug}` && sidebarLinkRef.value) {
+      sidebarLinkRef.value.scrollIntoView()
+    }
+  })
+
   return h("li", { class: "sidebar-link" }, [
     h(
       RouterLink,
       {
-        "class": { "sidebar-link-item": true, active },
-        "to": link,
-        "data-depth": depth,
+        to: link,
+        custom: true,
       },
-      () => [
-        text,
-        link?.startsWith("#")
-          ? h(
-              "button",
-              {
-                onClick: handleEyeClick,
-                class: { "focus-button": true, "active": active && route.query.focus },
-                title: `Show this example only`,
-              },
-              [h(Pepicon, { name: "eye", type: "pop" })],
-            )
-          : undefined,
-      ],
+      {
+        default: ({ navigate, href }: UnwrapRef<ReturnType<typeof useLink>>) => {
+          return h(
+            "a",
+            {
+              "ref": sidebarLinkRef,
+              href,
+              "onClick": navigate,
+              "data-depth": depth,
+              "class": { "sidebar-link-item": true, active },
+            },
+            [
+              text,
+              link?.startsWith("#")
+                ? h(
+                    "button",
+                    {
+                      onClick: handleEyeClick,
+                      class: { "focus-button": true, "active": active && route.query.focus },
+                      title: `Show this example only`,
+                    },
+                    [h(Pepicon, { name: "eye", type: "pop" })],
+                  )
+                : undefined,
+            ],
+          )
+        },
+      },
     ),
     active &&
       props.item.headers &&
@@ -58,6 +81,7 @@ export const SideBarLink: FunctionalComponent<{
             key: header.title + header.slug,
             item: { text: header.title, link: `#${header.slug}` },
             depth: depth + 1,
+            slug: header.slug,
           })
         }),
       ),
