@@ -48,7 +48,7 @@ export const parseExample = async (contents: string, file: string): Promise<Pars
       result.component = `${result.component.slice(
         0,
         block.loc.start.offset,
-      )}${result.component.slice(block.loc.end.offset)}`.replace("<docs></docs>", "")
+      )}${result.component.slice(block.loc.end.offset)}`.replace(/<docs[^>]*><\/docs>/, "")
       if (block.attrs.darkExample) {
         result.darkExample = true
       }
