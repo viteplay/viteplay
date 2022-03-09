@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref } from "vue"
+import { onBeforeUnmount, onMounted, ref, watchEffect } from "vue"
 import { EditorState, basicSetup } from "@codemirror/basic-setup"
 import { EditorView, ViewUpdate, keymap } from "@codemirror/view"
 import { indentWithTab } from "@codemirror/commands"
@@ -48,6 +48,20 @@ onMounted(() => {
 onBeforeUnmount(() => {
   if (editor.value) {
     editor.value.destroy()
+  }
+})
+
+// Update editor state when `modelValue` changes
+watchEffect(() => {
+  if (editor.value) {
+    const currentValue = editor.value.state.doc.toString() || ""
+    const nextValue = props.modelValue || ""
+    console.log(new Date(), currentValue, nextValue)
+    if (nextValue && nextValue !== currentValue) {
+      editor.value.dispatch({
+        changes: { from: 0, to: currentValue.length, insert: nextValue },
+      })
+    }
   }
 })
 </script>
