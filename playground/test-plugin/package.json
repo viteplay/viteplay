@@ -10,7 +10,7 @@
     "@vitejs/plugin-vue": "2.0.1",
     "@viteplay/plugin": "workspace:*",
     "@viteplay/vue": "workspace:*",
-    "lets-run": "^0.0.3",
+    "lets-run": "^0.0.4",
     "vite": "2.7.13",
     "vite-tsconfig-paths": "^3.3.17",
     "vue": "^3.2.26"

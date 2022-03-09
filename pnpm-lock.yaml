@@ -136,7 +136,7 @@ importers:
       '@vitejs/plugin-vue': 2.0.1
       '@viteplay/plugin': workspace:*
       '@viteplay/vue': workspace:*
-      lets-run: ^0.0.3
+      lets-run: ^0.0.4
       vite: 2.7.13
       vite-tsconfig-paths: ^3.3.17
       vue: ^3.2.26
@@ -147,7 +147,7 @@ importers:
       '@vitejs/plugin-vue': 2.0.1_vite@2.7.13+vue@3.2.26
       '@viteplay/plugin': link:../../packages/plugin
       '@viteplay/vue': link:../../packages/vue
-      lets-run: 0.0.3
+      lets-run: 0.0.4
       vite: 2.7.13
       vite-tsconfig-paths: 3.3.17_vite@2.7.13
       vue: 3.2.26
@@ -2381,8 +2381,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /lets-run/0.0.3:
-    resolution: {integrity: sha512-Vt9ZJqMoRXGTibzX1qwEoSnuh3HMkqYyP16ICOrvliPD5NJzVxG8gCyogWPywhlhkBhCEdDCc12DOuPGoLA41w==}
+  /lets-run/0.0.4:
+    resolution: {integrity: sha512-uJtMaE/zPRoZM5p/iNXiUUkTsAcA7iHj60iW0qchje4blv6GYRAyfI35MDY1Pa9veorXAK6qe3i/gVah4BHZUw==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
