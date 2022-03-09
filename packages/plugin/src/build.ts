@@ -30,7 +30,7 @@ export const build = async (options: BuildOptions) => {
       const componentProps = {
         [componentName]: props,
       }
-      const files = await Promise.all(
+      const examples = await Promise.all(
         page.examples.sort().map(async (file) => {
           const contents = await fs.promises.readFile(file, "utf8")
           const parsed = await parseExample(contents, file)
@@ -54,7 +54,7 @@ export const build = async (options: BuildOptions) => {
           }
         }),
       )
-      if (files.length === 0) {
+      if (examples.length === 0) {
         console.warn(`No examples found for ${JSON.stringify(page)}`)
       }
 
@@ -64,7 +64,7 @@ export const build = async (options: BuildOptions) => {
         import { Playground, PropsTable, ExampleHeader, PageTitle } from "@viteplay/vue"
         import { useRoute, useRouter } from "vue-router"
                 
-        ${files
+        ${examples
           .map(
             (file, index) => `
             let modules_${index} = {}
@@ -94,7 +94,7 @@ export const build = async (options: BuildOptions) => {
         }
         let hiddenCount = computed(() => {
           return ${JSON.stringify(
-            files.map((file) => file.slug),
+            examples.map((example) => example.slug),
           )}.filter((slug) => !shouldRender(slug)).length
         })
 
@@ -114,19 +114,19 @@ export const build = async (options: BuildOptions) => {
             {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a @click.prevent="showAll" type="button" style="cursor: pointer">show all</a>
           </div>
           <PropsTable componentName="${componentName}" :componentProps="componentProps" />
-          ${files
+          ${examples
             .map(
-              (file, index) => `
-          <section v-if="shouldRender('${file.slug}')" class="viteplay-example">
+              (example, index) => `
+          <section v-if="shouldRender('${example.slug}')" class="viteplay-example">
 
-            <ExampleHeader slug="${file.slug}" title="${file.title}" />
+            <ExampleHeader slug="${example.slug}" title="${example.title}" />
 
-            <div class="viteplay-docs">${renderMarkdown(file.parsed.docs)}</div>
+            <div class="viteplay-docs">${renderMarkdown(example.parsed.docs)}</div>
 
-            <Playground :darkExample="${!!file.parsed
+            <Playground :darkExample="${!!example.parsed
               .darkExample}" :componentProps="componentProps" ${
-                options.dev ? `:openInEditor="() => openInEditor('${file.absolutePath}')"` : ``
-              } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(file.contents)}\`)" />
+                options.dev ? `:openInEditor="() => openInEditor('${example.absolutePath}')"` : ``
+              } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(example.contents)}\`)" />
           </section>
             `,
             )
@@ -151,7 +151,7 @@ export const build = async (options: BuildOptions) => {
         path: getPath(slug),
         component,
         props,
-        children: files,
+        children: examples,
       }
     }),
   )
