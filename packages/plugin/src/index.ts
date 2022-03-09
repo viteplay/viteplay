@@ -89,10 +89,12 @@ const plugin = (options: Options): Plugin => {
       dev = true
 
       server.watcher.on("all", async (event, id) => {
-        if (!watchFiles.has(slash(path.resolve(id)))) {
+        // For changed files, we only need to rebuild if it's already watched
+        if (event === "change" && !watchFiles.has(slash(path.resolve(id)))) {
           return
         }
 
+        // Otherwise adding or deleting any file (even if it's not an example / component) will trigger a rebuild
         debug(`rebuild: %s %s`, event, id)
 
         watchFiles = await build({ ...options, cacheDir, dev })
