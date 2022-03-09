@@ -45,6 +45,11 @@
 }
 
 .viteplay-sidebar {
+  .sidebar-link-item {
+    display: flex;
+    align-items: center;
+  }
+
   .sidebar-link-item[data-depth="1"] {
     padding: 0.35rem 1.5rem 0.35rem 1.25rem;
     font-size: 1.1rem;
@@ -58,24 +63,32 @@
 
   .sidebar-link-item[data-depth="2"] {
     display: flex;
-    padding: 0.35rem 1.5rem 0.35rem 2rem;
+    padding: 0.1rem 1.5rem 0.1rem 2rem;
     line-height: 1.4;
     font-size: 1rem;
     font-weight: 400;
   }
 
-  .sidebar-link .focus-button {
+  .sidebar-link-item .focus-button {
     border: none;
     background-color: transparent;
-    color: var(--viteplay-c-white-dark);
     cursor: pointer;
+    opacity: 0;
+    border-radius: 33px;
+    width: 32px;
+    height: 32px;
+
+    &:not(.active):hover {
+      background-color: var(--viteplay-c-bg-light);
+    }
   }
 
-  .sidebar-link .focus-button:hover {
-    color: var(--viteplay-c-brand);
+  .sidebar-link-item:hover .focus-button {
+    opacity: 1;
   }
 
-  .sidebar-link .focus-button.active {
+  .sidebar-link-item .focus-button.active {
     color: var(--viteplay-c-brand);
+    opacity: 1;
   }
 }

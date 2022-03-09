@@ -16,6 +16,7 @@
 
   --viteplay-c-white: #ffffff;
   --viteplay-c-white-dark: #f8f8f8;
+  --viteplay-c-gray: #e0e0e0;
 
   --viteplay-c-divider-light: rgba(60, 60, 67, 0.12);
   --viteplay-c-divider-dark: rgba(84, 84, 88, 0.48);
@@ -23,6 +24,7 @@
 
   --viteplay-c-bg: var(--viteplay-c-white);
   --viteplay-c-bg-accent: var(--viteplay-c-white-dark);
+  --viteplay-c-bg-light: var(--viteplay-c-gray);
 
   --viteplay-z-index-navbar: 10;
   --viteplay-z-index-sidebar: 6;
