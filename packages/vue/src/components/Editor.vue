@@ -56,7 +56,6 @@ watchEffect(() => {
   if (editor.value) {
     const currentValue = editor.value.state.doc.toString() || ""
     const nextValue = props.modelValue || ""
-    console.log(new Date(), currentValue, nextValue)
     if (nextValue && nextValue !== currentValue) {
       editor.value.dispatch({
         changes: { from: 0, to: currentValue.length, insert: nextValue },
