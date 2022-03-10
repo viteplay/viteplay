@@ -25,7 +25,13 @@ export type Page = {
   title?: string
 }
 
-export type NormalizedPage = { title: string; component: string; examples: string[] }
+export type NormalizedPage = {
+  title: string
+  /** Absolute path of the component */
+  component: string
+  /** Absolute path of example files */
+  examples: string[]
+}
 
 export type Options = {
   /**

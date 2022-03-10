@@ -14,6 +14,10 @@ type BuildOptions = MarkRequired<Options, "cacheDir"> & {
   dev: boolean
 }
 
+const resolveBase = (base: string, p: string) => {
+  return `/${base}/${p}`.replace(/\/{2,}/g, "/")
+}
+
 export const build = async (options: BuildOptions) => {
   const base = options.base ?? "/"
   const getPath = options.getPath ?? ((slug) => `${slug}`)
@@ -30,8 +34,9 @@ export const build = async (options: BuildOptions) => {
       const componentProps = {
         [componentName]: props,
       }
+
       const examples = await Promise.all(
-        page.examples.sort().map(async (file) => {
+        page.examples.map(async (file) => {
           const contents = await fs.promises.readFile(file, "utf8")
           const parsed = await parseExample(contents, file)
           const title =
@@ -42,20 +47,39 @@ export const build = async (options: BuildOptions) => {
               ?.replace(/^\d+-/, "")
               ?.replace(/\.vue$/, "")
               ?.replace(/\.example$/, "") ?? ""
-          // TODO: grab title/description/markdown content from example file content
           const slug = kebabCase(title)
+
           return {
             title,
+            /** slugified title */
             slug,
-            path: file,
             absolutePath: path.resolve(file),
+            /** Content of the example */
             contents: parsed.component,
             parsed,
+            routePath: resolveBase(base, `__examples/${page.title}-${slug}`),
+            routeFilePath: path.join(options.cacheDir, `__examples/${page.title}-${slug}.js`),
           }
         }),
       )
       if (examples.length === 0) {
         console.warn(`No examples found for ${JSON.stringify(page)}`)
+      }
+
+      // Write CACHE/__examples/NAME.js
+      for (const example of examples) {
+        const contents = `
+        import { h } from 'vue'
+        import { ExamplePreview } from '@viteplay/vue'
+        export default {
+          setup() {
+            return () => {
+              return h(ExamplePreview, { code: ${JSON.stringify(example.contents)} })
+            }
+          }
+        }
+        `
+        outputFileIfChanged(example.routeFilePath, contents)
       }
 
       const contents = `
@@ -201,8 +225,19 @@ provideConfig(${JSON.stringify({
 
   outputFileIfChanged(layoutComponent, layoutContents)
 
+  const exampleRoutes = pages
+    .map((page) => page.children)
+    .flat()
+    .map((child) => {
+      return `{
+    path: "${child.routePath}",
+    component: () => import("${slash(child.routeFilePath)}")
+  }`
+    })
+    .join(",\n")
   const clientContent = `
     let pages = [
+      ${exampleRoutes ? `${exampleRoutes},` : ``}
       {
         path: "${base}",
         component: () => import("${slash(layoutComponent)}"),
