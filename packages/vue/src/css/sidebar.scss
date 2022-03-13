@@ -68,28 +68,4 @@
     font-size: 1rem;
     font-weight: 400;
   }
-
-  .sidebar-link-item .focus-button {
-    border: none;
-    background-color: transparent;
-    color: var(--viteplay-c-text);
-    cursor: pointer;
-    opacity: 0;
-    border-radius: 33px;
-    width: 32px;
-    height: 32px;
-
-    &:not(.active):hover {
-      background-color: var(--viteplay-c-bg-light);
-    }
-  }
-
-  .sidebar-link-item:hover .focus-button {
-    opacity: 1;
-  }
-
-  .sidebar-link-item .focus-button.active {
-    color: var(--viteplay-c-brand);
-    opacity: 1;
-  }
 }

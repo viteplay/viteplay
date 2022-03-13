@@ -42,7 +42,7 @@ const getSuggesttions: GetSuggestions = (keyword) => {
 
 <template>
   <header class="viteplay-navbar">
-    <ToggleSideBarButton @toggle="() => emit('toggleSideBar')" />
+    <ToggleSideBarButton tabindex="1" @toggle="() => emit('toggleSideBar')" />
 
     <NavBarTitle />
 

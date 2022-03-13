@@ -159,3 +159,12 @@ body {
     margin: 0;
   }
 }
+
+// conditions to show focus-button
+.viteplay-sidebar,
+.viteplay-example {
+  > h2:hover .focus-button,
+  .sidebar-link-item:hover .focus-button {
+    opacity: 1 !important;
+  }
+}

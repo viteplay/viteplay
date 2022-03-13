@@ -1,9 +1,9 @@
 import { FunctionalComponent, h, ref, UnwrapRef, watchEffect } from "vue"
-import { useRoute, RouterLink, useRouter, useLink } from "vue-router"
+import { useRoute, RouterLink, useLink } from "vue-router"
 import { useConfig } from ".."
-import { Pepicon } from "@pepicons/vue"
 import type { SideBarItem } from "./SideBar.types"
 import { joinUrl } from "./utils"
+import FocusButton from "./FocusButton.vue"
 
 export const SideBarLink: FunctionalComponent<{
   item: SideBarItem
@@ -13,20 +13,12 @@ export const SideBarLink: FunctionalComponent<{
   const route = useRoute()
   const depth = props.depth || 1
   const config = useConfig()
-  const router = useRouter()
   const sidebarLinkRef = ref<HTMLAnchorElement | null>(null)
 
   const isPageLink = depth === 1
   const text = props.item.text
   const link = isPageLink ? resolveLink(config.base || "", props.item.link) : props.item.link
   const active = isPageLink ? route.path === link : route.hash === props.item.link
-
-  const handleEyeClick = (e: any) => {
-    e.preventDefault()
-    if (link.startsWith("#")) {
-      router.push({ hash: link, query: { focus: "true" } })
-    }
-  }
 
   // Scroll the header in sidebar into view
   watchEffect(() => {
@@ -53,20 +45,7 @@ export const SideBarLink: FunctionalComponent<{
               "data-depth": depth,
               "class": { "sidebar-link-item": true, active },
             },
-            [
-              text,
-              link?.startsWith("#")
-                ? h(
-                    "button",
-                    {
-                      onClick: handleEyeClick,
-                      class: { "focus-button": true, "active": active && route.query.focus },
-                      title: `Show this example only`,
-                    },
-                    [h(Pepicon, { name: "eye", type: "pop" })],
-                  )
-                : undefined,
-            ],
+            [text, link?.startsWith("#") ? h(FocusButton, { slug: link }) : undefined],
           )
         },
       },
