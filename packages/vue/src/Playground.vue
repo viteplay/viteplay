@@ -9,7 +9,7 @@ import {
   watch,
   watchEffect,
 } from "vue"
-import Editor from "./components/Editor.vue"
+import CodeEditor from "./components/CodeEditor.vue"
 import { debounce, ensureSFC } from "./utils"
 import { transformCodeToComponent, Transformed } from "./transform"
 import { useConfig } from "."
@@ -141,7 +141,7 @@ onMounted(() => {
           />
         </div>
       </div>
-      <Editor v-if="editorExpanded" v-model="displayCode" :componentProps="componentProps" />
+      <CodeEditor v-if="editorExpanded" v-model="displayCode" :componentProps="componentProps" />
     </div>
     <div v-show="showingError" class="playground-error">
       <div v-for="(error, index) in errors" :key="index">
