@@ -43,9 +43,12 @@ watchEffect(() => {
 
 a.header-anchor {
   position: absolute;
+  top: 0.1em;
   left: -0.8em;
   font-size: 0.85em;
   opacity: 0;
+  padding: 0 0.1em;
+  color: var(--viteplay-c-brand);
 }
 
 .example-header:hover a.header-anchor,
