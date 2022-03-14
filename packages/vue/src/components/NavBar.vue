@@ -76,5 +76,8 @@ const getSuggesttions: GetSuggestions = (keyword) => {
   display: flex;
   flex: 1;
   justify-content: flex-end;
+  :deep(input) {
+    background-color: inherit;
+  }
 }
 </style>

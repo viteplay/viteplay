@@ -33,4 +33,6 @@
 
   --viteplay-example-dark-bg: rgb(13, 17, 23);
   --viteplay-example-dark-color: #fff;
+  --viteplay-example-bg: var(--viteplay-c-white);
+  --viteplay-example-color: black;
 }
