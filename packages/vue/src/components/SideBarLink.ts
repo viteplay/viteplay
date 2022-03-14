@@ -5,11 +5,16 @@ import type { SideBarItem } from "./SideBar.types"
 import { joinUrl } from "./utils"
 import FocusButton from "./FocusButton.vue"
 
-export const SideBarLink: FunctionalComponent<{
-  item: SideBarItem
-  depth?: number
-  slug?: string
-}> = (props) => {
+export const SideBarLink: FunctionalComponent<
+  {
+    item: SideBarItem
+    depth?: number
+    slug?: string
+  },
+  {
+    closeSideBar: () => void
+  }
+> = (props, { emit }) => {
   const route = useRoute()
   const depth = props.depth || 1
   const config = useConfig()
@@ -45,7 +50,18 @@ export const SideBarLink: FunctionalComponent<{
               "data-depth": depth,
               "class": { "sidebar-link-item": true, active },
             },
-            [text, link?.startsWith("#") ? h(FocusButton, { slug: link }) : undefined],
+            [
+              text,
+              link?.startsWith("#")
+                ? h(FocusButton, {
+                    slug: link,
+                    onCloseSideBar: () => {
+                      console.log(`1 → `, 1)
+                      emit("closeSideBar")
+                    },
+                  })
+                : undefined,
+            ],
           )
         },
       },

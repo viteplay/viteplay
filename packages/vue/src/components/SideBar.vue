@@ -3,6 +3,7 @@ import { SideBarItem } from "./SideBar.types"
 import SideBarLinks from "./SideBarLinks.vue"
 
 defineProps<{ open: boolean; items: SideBarItem[] }>()
+const emit = defineEmits<{ (e: "update:open", payload: boolean): void }>()
 </script>
 
 <template>
@@ -11,7 +12,7 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
 
     <!-- <slot name="sidebar-top" /> -->
 
-    <SideBarLinks :items="items" />
+    <SideBarLinks :items="items" @closeSideBar="() => emit('update:open', false)" />
 
     <!-- <slot name="sidebar-bottom" /> -->
   </aside>

@@ -45,7 +45,7 @@ watch(
       @click="(e) => maybeCloseSideBar(e)"
     />
 
-    <SideBar :items="items" :open="openSideBar" @click="(e) => maybeCloseSideBar(e)" />
+    <SideBar v-model:open="openSideBar" :items="items" @click="(e) => maybeCloseSideBar(e)" />
 
     <PageLayout :sideBarOpen="openSideBar" @click="(e) => maybeCloseSideBar(e)" />
   </div>

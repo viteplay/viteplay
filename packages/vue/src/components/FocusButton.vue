@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router"
 import { Pepicon } from "@pepicons/vue"
 
 const props = defineProps<{ slug: string }>()
+const emit = defineEmits<{ (e: "closeSideBar"): void }>()
 
 const hash = computed(() => (props.slug[0] === "#" ? props.slug : `#${props.slug}`))
 
@@ -17,6 +18,7 @@ const handleEyeClick = (e: any) => {
   e.preventDefault()
   const query = focussed.value ? {} : { focus: "true" }
   router.push({ hash: hash.value, query })
+  emit("closeSideBar")
 }
 </script>
 
