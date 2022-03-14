@@ -32,6 +32,7 @@ const handleFocus = () => {
 const handleClick = (cb: () => void) => {
   keyword.value = ""
   open.value = false
+  inputRef.value?.blur()
   cb()
 }
 
