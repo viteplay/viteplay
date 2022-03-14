@@ -11,7 +11,7 @@ const route = useRoute()
 const router = useRouter()
 
 const active = computed(() => route.hash === hash.value)
-const focussed = computed(() => route.query.focus)
+const focussed = computed(() => route.query.focus && active.value)
 
 const handleEyeClick = (e: any) => {
   e.preventDefault()
@@ -25,7 +25,7 @@ const handleEyeClick = (e: any) => {
     :class="`focus-button ${active && focussed ? 'active' : ''}`"
     title="Show this example only"
   >
-    <Pepicon name="eye" type="pop" @click="handleEyeClick" />
+    <Pepicon name="eye" type="pop" @click.stop="handleEyeClick" />
   </button>
 </template>
 
