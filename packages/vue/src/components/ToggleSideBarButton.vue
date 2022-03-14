@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 // TODO: replace with new pepicon WIP
-// import { Pepicon } from "@pepicons/vue"
 
-const emit = defineEmits<{
-  (e: "toggle"): void
-}>()
+// import { Pepicon } from "@pepicons/vue"
+const emit = defineEmits<{ (e: "toggle"): void }>()
 </script>
 
 <template>

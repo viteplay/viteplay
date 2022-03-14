@@ -17,6 +17,8 @@ import { useCopy } from "./hooks/useCopy"
 import { PropDefinition } from "@viteplay/types"
 import { Pepicon } from "@pepicons/vue"
 
+// TODO: rename to multi-word?
+
 const props = defineProps({
   code: {
     type: String,

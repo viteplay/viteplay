@@ -9,9 +9,7 @@ import SearchBox, { GetSuggestions } from "./SearchBox.vue"
 
 const props = defineProps<{ items: SideBarItem[] }>()
 
-const emit = defineEmits<{
-  (e: "toggleSideBar"): void
-}>()
+const emit = defineEmits<{ (e: "toggleSideBar"): void }>()
 
 const router = useRouter()
 const config = useConfig()
