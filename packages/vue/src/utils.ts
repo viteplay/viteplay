@@ -24,7 +24,7 @@ export function ensureSFC(code: string) {
 }
 
 /** Check if an element has a class. If not, check if its parent or any of its grandparents has the class. */
-export function elHasClass(
+export function elOrParentsHaveClass(
   element: HTMLElement | Node | EventTarget | undefined | null,
   classNameRegex: RegExp,
 ): boolean {

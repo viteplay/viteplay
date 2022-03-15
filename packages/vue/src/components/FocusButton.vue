@@ -25,7 +25,7 @@ const handleEyeClick = (e: any) => {
     :class="`focus-button ${active && focussed ? 'active' : ''}`"
     title="Show this example only"
   >
-    <Pepicon name="eye" type="pop" @click.stop="handleEyeClick" />
+    <Pepicon name="eye" type="pop" @click="handleEyeClick" />
   </button>
 </template>
 

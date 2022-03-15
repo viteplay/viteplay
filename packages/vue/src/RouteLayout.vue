@@ -2,7 +2,7 @@
 import { ref, watch } from "vue"
 import { useMediaQuery } from "@vueuse/core"
 import { SideBarItem } from "./components/SideBar.types"
-import { elHasClass } from "./utils"
+import { elOrParentsHaveClass } from "./utils"
 import SideBar from "./components/SideBar.vue"
 import PageLayout from "./components/PageLayout.vue"
 import NavBar from "./components/NavBar.vue"
@@ -20,7 +20,8 @@ function maybeCloseSideBar(e: MouseEvent | TouchEvent): void {
   if (!openSideBar.value) return
   const isOverlappingSideBar = !useMediaQuery(`(min-width: 768px)`).value
   if (!isOverlappingSideBar) return
-  const targetShouldCloseSideBar = elHasClass(
+
+  const targetShouldCloseSideBar = elOrParentsHaveClass(
     e.target,
     /viteplay-page|viteplay-navbar|sidebar-link-item/,
   )
