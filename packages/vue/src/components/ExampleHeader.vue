@@ -39,6 +39,7 @@ watchEffect(() => {
 .example-header {
   position: relative;
   display: flex;
+  align-items: center;
 }
 
 a.header-anchor {

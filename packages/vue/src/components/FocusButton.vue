@@ -39,6 +39,7 @@ const handleEyeClick = (e: any) => {
   border-radius: 33px;
   width: 32px;
   height: 32px;
+  padding: 0;
 }
 .focus-button:not(.active):hover {
   background-color: var(--viteplay-c-bg-light);
