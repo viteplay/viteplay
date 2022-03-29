@@ -71,7 +71,7 @@ export const build = async (options: BuildOptions) => {
             ${(file.parsed.imports || [])
               .map(
                 (im, imIndex) => `import ${
-                  im.imported === "default" ? "" : "* as "
+                  im.importDefault ? "" : "* as "
                 } module_${index}_${imIndex} from "${slash(
                   im.source.startsWith(".")
                     ? path.join(path.dirname(file.absolutePath), im.source)

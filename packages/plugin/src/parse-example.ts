@@ -1,7 +1,8 @@
+import { Node } from "@babel/types"
 import { localRequire } from "./utils"
 
 type Parsed = {
-  imports: { imported: string; source: string }[]
+  imports: { importDefault?: boolean; source: string }[]
   docs: string
   darkExample?: boolean
   component: string
@@ -20,26 +21,32 @@ export const parseExample = async (contents: string, file: string): Promise<Pars
       sourceMap: false,
     })
 
-    const dynamicImports: { imported: string; source: string }[] = []
-    const extractDynamicImports = (ast?: any) => {
+    const imports: { importDefault?: boolean; source: string }[] = []
+    const extractImports = (ast?: any) => {
       if (!ast) return
       compiler.walk(ast, {
-        // @ts-expect-error todo
-        enter(node) {
+        enter(node: Node) {
           if (node.type === "CallExpression" && node.callee.type === "Import") {
             const arg = node.arguments[0]
             if (arg.type !== "StringLiteral") {
               throw new Error(`Expected string literal for import, got ${arg.type}`)
             }
-            dynamicImports.push({ imported: "*", source: arg.value })
+            imports.push({ source: arg.value })
+          } else if (node.type === "ImportDeclaration") {
+            for (const spec of node.specifiers) {
+              imports.push({
+                importDefault: spec.type === "ImportDefaultSpecifier",
+                source: node.source.value,
+              })
+            }
           }
         },
       })
     }
-    extractDynamicImports(scriptResult.scriptSetupAst)
-    extractDynamicImports(scriptResult.scriptAst)
+    extractImports(scriptResult.scriptSetupAst)
+    extractImports(scriptResult.scriptAst)
 
-    result.imports = [...Object.values(scriptResult.imports ?? {}), ...dynamicImports]
+    result.imports = imports
   }
 
   // Blocks with empty content will not be collected by vue compiler

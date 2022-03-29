@@ -90,3 +90,67 @@ describe("darkExample", () => {
     `)
   })
 })
+
+describe("parse import statements", () => {
+  test("normal script", async () => {
+    const parsed = await parseExample(
+      `<script>
+    import foo from './foo'
+    import {bar} from './bar'
+    export default {}
+    </script>`,
+      "foo.vue",
+    )
+
+    expect(parsed).toMatchInlineSnapshot(`
+      {
+        "component": "<script>
+          import foo from './foo'
+          import {bar} from './bar'
+          export default {}
+          </script>",
+        "docs": "",
+        "imports": [
+          {
+            "importDefault": true,
+            "source": "./foo",
+          },
+          {
+            "importDefault": false,
+            "source": "./bar",
+          },
+        ],
+      }
+    `)
+  })
+
+  test("script setup", async () => {
+    const parsed = await parseExample(
+      `<script setup>
+    import foo from './foo'
+    import {bar} from './bar'
+    </script>`,
+      "foo.vue",
+    )
+
+    expect(parsed).toMatchInlineSnapshot(`
+      {
+        "component": "<script setup>
+          import foo from './foo'
+          import {bar} from './bar'
+          </script>",
+        "docs": "",
+        "imports": [
+          {
+            "importDefault": true,
+            "source": "./foo",
+          },
+          {
+            "importDefault": false,
+            "source": "./bar",
+          },
+        ],
+      }
+    `)
+  })
+})

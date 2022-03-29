@@ -1,4 +1,4 @@
-import { expect, test } from "vitest"
+import { describe, expect, test } from "vitest"
 import { parseComponent } from "../src/parse-component"
 
 test("defineProps with typescript", async () => {
