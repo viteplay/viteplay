@@ -26,7 +26,7 @@ async function main() {
   ])
 
   const client = "pnpm"
-  const args = [`dev`, `--filter`, `${result.name}...`, `--parallel`]
+  const args = [`-r`, `--filter`, `${result.name}...`, `--parallel`, `run`, `dev`]
   console.log(">", client, ...args)
 
   await execa(client, args, {
