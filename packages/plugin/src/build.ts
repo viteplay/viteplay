@@ -108,7 +108,7 @@ export const build = async (options: BuildOptions) => {
         </script>
         <template>
           <PageTitle title="${page.title}" ${
-        options.dev ? `:openInEditor="() => openInEditor('${page.component}')"` : ``
+        options.dev ? `:openInEditor="() => openInEditor('${slash(page.component)}')"` : ``
       } />
           <div v-if="hiddenCount > 0" class="hidden-examples-info">
             {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a @click.prevent="showAll" type="button" style="cursor: pointer">show all</a>
@@ -125,7 +125,9 @@ export const build = async (options: BuildOptions) => {
 
             <Playground :darkExample="${!!example.parsed
               .darkExample}" :componentProps="componentProps" ${
-                options.dev ? `:openInEditor="() => openInEditor('${example.absolutePath}')"` : ``
+                options.dev
+                  ? `:openInEditor="() => openInEditor('${slash(example.absolutePath)}')"`
+                  : ``
               } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(example.contents)}\`)" />
           </section>
             `,
