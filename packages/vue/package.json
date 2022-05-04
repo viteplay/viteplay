@@ -58,7 +58,7 @@
     "@lezer/html": "^0.15.1",
     "@pepicons/vue": "^1.0.12",
     "@viteplay/types": "workspace:*",
-    "@vueuse/core": "^7.6.2"
+    "@vueuse/core": "^8.4.0"
   },
   "peerDependencies": {
     "vue": "^3.2.26",
