@@ -6,6 +6,7 @@
 
 body {
   margin: 0;
+  background-color: var(--viteplay-c-bg);
 }
 
 .viteplay-navbar,
@@ -22,6 +23,7 @@ body {
 .viteplay-sidebar,
 .viteplay-content >,
 .viteplay-example >,
+.viteplay-example > .example-header >,
 .viteplay-docs {
   h1,
   h2,
@@ -100,8 +102,21 @@ body {
     color: var(--viteplay-c-brand);
   }
 
-  a:hover {
+  a:hover,
+  a:focus {
     text-decoration: underline;
+    color: var(--viteplay-c-brand-light);
+  }
+
+  a:active {
+    color: var(--viteplay-c-brand-lighter);
+  }
+
+  a:focus,
+  a:focus-visible,
+  button:focus,
+  button:focus-visible {
+    outline-color: var(--viteplay-c-brand-light);
   }
 
   figure {
@@ -157,5 +172,14 @@ body {
 
   form {
     margin: 0;
+  }
+}
+
+// conditions to show focus-button
+.viteplay-sidebar,
+.viteplay-example {
+  > h2:hover .focus-button,
+  .sidebar-link-item:hover .focus-button {
+    opacity: 1 !important;
   }
 }

@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref, watchEffect } from "vue"
+import { defineComponent, onBeforeUnmount, onMounted, ref, watchEffect } from "vue"
 import { EditorState, basicSetup } from "@codemirror/basic-setup"
 import { EditorView, ViewUpdate, keymap } from "@codemirror/view"
 import { indentWithTab } from "@codemirror/commands"
 import { html } from "../codemirror/lang-html"
 import { oneDark } from "../codemirror/theme"
 import { PropDefinition } from "@viteplay/types"
+
+defineComponent({ name: "CodeEditor" })
 
 const editorEl = ref<HTMLDivElement | null>(null)
 const editor = ref<EditorView | null>(null)

@@ -95,8 +95,15 @@ const plugin = (options: Options): Plugin => {
       dev = true
 
       server.watcher.on("all", async (event, id) => {
+        id = slash(path.resolve(id))
+
+        // Ignore changes in cache dir
+        if (id.startsWith(cacheDir)) {
+          return
+        }
+
         // For changed files, we only need to rebuild if it's already watched
-        if (event === "change" && !watchFiles.has(slash(path.resolve(id)))) {
+        if (event === "change" && !watchFiles.has(id)) {
           return
         }
 

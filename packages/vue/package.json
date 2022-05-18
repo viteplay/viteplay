@@ -1,6 +1,6 @@
 {
   "name": "@viteplay/vue",
-  "version": "0.0.17",
+  "version": "0.0.22",
   "description": "My awesome typescript library",
   "publishConfig": {
     "access": "public"
@@ -58,7 +58,7 @@
     "@lezer/html": "^0.15.1",
     "@pepicons/vue": "^1.0.12",
     "@viteplay/types": "workspace:*",
-    "@vueuse/core": "^7.6.2"
+    "@vueuse/core": "^8.4.0"
   },
   "peerDependencies": {
     "vue": "^3.2.26",

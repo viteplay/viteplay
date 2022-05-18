@@ -94,6 +94,11 @@ export const transformCodeToComponent = (
     }
 
     for (const style of descriptor.styles) {
+      if (style.lang && style.lang !== "css") {
+        return {
+          errors: [`Unsupported style lang: ${style.lang}`],
+        }
+      }
       const styleResult = compileStyle({
         source: style.content,
         id,

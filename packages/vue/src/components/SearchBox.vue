@@ -32,6 +32,7 @@ const handleFocus = () => {
 const handleClick = (cb: () => void) => {
   keyword.value = ""
   open.value = false
+  inputRef.value?.blur()
   cb()
 }
 
@@ -141,7 +142,7 @@ onKeyStroke(["Enter"], () => {
 
 .search_input_wrapper__focused {
   border-color: var(--viteplay-c-brand);
-  outline: 1px solid var(--viteplay-c-divider);
+  outline: 1px solid var(--viteplay-c-brand);
 }
 
 .search_icon {
