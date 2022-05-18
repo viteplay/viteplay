@@ -58,7 +58,7 @@ export const build = async (options: BuildOptions) => {
             contents: parsed.component,
             parsed,
             routePath: resolveBase(base, `__examples/${page.title}-${slug}`),
-            routeFilePath: path.join(options.cacheDir, `__examples/${page.title}-${slug}.js`),
+            routeFilePath: path.join(options.cacheDir, `__examples/${page.title}-${slug}.vue`),
           }
         }),
       )
@@ -66,18 +66,32 @@ export const build = async (options: BuildOptions) => {
         console.warn(`No examples found for ${JSON.stringify(page)}`)
       }
 
-      // Write CACHE/__examples/NAME.js
+      // Write CACHE/__examples/NAME.vue
       for (const example of examples) {
         const contents = `
-        import { h } from 'vue'
+        <script setup>
         import { ExamplePreview } from '@viteplay/vue'
-        export default {
-          setup() {
-            return () => {
-              return h(ExamplePreview, { code: ${JSON.stringify(example.contents)} })
-            }
-          }
-        }
+        const code = decodeURI(${JSON.stringify(encodeURI(example.contents))})
+
+        const modules = {}
+        ${(example.parsed.imports || [])
+          .map(
+            (im, imIndex) => `import ${
+              im.importDefault ? "" : "* as "
+            } module_${imIndex} from "${slash(
+              im.source.startsWith(".")
+                ? path.join(path.dirname(example.absolutePath), im.source)
+                : im.source,
+            )}"
+          modules["${im.source}"] = module_${imIndex}
+          `,
+          )
+          .join("\n")}
+        </script>
+
+        <template>
+          <ExamplePreview :code="code" :modules="modules" />
+        </template>
         `
         outputFileIfChanged(example.routeFilePath, contents)
       }
@@ -87,28 +101,7 @@ export const build = async (options: BuildOptions) => {
         import { computed } from "vue"
         import { Playground, PropsTable, ExampleHeader, PageTitle } from "@viteplay/vue"
         import { useRoute, useRouter } from "vue-router"
-                
-        ${examples
-          .map(
-            (file, index) => `
-            let modules_${index} = {}
-            ${(file.parsed.imports || [])
-              .map(
-                (im, imIndex) => `import ${
-                  im.importDefault ? "" : "* as "
-                } module_${index}_${imIndex} from "${slash(
-                  im.source.startsWith(".")
-                    ? path.join(path.dirname(file.absolutePath), im.source)
-                    : im.source,
-                )}"
-              modules_${index}["${im.source}"] = module_${index}_${imIndex}
-              `,
-              )
-              .join("\n")}
-            `,
-          )
-          .join("\n")}
-
+            
         let componentProps = ${JSON.stringify(componentProps)}
         let route = useRoute()
         let router = useRouter()
@@ -147,12 +140,12 @@ export const build = async (options: BuildOptions) => {
 
             <div class="viteplay-docs">${renderMarkdown(example.parsed.docs)}</div>
 
-            <Playground :darkExample="${!!example.parsed
-              .darkExample}" :componentProps="componentProps" ${
+            <Playground iframeUrl="${example.routePath}" :darkExample="${!!example.parsed
+                .darkExample}" :componentProps="componentProps" ${
                 options.dev
                   ? `:openInEditor="() => openInEditor('${slash(example.absolutePath)}')"`
                   : ``
-              } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(example.contents)}\`)" />
+              } :code="decodeURI(\`${encodeURI(example.contents)}\`)" />
           </section>
             `,
             )

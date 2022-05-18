@@ -1,3 +1,4 @@
+import "hint.css/hint.min.css"
 import "./css/variables.css"
 import "./css/main.scss"
 import "./css/sidebar.scss"
