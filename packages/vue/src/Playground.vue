@@ -55,11 +55,14 @@ watch(
 )
 
 const handleMessage = (e: MessageEvent) => {
-  if (typeof e.data === "object") {
-    if (e.data.iframeUrl !== props.iframeUrl) return
+  const { data } = e
+  if (typeof data === "object" && data.action) {
+    if (data.iframeUrl !== props.iframeUrl) return
 
-    if (e.data.action === "render-error") {
-      errors.value = e.data.errors || []
+    if (data.action === "render-error") {
+      errors.value = data.payload.errors || []
+    } else if (data.action === "resize") {
+      iframe.value.style.height = `${data.payload.height}px`
     }
   }
 }

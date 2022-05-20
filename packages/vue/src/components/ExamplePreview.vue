@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, PropType, shallowRef, watchEffect, ref } from "vue"
 import { transformCodeToComponent, Transformed } from "../transform"
+import { debounce } from "../utils"
 
 const props = defineProps({
   code: {
@@ -17,6 +18,14 @@ const componentCode = ref("")
 
 const transformed = shallowRef<Transformed | null>(null)
 
+const sendMessageToParent = (action: string, payload: any) => {
+  window.parent?.postMessage({
+    action,
+    payload,
+    iframeUrl: window.location.pathname,
+  })
+}
+
 const setComponent = () => {
   const result = transformCodeToComponent(componentCode.value, props.modules)
   if (result) {
@@ -24,10 +33,8 @@ const setComponent = () => {
     if (result.errors && result.errors.length > 0) {
       console.error(result.errors.join("\n"))
     }
-    window.parent?.postMessage({
-      action: "render-error",
+    sendMessageToParent("render-error", {
       errors: result.errors,
-      iframeUrl: window.location.pathname,
     })
   }
 }
@@ -46,11 +53,41 @@ const handleMessage = (e: MessageEvent<any>) => {
   }
 }
 
+const getDocumentHeight = () => {
+  const body = document.body
+  const html = document.documentElement
+
+  const height = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight,
+  )
+
+  return height > 800 ? 800 : height
+}
+
+const observerCallback = () => {
+  console.log(getDocumentHeight())
+  sendMessageToParent("resize", {
+    height: getDocumentHeight(),
+  })
+}
+
+const observer = new MutationObserver(debounce(observerCallback, 250))
+
 onMounted(() => {
+  observer.observe(document.body, {
+    attributes: true,
+    childList: true,
+    subtree: true,
+  })
   window.addEventListener("message", handleMessage)
 })
 
 onBeforeUnmount(() => {
+  observer.disconnect()
   window.removeEventListener("message", handleMessage)
 })
 </script>
