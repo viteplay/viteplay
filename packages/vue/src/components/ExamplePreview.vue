@@ -1,5 +1,13 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, PropType, shallowRef, watchEffect, ref } from "vue"
+import {
+  onBeforeUnmount,
+  onMounted,
+  PropType,
+  shallowRef,
+  watchEffect,
+  ref,
+  onBeforeMount,
+} from "vue"
 import { transformCodeToComponent, Transformed } from "../transform"
 import { debounce } from "../utils"
 
@@ -69,7 +77,6 @@ const getDocumentHeight = () => {
 }
 
 const observerCallback = () => {
-  console.log(getDocumentHeight())
   sendMessageToParent("resize", {
     height: getDocumentHeight(),
   })
@@ -77,12 +84,15 @@ const observerCallback = () => {
 
 const observer = new MutationObserver(debounce(observerCallback, 250))
 
-onMounted(() => {
+onBeforeMount(() => {
   observer.observe(document.body, {
     attributes: true,
     childList: true,
     subtree: true,
   })
+})
+
+onMounted(() => {
   window.addEventListener("message", handleMessage)
 })
 
