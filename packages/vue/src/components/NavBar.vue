@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router"
+import fuzzysort from "fuzzysort"
 import { useConfig } from ".."
 import { resolveLink } from "./SideBarLink"
 import NavBarTitle from "./NavBarTitle.vue"
@@ -20,21 +21,23 @@ function openPage(link: string | number) {
 }
 
 const getSuggesttions: GetSuggestions = (keyword) => {
-  return props.items
-    .map((s) => {
-      return (s.headers || []).map((header) => {
+  const items = props.items
+    .map((item) => {
+      return (item.headers || []).map((header) => {
         return {
-          text: [s.text, header.title] as const,
+          key: `${item.text} ${header.title}`,
+          text: [item.text, header.title] as const,
           onClick() {
-            openPage(`${s.link}#${header.slug}`)
+            openPage(`${item.link}#${header.slug}`)
           },
         }
       })
     })
     .flat()
-    .filter(({ text }) => {
-      return `${text[0]} ${text[1]}`.toLowerCase().includes(keyword.toLowerCase())
-    })
+
+  const result = fuzzysort.go(keyword, items, { key: "key" })
+
+  return result.map((item) => item.obj)
 }
 </script>
 

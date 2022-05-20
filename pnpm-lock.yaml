@@ -97,6 +97,7 @@ importers:
       esbuild: 0.14.10
       eslint: ^8.7.0
       eslint-config-viteplay: workspace:*
+      fuzzysort: ^1.9.0
       hint.css: ^2.7.0
       sass: ^1.49.9
       sucrase: 3.20.3
@@ -118,6 +119,7 @@ importers:
       '@pepicons/vue': 1.0.12_vue@3.2.26
       '@viteplay/types': link:../types
       '@vueuse/core': 8.4.0_vue@3.2.26
+      fuzzysort: 1.9.0
     devDependencies:
       '@lezer/common': 0.15.11
       '@vitejs/plugin-vue': 2.1.0_vite@2.7.13+vue@3.2.26
@@ -2399,6 +2401,10 @@ packages:
 
   /functional-red-black-tree/1.0.1:
     resolution: {integrity: sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=}
+
+  /fuzzysort/1.9.0:
+    resolution: {integrity: sha512-MOxCT0qLTwLqmEwc7UtU045RKef7mc8Qz8eR4r2bLNEq9dy/c3ZKMEFp6IEst69otkQdFZ4FfgH2dmZD+ddX1g==}
+    dev: false
 
   /get-func-name/2.0.0:
     resolution: {integrity: sha1-6td0q+5y4gQJQzoGY2YCPdaIekE=}
