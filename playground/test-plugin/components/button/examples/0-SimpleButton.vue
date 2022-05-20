@@ -10,5 +10,5 @@ const foo = await import("./foo.json")
 </template>
 
 <docs darkExample>
-This is an **example** docs that shows above the playground.
+This is an **example** docs `that` shows above the playground.
 </docs>
