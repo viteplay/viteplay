@@ -1,33 +1,18 @@
 <script lang="ts" setup>
-import {
-  computed,
-  onErrorCaptured,
-  onMounted,
-  PropType,
-  ref,
-  shallowRef,
-  watch,
-  watchEffect,
-} from "vue"
+import { PropType, ref, watchEffect, watch, onMounted, onBeforeUnmount } from "vue"
 import CodeEditor from "./components/CodeEditor.vue"
-import { debounce, ensureSFC } from "./utils"
-import { transformCodeToComponent, Transformed } from "./transform"
-import { useConfig } from "."
+
 import { useCopy } from "./hooks/useCopy"
 import { PropDefinition } from "@viteplay/types"
 import { Pepicon } from "@pepicons/vue"
-
-// TODO: rename to multi-word?
+import { ensureSFC } from "./utils"
 
 const props = defineProps({
-  code: {
+  iframeUrl: {
     type: String,
     required: true,
   },
-  modules: {
-    type: Object,
-    default: () => ({}),
-  },
+  code: { type: String, required: true },
   lineNumbers: {
     type: Boolean,
     default: false,
@@ -44,68 +29,62 @@ const props = defineProps({
   },
 })
 
-// Code to be actually evaluated
-let code = ref("")
-// Code to display
-let displayCode = ref("")
-const editorExpanded = ref(true)
+const editorExpanded = ref(false)
+const errors = ref<string[]>([])
+const showingError = ref(false)
+const iframe = ref<HTMLIFrameElement | null>(null)
 
-const transformed = shallowRef<Transformed | null>(null)
-let errors = ref<string[]>([])
-const copy = useCopy(() => displayCode.value)
+const editorCode = ref("")
 
-const config = useConfig()
-const modules = computed(() => ({ ...config.modules, ...props.modules }))
+const copy = useCopy(() => editorCode.value)
 
-const transform = (code: string) => {
-  const transformed = transformCodeToComponent(code, modules.value)
-  return transformed
-}
+watchEffect(() => {
+  editorCode.value = props.code
+})
 
-const setComponent = () => {
-  const result = transform(code.value)
-  if (result) {
-    transformed.value = result
-    errors.value = result.errors || []
-    if (errors.value.length === 0) {
-      showingError.value = false
+watch(
+  () => editorCode.value,
+  () => {
+    if (!iframe.value) return
+
+    iframe.value.contentWindow.postMessage(
+      { action: "update-code", code: ensureSFC(editorCode.value) },
+      {},
+    )
+  },
+)
+
+const handleMessage = (e: MessageEvent) => {
+  if (typeof e.data === "object") {
+    if (e.data.iframeUrl !== props.iframeUrl) return
+
+    if (e.data.action === "render-error") {
+      errors.value = e.data.errors || []
     }
   }
 }
 
-const setComponentDebounced = debounce(setComponent, 250)
-
-watchEffect(() => {
-  displayCode.value = props.code.trim()
-})
-
-watchEffect(() => {
-  code.value = ensureSFC(displayCode.value)
-})
-
-// Catch errors in the child components (solely for the component we create)
-onErrorCaptured((error) => {
-  errors.value = [error.message]
-  // Stop the error from bubbling up to the parent
-  return false
-})
-
-watch(code, setComponentDebounced)
-
-const showingError = ref(false)
+const openIframe = () => {
+  window.open(props.iframeUrl)
+}
 
 onMounted(() => {
-  setComponent()
+  window.addEventListener("message", handleMessage)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener("message", handleMessage)
 })
 </script>
 
 <template>
   <div class="playground">
-    <div v-if="transformed" class="playground-preview" :class="props.darkExample && 'dark'">
-      <component is="style" v-if="transformed.css" v-html="transformed.css" />
-      <Suspense>
-        <component :is="transformed.component" v-if="transformed.component" />
-      </Suspense>
+    <div class="playground-preview">
+      <iframe
+        ref="iframe"
+        :src="iframeUrl"
+        sandbox="allow-modals allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts"
+      />
     </div>
     <div :class="['playground-editor', errors.length && 'has-error', editorExpanded && 'expanded']">
       <div class="playground-header">
@@ -120,16 +99,27 @@ onMounted(() => {
             type="pop"
             size="sm"
             role="button"
-            title="Open the example in editor"
+            aria-label="Open the example code in editor"
+            class="hint--bottom hint--rounded"
             @click="props.openInEditor"
           />
           <Pepicon
+            name="expand"
+            size="sm"
+            type="pop"
+            role="button"
+            aria-label="Show the example in a new tab"
+            class="hint--bottom hint--rounded"
+            @click="() => openIframe()"
+          />
+          <Pepicon
             v-if="!errors.length"
-            title="Copy to clipboard"
             :name="copy.copied.value ? 'checkmark' : 'clipboard'"
             type="pop"
             size="sm"
             role="button"
+            aria-label="Copy to clipboard"
+            class="hint--bottom hint--rounded"
             @click="copy.copy"
           />
           <Pepicon
@@ -143,7 +133,7 @@ onMounted(() => {
           />
         </div>
       </div>
-      <CodeEditor v-if="editorExpanded" v-model="displayCode" :componentProps="componentProps" />
+      <CodeEditor v-if="editorExpanded" v-model="editorCode" :componentProps="componentProps" />
     </div>
     <div v-show="showingError" class="playground-error">
       <div v-for="(error, index) in errors" :key="index">
@@ -169,6 +159,13 @@ onMounted(() => {
   margin: 15px 0;
   background-color: var(--viteplay-example-bg);
   color: var(--viteplay-example-color);
+  width: 100%;
+}
+
+.playground-preview iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 .playground-preview.dark {
@@ -181,11 +178,6 @@ onMounted(() => {
   color: #c4c4c4;
   border-radius: 8px;
   margin: 15px 0;
-  padding: 0 15px;
-}
-
-.playground-editor.expanded {
-  padding-bottom: 15px;
 }
 
 .playground-editor.has-error {
@@ -201,6 +193,7 @@ onMounted(() => {
   justify-content: space-between;
   color: rgb(155, 155, 155);
   position: relative;
+  padding: 0 15px;
 }
 
 .playground-header h3 {
@@ -212,6 +205,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   user-select: none;
+  width: 100%;
 }
 
 .playground-header h3 span {

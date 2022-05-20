@@ -102,6 +102,9 @@ export const oneDarkTheme = EditorView.theme(
     },
     ".cm-scroller": {
       fontFamily: `Fira code, Fira Mono, Consolas, Menlo, Courier, monospace`,
+      maxHeight: "800px",
+      padding: "0 15px",
+      paddingBottom: "15px",
     },
   },
   { dark: true },

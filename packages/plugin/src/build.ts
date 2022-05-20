@@ -14,6 +14,10 @@ type BuildOptions = MarkRequired<Options, "cacheDir"> & {
   dev: boolean
 }
 
+const resolveBase = (base: string, p: string) => {
+  return `/${base}/${p}`.replace(/\/{2,}/g, "/")
+}
+
 export const build = async (options: BuildOptions) => {
   const base = options.base ?? "/"
   const getPath = options.getPath ?? ((slug) => `${slug}`)
@@ -30,8 +34,9 @@ export const build = async (options: BuildOptions) => {
       const componentProps = {
         [componentName]: props,
       }
+
       const examples = await Promise.all(
-        page.examples.sort().map(async (file) => {
+        page.examples.map(async (file) => {
           const contents = await fs.promises.readFile(file, "utf8")
           const parsed = await parseExample(contents, file)
           const title =
@@ -42,15 +47,18 @@ export const build = async (options: BuildOptions) => {
               ?.replace(/^\d+-/, "")
               ?.replace(/\.vue$/, "")
               ?.replace(/\.example$/, "") ?? ""
-          // TODO: grab title/description/markdown content from example file content
           const slug = kebabCase(title)
+
           return {
             title,
+            /** slugified title */
             slug,
-            path: file,
             absolutePath: path.resolve(file),
+            /** Content of the example */
             contents: parsed.component,
             parsed,
+            routePath: resolveBase(base, `__examples/${page.title}-${slug}`),
+            routeFilePath: path.join(options.cacheDir, `__examples/${page.title}-${slug}.vue`),
           }
         }),
       )
@@ -58,33 +66,42 @@ export const build = async (options: BuildOptions) => {
         console.warn(`No examples found for ${JSON.stringify(page)}`)
       }
 
+      // Write CACHE/__examples/NAME.vue
+      for (const example of examples) {
+        const contents = `
+        <script setup>
+        import { ExamplePreview } from '@viteplay/vue'
+        const code = decodeURI(${JSON.stringify(encodeURI(example.contents))})
+
+        const modules = {}
+        ${(example.parsed.imports || [])
+          .map(
+            (im, imIndex) => `import ${
+              im.importDefault ? "" : "* as "
+            } module_${imIndex} from "${slash(
+              im.source.startsWith(".")
+                ? path.join(path.dirname(example.absolutePath), im.source)
+                : im.source,
+            )}"
+          modules["${im.source}"] = module_${imIndex}
+          `,
+          )
+          .join("\n")}
+        </script>
+
+        <template>
+          <ExamplePreview :code="code" :modules="modules" />
+        </template>
+        `
+        outputFileIfChanged(example.routeFilePath, contents)
+      }
+
       const contents = `
         <script setup>
         import { computed } from "vue"
         import { Playground, PropsTable, ExampleHeader, PageTitle } from "@viteplay/vue"
         import { useRoute, useRouter } from "vue-router"
-                
-        ${examples
-          .map(
-            (file, index) => `
-            let modules_${index} = {}
-            ${(file.parsed.imports || [])
-              .map(
-                (im, imIndex) => `import ${
-                  im.importDefault ? "" : "* as "
-                } module_${index}_${imIndex} from "${slash(
-                  im.source.startsWith(".")
-                    ? path.join(path.dirname(file.absolutePath), im.source)
-                    : im.source,
-                )}"
-              modules_${index}["${im.source}"] = module_${index}_${imIndex}
-              `,
-              )
-              .join("\n")}
-            `,
-          )
-          .join("\n")}
-
+            
         let componentProps = ${JSON.stringify(componentProps)}
         let route = useRoute()
         let router = useRouter()
@@ -123,12 +140,12 @@ export const build = async (options: BuildOptions) => {
 
             <div class="viteplay-docs">${renderMarkdown(example.parsed.docs)}</div>
 
-            <Playground :darkExample="${!!example.parsed
-              .darkExample}" :componentProps="componentProps" ${
+            <Playground iframeUrl="${example.routePath}" :darkExample="${!!example.parsed
+                .darkExample}" :componentProps="componentProps" ${
                 options.dev
                   ? `:openInEditor="() => openInEditor('${slash(example.absolutePath)}')"`
                   : ``
-              } :modules="modules_${index}" :code="decodeURI(\`${encodeURI(example.contents)}\`)" />
+              } :code="decodeURI(\`${encodeURI(example.contents)}\`)" />
           </section>
             `,
             )
@@ -203,8 +220,19 @@ provideConfig(${JSON.stringify({
 
   outputFileIfChanged(layoutComponent, layoutContents)
 
+  const exampleRoutes = pages
+    .map((page) => page.children)
+    .flat()
+    .map((child) => {
+      return `{
+    path: "${child.routePath}",
+    component: () => import("${slash(child.routeFilePath)}")
+  }`
+    })
+    .join(",\n")
   const clientContent = `
     let pages = [
+      ${exampleRoutes ? `${exampleRoutes},` : ``}
       {
         path: "${base}",
         component: () => import("${slash(layoutComponent)}"),

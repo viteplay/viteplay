@@ -1,3 +1,4 @@
+import "hint.css/hint.min.css"
 import "./css/variables.css"
 import "./css/main.scss"
 import "./css/sidebar.scss"
@@ -8,8 +9,9 @@ import RouteLayout from "./RouteLayout.vue"
 import PropsTable from "./components/PropsTable.vue"
 import ExampleHeader from "./components/ExampleHeader.vue"
 import PageTitle from "./components/PageTitle.vue"
+import ExamplePreview from "./components/ExamplePreview.vue"
 
-export { Playground, RouteLayout, PropsTable, ExampleHeader, PageTitle }
+export { Playground, RouteLayout, PropsTable, ExampleHeader, PageTitle, ExamplePreview }
 
 export type Config = {
   modules?: Record<string, any>
