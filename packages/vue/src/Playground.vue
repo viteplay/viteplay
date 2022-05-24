@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="playground">
-    <div class="playground-preview">
+    <div class="playground-preview" :class="darkExample && 'dark'">
       <iframe
         ref="iframe"
         :src="iframeUrl"
