@@ -17,7 +17,7 @@ defineProps<{ open: boolean; items: SideBarItem[] }>()
   </aside>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .viteplay-sidebar {
   position: fixed;
   top: var(--viteplay-header-height);

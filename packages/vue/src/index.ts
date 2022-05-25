@@ -1,17 +1,17 @@
-import "hint.css/hint.min.css"
+import "floating-vue/dist/style.css"
 import "./css/variables.css"
 import "./css/main.scss"
 import "./css/sidebar.scss"
 import { provide, inject } from "vue"
 
-import Playground from "./Playground.vue"
 import RouteLayout from "./RouteLayout.vue"
 import PropsTable from "./components/PropsTable.vue"
 import ExampleHeader from "./components/ExampleHeader.vue"
 import PageTitle from "./components/PageTitle.vue"
 import ExamplePreview from "./components/ExamplePreview.vue"
+import Example from "./components/Example.vue"
 
-export { Playground, RouteLayout, PropsTable, ExampleHeader, PageTitle, ExamplePreview }
+export { Example, RouteLayout, PropsTable, ExampleHeader, PageTitle, ExamplePreview }
 
 export type Config = {
   modules?: Record<string, any>

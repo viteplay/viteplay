@@ -38,7 +38,6 @@
     "esbuild": "0.14.10",
     "eslint": "^8.7.0",
     "eslint-config-viteplay": "workspace:*",
-    "hint.css": "^2.7.0",
     "sass": "^1.49.9",
     "sucrase": "3.20.3",
     "vite": "2.7.13",
@@ -60,6 +59,7 @@
     "@pepicons/vue": "^1.0.12",
     "@viteplay/types": "workspace:*",
     "@vueuse/core": "^8.4.0",
+    "floating-vue": "2.0.0-beta.16",
     "fuzzysort": "^1.9.0"
   },
   "peerDependencies": {

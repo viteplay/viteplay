@@ -1,31 +1,20 @@
 <script lang="ts" setup>
 import { PropType, ref, watchEffect, watch, onMounted, onBeforeUnmount } from "vue"
-import CodeEditor from "./components/CodeEditor.vue"
-
-import { useCopy } from "./hooks/useCopy"
-import { PropDefinition } from "@viteplay/types"
+import CodeEditor from "./CodeEditor.vue"
+import { useCopy } from "../hooks/useCopy"
+import { ComponentExample, PropDefinition } from "@viteplay/types"
 import { Pepicon } from "@pepicons/vue"
-import { ensureSFC } from "./utils"
+import { VTooltip as vTooltip } from "floating-vue"
+import { ensureSFC } from "../utils"
 
 const props = defineProps({
-  iframeUrl: {
-    type: String,
+  example: {
+    type: Object as PropType<ComponentExample>,
     required: true,
-  },
-  code: { type: String, required: true },
-  lineNumbers: {
-    type: Boolean,
-    default: false,
   },
   componentProps: {
     type: Object as PropType<Record<string, PropDefinition[]>>,
     default: () => ({}),
-  },
-  openInEditor: {
-    type: Function as PropType<() => void>,
-  },
-  darkExample: {
-    type: Boolean,
   },
 })
 
@@ -39,7 +28,7 @@ const editorCode = ref("")
 const copy = useCopy(() => editorCode.value)
 
 watchEffect(() => {
-  editorCode.value = props.code
+  editorCode.value = props.example.code
 })
 
 watch(
@@ -47,7 +36,7 @@ watch(
   () => {
     if (!iframe.value) return
 
-    iframe.value.contentWindow.postMessage(
+    iframe.value.contentWindow?.postMessage(
       { action: "update-code", code: ensureSFC(editorCode.value) },
       {},
     )
@@ -57,7 +46,7 @@ watch(
 const handleMessage = (e: MessageEvent) => {
   const { data } = e
   if (typeof data === "object" && data.action) {
-    if (data.iframeUrl !== props.iframeUrl) return
+    if (data.iframeUrl !== props.example.iframeUrl) return
 
     if (data.action === "render-error") {
       errors.value = data.payload.errors || []
@@ -67,8 +56,8 @@ const handleMessage = (e: MessageEvent) => {
   }
 }
 
-const openIframe = () => {
-  window.open(props.iframeUrl)
+const resetCode = () => {
+  editorCode.value = props.example.code
 }
 
 onMounted(() => {
@@ -82,10 +71,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="playground">
-    <div class="playground-preview" :class="darkExample && 'dark'">
+    <div class="playground-preview" :class="example.dark && 'dark'">
       <iframe
         ref="iframe"
-        :src="iframeUrl"
+        :src="example.iframeUrl"
         sandbox="allow-modals allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts"
       />
     </div>
@@ -97,32 +86,30 @@ onBeforeUnmount(() => {
         </h3>
         <div class="playground-buttons">
           <Pepicon
-            v-if="props.openInEditor"
+            v-if="!errors.length"
+            v-tooltip="`Reset the code`"
+            name="reload"
+            type="pop"
+            size="sm"
+            role="button"
+            @click="resetCode"
+          />
+          <Pepicon
+            v-if="example.openInEditor"
+            v-tooltip="`Open the example code in editor`"
             name="open"
             type="pop"
             size="sm"
             role="button"
-            aria-label="Open the example code in editor"
-            class="hint--bottom hint--rounded"
-            @click="props.openInEditor"
-          />
-          <Pepicon
-            name="expand"
-            size="sm"
-            type="pop"
-            role="button"
-            aria-label="Show the example in a new tab"
-            class="hint--bottom hint--rounded"
-            @click="() => openIframe()"
+            @click="example.openInEditor"
           />
           <Pepicon
             v-if="!errors.length"
+            v-tooltip="`Copy to clipboard`"
             :name="copy.copied.value ? 'checkmark' : 'clipboard'"
             type="pop"
             size="sm"
             role="button"
-            aria-label="Copy to clipboard"
-            class="hint--bottom hint--rounded"
             @click="copy.copy"
           />
           <Pepicon

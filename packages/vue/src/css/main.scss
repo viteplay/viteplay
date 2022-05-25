@@ -7,13 +7,6 @@
 body {
   margin: 0;
   background-color: var(--viteplay-c-bg);
-}
-
-.viteplay-navbar,
-.viteplay-sidebar,
-.viteplay-content > *:not(.viteplay-example),
-.viteplay-example > *:not(.playground),
-.playground > *:not(.playground-preview) {
   -webkit-text-size-adjust: 100%;
   font-family: var(--viteplay-font-sans);
   color: var(--viteplay-c-text);
@@ -181,11 +174,20 @@ body {
   }
 }
 
-// conditions to show focus-button
-.viteplay-sidebar,
-.viteplay-example {
-  > h2:hover .focus-button,
-  .sidebar-link-item:hover .focus-button {
-    opacity: 1 !important;
-  }
+.icon-button {
+  border: none;
+  background-color: transparent;
+  color: var(--viteplay-c-text);
+  cursor: pointer;
+  border-radius: 33px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+.icon-button:not(.active):hover {
+  background-color: var(--viteplay-c-bg-light);
+}
+
+.icon-button.active {
+  color: var(--viteplay-c-brand);
 }

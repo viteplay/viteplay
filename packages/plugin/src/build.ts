@@ -99,7 +99,7 @@ export const build = async (options: BuildOptions) => {
       const contents = `
         <script setup>
         import { computed } from "vue"
-        import { Playground, PropsTable, ExampleHeader, PageTitle } from "@viteplay/vue"
+        import { Example, PropsTable, PageTitle } from "@viteplay/vue"
         import { useRoute, useRouter } from "vue-router"
             
         let componentProps = ${JSON.stringify(componentProps)}
@@ -122,6 +122,23 @@ export const build = async (options: BuildOptions) => {
         let openInEditor = (file) => {
            fetch('/__open-in-editor?file=' + encodeURIComponent(file))
         }
+        let examples = [
+          ${examples
+            .map((example) => {
+              return `{
+                title: ${JSON.stringify(example.title)},
+                slug: ${JSON.stringify(example.slug)},
+                docs: ${JSON.stringify(renderMarkdown(example.parsed.docs))},
+                // encodeURI because the example will contain html tags
+                // which will cause this component to be incorrectly parsed
+                code: decodeURI(${JSON.stringify(encodeURI(example.contents))}),
+                dark: ${JSON.stringify(example.parsed.darkExample)},
+                iframeUrl: ${JSON.stringify(example.routePath)},
+                openInEditor: () => openInEditor(${JSON.stringify(slash(example.absolutePath))})
+              }`
+            })
+            .join(",")}
+        ]
         </script>
         <template>
           <PageTitle title="${page.title}" ${
@@ -131,25 +148,14 @@ export const build = async (options: BuildOptions) => {
             {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a @click.prevent="showAll" type="button" style="cursor: pointer">show all</a>
           </div>
           <PropsTable componentName="${componentName}" :componentProps="componentProps" />
-          ${examples
-            .map(
-              (example, index) => `
-          <section v-if="shouldRender('${example.slug}')" class="viteplay-example">
-
-            <ExampleHeader slug="${example.slug}" title="${example.title}" />
-
-            <div class="viteplay-docs">${renderMarkdown(example.parsed.docs)}</div>
-
-            <Playground iframeUrl="${example.routePath}" :darkExample="${!!example.parsed
-                .darkExample}" :componentProps="componentProps" ${
-                options.dev
-                  ? `:openInEditor="() => openInEditor('${slash(example.absolutePath)}')"`
-                  : ``
-              } :code="decodeURI(\`${encodeURI(example.contents)}\`)" />
-          </section>
-            `,
-            )
-            .join("\n")}
+          <template  
+            v-for="example in examples" 
+            :key="example.slug">
+            <Example 
+              v-if="shouldRender(example.slug)"
+              :example="example" 
+              :componentProps="componentProps" />
+          </template>
         </template>
 
 <style scoped>

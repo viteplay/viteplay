@@ -13,9 +13,17 @@
     justify-content: space-between;
   }
 
+  .focus-button {
+    opacity: 0;
+  }
+
   a.sidebar-link-item:hover {
     text-decoration: none;
     color: var(--viteplay-c-brand);
+
+    .focus-button {
+      opacity: 1;
+    }
   }
 
   a.sidebar-link-item.active {

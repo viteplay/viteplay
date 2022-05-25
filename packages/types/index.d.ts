@@ -5,4 +5,14 @@ declare type PropDefinition = {
   required?: boolean
 }
 
-export { PropDefinition }
+declare type ComponentExample = {
+  slug: string
+  title: string
+  code: string
+  docs?: string
+  dark?: boolean
+  iframeUrl: string
+  openInEditor?: () => void
+}
+
+export { PropDefinition, ComponentExample }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Pepicon } from "@pepicons/vue"
+import { VTooltip as vTooltip } from "floating-vue"
 
 const props = defineProps<{
   title: string
@@ -12,10 +13,10 @@ const props = defineProps<{
     <span>{{ props.title }}</span
     ><Pepicon
       v-if="props.openInEditor"
+      v-tooltip="`Open the component in editor`"
       name="open"
       aria-hidden="true"
       role="button"
-      title="Open the component in editor"
       class="open-in-editor-button"
       @click="props.openInEditor"
     />
