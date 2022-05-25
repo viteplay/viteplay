@@ -63,7 +63,6 @@ export const build = async (options: BuildOptions) => {
         console.warn(`No examples found for ${JSON.stringify(page)}`)
       }
 
-      // Write CACHE/iframe.js
       for (const example of examples) {
         const iframeComponentCode = `
         <script setup>

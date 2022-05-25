@@ -17,7 +17,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "vitest",
+    "test": "vitest run",
     "build": "tsup",
     "dev": "tsup --watch",
     "prepublishOnly": "npm run build"

@@ -88,7 +88,7 @@ export const getIframeHtml = (iframeId: string, cacheDir: string) => `
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="${slash(path.join(cacheDir, `iframe/${iframeId}.js`))}"></script>
+    <script type="module" src="${slash(path.join(cacheDir, `__iframe/${iframeId}.js`))}"></script>
   </body>
 </html>
 `
