@@ -2,7 +2,7 @@ import path from "node:path"
 import { Plugin } from "vite"
 import createDebug from "debug"
 import { build } from "./build"
-import { slash } from "./utils"
+import { getIframeHtml, slash } from "./utils"
 
 const debug = createDebug(`viteplay:plugin`)
 
@@ -65,60 +65,111 @@ export type Options = {
   getPath?: (slug: string) => string
 }
 
-const plugin = (options: Options): Plugin => {
+const plugin = (options: Options): Plugin[] => {
   let cacheDir = options.cacheDir ?? ".cache/viteplay"
   let watchFiles: Set<string> = new Set()
-  let dev = false
 
-  return {
-    name: "component-examples",
+  return [
+    {
+      name: "viteplay",
 
-    enforce: "pre",
+      async config(config, env) {
+        const root = config.root || process.cwd()
+        const rootHtmlFile = path.join(root, "index.html")
+        cacheDir = path.resolve(root, cacheDir)
 
-    config(config) {
-      config.optimizeDeps = config.optimizeDeps ?? {}
-      config.optimizeDeps.exclude = config.optimizeDeps.exclude ?? []
-      config.optimizeDeps.exclude.push("@viteplay/vue/client")
-    },
+        debug(`Starting initial build`)
+        const dev = env.command === "serve"
+        const buildResult = await build({ ...options, cacheDir, dev })
+        watchFiles = buildResult.watchFiles
 
-    configResolved(config) {
-      cacheDir = path.resolve(config.root, cacheDir)
-    },
+        const input = buildResult.iframes.reduce<Record<string, string>>((res, iframe) => {
+          return { ...res, [`__iframe/${iframe.id}`]: iframe.filepath }
+        }, {})
 
-    resolveId(id) {
-      if (id.startsWith("viteplay-cache/")) {
-        return id.replace("viteplay-cache", cacheDir)
-      }
-    },
+        input.index = rootHtmlFile
 
-    configureServer(server) {
-      dev = true
-
-      server.watcher.on("all", async (event, id) => {
-        id = slash(path.resolve(id))
-
-        // Ignore changes in cache dir
-        if (id.startsWith(cacheDir)) {
-          return
+        return {
+          optimizeDeps: {
+            exclude: ["@viteplay/vue/client"],
+          },
+          build: {
+            rollupOptions: {
+              input: input,
+            },
+          },
         }
+      },
 
-        // For changed files, we only need to rebuild if it's already watched
-        if (event === "change" && !watchFiles.has(id)) {
-          return
+      resolveId(id) {
+        if (id.startsWith("viteplay-cache/")) {
+          return id.replace("viteplay-cache", cacheDir)
         }
+      },
 
-        // Otherwise adding or deleting any file (even if it's not an example / component) will trigger a rebuild
-        debug(`rebuild: %s %s`, event, id)
+      configureServer(server) {
+        server.watcher.on("all", async (event, id) => {
+          id = slash(path.resolve(id))
 
-        watchFiles = await build({ ...options, cacheDir, dev })
-      })
+          // Ignore changes in cache dir
+          if (id.startsWith(cacheDir)) {
+            return
+          }
+
+          // For changed files, we only need to rebuild if it's already watched
+          if (event === "change" && !watchFiles.has(id)) {
+            return
+          }
+
+          // Otherwise adding or deleting any file (even if it's not an example / component) will trigger a rebuild
+          debug(`rebuild: %s %s`, event, id)
+
+          const buildResult = await build({ ...options, cacheDir, dev: true })
+          watchFiles = buildResult.watchFiles
+        })
+
+        server.middlewares.use(async (req, res, next) => {
+          if (!req.url) return next()
+
+          if (!req.url.startsWith("/__iframe/")) {
+            return next()
+          }
+
+          try {
+            const iframeId = req.url.replace("/__iframe/", "").replace(".html", "")
+            const html = getIframeHtml(iframeId, cacheDir)
+            const result = await server.transformIndexHtml(req.url, html)
+
+            res.setHeader("content-type", "text/html")
+            res.end(result)
+          } catch (error) {
+            next(error)
+          }
+        })
+      },
     },
+    {
+      name: "viteplay:move-html",
 
-    async buildStart() {
-      debug(`Starting initial build`)
-      watchFiles = await build({ ...options, cacheDir, dev })
+      // After Vite's default html plugin
+      enforce: "post",
+
+      generateBundle(_, bundle) {
+        for (const k of Object.keys(bundle)) {
+          const file = bundle[k]
+          if (file.type === "asset" && k.includes("/__iframe/") && k.endsWith(".html")) {
+            delete bundle[k]
+            const fileName = `__iframe/${path.basename(k)}`
+            this.emitFile({
+              type: "asset",
+              source: file.source,
+              fileName,
+            })
+          }
+        }
+      },
     },
-  }
+  ]
 }
 
 export default plugin

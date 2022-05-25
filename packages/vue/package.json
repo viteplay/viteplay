@@ -10,15 +10,19 @@
     "/client.d.ts",
     "/client.js"
   ],
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs.js",
-      "import": "./dist/index.es.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
     },
     "./dist/style.css": "./dist/style.css",
-    "./client": "./client.js"
+    "./client": "./client.js",
+    "./iframe": {
+      "require": "./dist/iframe.js",
+      "import": "./dist/iframe.mjs"
+    }
   },
   "types": "./dist/index.d.ts",
   "scripts": {

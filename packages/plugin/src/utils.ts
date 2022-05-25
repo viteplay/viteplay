@@ -7,11 +7,15 @@ import { Page, NormalizedPage } from "."
 
 export const slash = (input: string) => input.replace(/\\/g, "/")
 
-export const localRequire = (id: string) => {
+export const resolveFrom = (id: string, dir: string) => {
   const req =
     typeof globalThis.require === "function" ? globalThis.require : createRequire(import.meta.url)
-  const resolved = req.resolve(id, { paths: [process.cwd()] })
+  const resolved = req.resolve(id, { paths: [dir] })
   return req(resolved)
+}
+
+export const localRequire = (id: string) => {
+  return resolveFrom(id, process.cwd())
 }
 
 export const getDirnameFromImportMetaUrl = (url: string) => {
@@ -72,3 +76,19 @@ export async function getPagesFromOptions(options: {
     }),
   }
 }
+
+export const getIframeHtml = (iframeId: string, cacheDir: string) => `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="${slash(path.join(cacheDir, `iframe/${iframeId}.js`))}"></script>
+  </body>
+</html>
+`

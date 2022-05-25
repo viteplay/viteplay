@@ -18,8 +18,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "vitest",
-    "build": "tsup src/index.ts --format cjs,esm --dts --target node14",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --target node14 --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

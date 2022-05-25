@@ -11,9 +11,24 @@ export default defineConfig((ctx) => {
       lib: {
         entry: "./src/index.ts",
         formats: ["cjs", "es"],
-        fileName: (format) => `index.${format}.js`,
       },
       rollupOptions: {
+        input: {
+          index: "./src/index.ts",
+          iframe: "./src/iframe/index.ts",
+        },
+        output: [
+          {
+            entryFileNames: "[name].mjs",
+            chunkFileNames: "[name].mjs",
+            format: "esm",
+          },
+          {
+            entryFileNames: "[name].js",
+            chunkFileNames: "[name].js",
+            format: "cjs",
+          },
+        ],
         external: [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)],
       },
     },

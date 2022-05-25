@@ -4,7 +4,7 @@ import path from "node:path"
 import { kebabCase } from "case-anything"
 import { parseExample } from "./parse-example"
 import { outputFileIfChanged } from "./fs"
-import { getPagesFromOptions, slash } from "./utils"
+import { getIframeHtml, getPagesFromOptions, slash } from "./utils"
 import { MarkRequired } from "./types"
 import { Options } from "./index"
 import { renderMarkdown } from "./markdown"
@@ -14,15 +14,12 @@ type BuildOptions = MarkRequired<Options, "cacheDir"> & {
   dev: boolean
 }
 
-const resolveBase = (base: string, p: string) => {
-  return `/${base}/${p}`.replace(/\/{2,}/g, "/")
-}
-
 export const build = async (options: BuildOptions) => {
   const base = options.base ?? "/"
   const getPath = options.getPath ?? ((slug) => `${slug}`)
 
   const { pages: _pages, watchFiles } = await getPagesFromOptions(options)
+  const iframes: { id: string; filepath: string }[] = []
 
   const pages = await Promise.all(
     _pages.map(async (page, index) => {
@@ -48,7 +45,7 @@ export const build = async (options: BuildOptions) => {
               ?.replace(/\.vue$/, "")
               ?.replace(/\.example$/, "") ?? ""
           const slug = kebabCase(title)
-
+          const iframeId = `${page.title}-${slug}`
           return {
             title,
             /** slugified title */
@@ -57,8 +54,8 @@ export const build = async (options: BuildOptions) => {
             /** Content of the example */
             contents: parsed.component,
             parsed,
-            routePath: resolveBase(base, `__examples/${page.title}-${slug}`),
-            routeFilePath: path.join(options.cacheDir, `__examples/${page.title}-${slug}.vue`),
+            iframeId,
+            iframeFilePath: path.join(options.cacheDir, `__iframe/${iframeId}.html`),
           }
         }),
       )
@@ -66,11 +63,11 @@ export const build = async (options: BuildOptions) => {
         console.warn(`No examples found for ${JSON.stringify(page)}`)
       }
 
-      // Write CACHE/__examples/NAME.vue
+      // Write CACHE/iframe.js
       for (const example of examples) {
-        const contents = `
+        const iframeComponentCode = `
         <script setup>
-        import { ExamplePreview } from '@viteplay/vue'
+        import { IframePreview } from '@viteplay/vue/iframe'
         const code = decodeURI(${JSON.stringify(encodeURI(example.contents))})
 
         const modules = {}
@@ -90,10 +87,30 @@ export const build = async (options: BuildOptions) => {
         </script>
 
         <template>
-          <ExamplePreview :code="code" :modules="modules" />
+          <IframePreview :code="code" :modules="modules" />
         </template>
         `
-        outputFileIfChanged(example.routeFilePath, contents)
+        const iframeAppCode = `
+        import {createApp} from 'vue'
+        import App from './${example.iframeId}.vue'
+        createApp(App).mount('#app')
+        `
+        outputFileIfChanged(
+          path.join(options.cacheDir, `__iframe/${example.iframeId}.vue`),
+          iframeComponentCode,
+        )
+        outputFileIfChanged(
+          path.join(options.cacheDir, `__iframe/${example.iframeId}.js`),
+          iframeAppCode,
+        )
+        outputFileIfChanged(
+          example.iframeFilePath,
+          getIframeHtml(example.iframeId, options.cacheDir),
+        )
+        iframes.push({
+          id: example.iframeId,
+          filepath: example.iframeFilePath,
+        })
       }
 
       const contents = `
@@ -133,7 +150,7 @@ export const build = async (options: BuildOptions) => {
                 // which will cause this component to be incorrectly parsed
                 code: decodeURI(${JSON.stringify(encodeURI(example.contents))}),
                 dark: ${JSON.stringify(example.parsed.darkExample)},
-                iframeUrl: ${JSON.stringify(example.routePath)},
+                iframeUrl: ${JSON.stringify(`/__iframe/${example.iframeId}.html`)},
                 openInEditor: () => openInEditor(${JSON.stringify(slash(example.absolutePath))})
               }`
             })
@@ -226,19 +243,8 @@ provideConfig(${JSON.stringify({
 
   outputFileIfChanged(layoutComponent, layoutContents)
 
-  const exampleRoutes = pages
-    .map((page) => page.children)
-    .flat()
-    .map((child) => {
-      return `{
-    path: "${child.routePath}",
-    component: () => import("${slash(child.routeFilePath)}")
-  }`
-    })
-    .join(",\n")
   const clientContent = `
     let pages = [
-      ${exampleRoutes ? `${exampleRoutes},` : ``}
       {
         path: "${base}",
         component: () => import("${slash(layoutComponent)}"),
@@ -260,5 +266,5 @@ provideConfig(${JSON.stringify({
 
   outputFileIfChanged(path.join(options.cacheDir, "client.js"), clientContent)
 
-  return watchFiles
+  return { watchFiles, iframes }
 }
