@@ -7,22 +7,20 @@ importers:
       '@types/node': 17.0.7
       bumpp: ^7.1.1
       prettier: 2.5.1
-      tasco: ^0.4.5
       tsup: ^6.0.1
       turbo: ^1.2.9
       typescript: 4.5.4
       vitepress: ^0.22.3
-      vitest: 0.12.6
+      vitest: 0.12.9
     devDependencies:
       '@types/node': 17.0.7
       bumpp: 7.1.1
       prettier: 2.5.1
-      tasco: 0.4.5
       tsup: 6.0.1_typescript@4.5.4
       turbo: 1.2.9
       typescript: 4.5.4
       vitepress: 0.22.3
-      vitest: 0.12.6
+      vitest: 0.12.9
 
   packages/eslint-config-viteplay:
     specifiers:
@@ -1348,6 +1346,18 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+
+  /debug/4.3.4:
+    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.2
+    dev: true
 
   /deep-eql/3.0.1:
     resolution: {integrity: sha512-+QeIQyN5ZuO+3Uk5DYh6/1eKO0m0YmJFGNmFHGACpf1ClL1nmlV/p4gNgbl2pJGxgXb4faqo6UE+M5ACEMyVcw==}
@@ -3157,14 +3167,6 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /tasco/0.4.5:
-    resolution: {integrity: sha512-189U3/+Ltrf5StLyCWV2Y7SV5ztDbi0ozwIpqocLe/y9uifqxiujMqmlOhJvLQ4IU0jMCl9sfao9lqeb+GEGjQ==}
-    hasBin: true
-    dependencies:
-      execa: 6.0.0
-      fast-glob: 3.2.11
-    dev: true
-
   /text-table/0.2.0:
     resolution: {integrity: sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=}
 
@@ -3579,7 +3581,7 @@ packages:
       esbuild: 0.14.39
       postcss: 8.4.13
       resolve: 1.22.0
-      rollup: 2.60.0
+      rollup: 2.74.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -3605,8 +3607,8 @@ packages:
       - stylus
     dev: true
 
-  /vitest/0.12.6:
-    resolution: {integrity: sha512-YWbCTv0XKBuBw5YtuW/iufuguoi8QhGpYyi2g57Oo7akpscMkkWTAaZGgY0ux1oJJtO/pc/8GFt0EF32WFBUUQ==}
+  /vitest/0.12.9:
+    resolution: {integrity: sha512-1NtyUANS72Qw5PwYvoztk067NX4fSiis2xQxhByOWS33eL2er/yupHyLxlBCOkF2ANe0dLFRvT1GVb+nczL5aw==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
@@ -3627,6 +3629,7 @@ packages:
       '@types/chai': 4.3.1
       '@types/chai-subset': 1.3.3
       chai: 4.3.6
+      debug: 4.3.4
       local-pkg: 0.4.1
       tinypool: 0.1.3
       tinyspy: 0.3.2
@@ -3635,6 +3638,7 @@ packages:
       - less
       - sass
       - stylus
+      - supports-color
     dev: true
 
   /vitest/0.6.0:

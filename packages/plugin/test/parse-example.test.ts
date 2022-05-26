@@ -13,9 +13,12 @@ This is some **markdown**
   expect(parsed).toMatchInlineSnapshot(`
     {
       "component": "",
-      "docs": "
+      "docs": {
+        "attrs": {},
+        "content": "
     This is some **markdown**
     ",
+      },
       "imports": [],
     }
   `)
@@ -34,10 +37,14 @@ describe("darkExample", () => {
     expect(parsed).toMatchInlineSnapshot(`
       {
         "component": "",
-        "darkExample": true,
-        "docs": "
+        "docs": {
+          "attrs": {
+            "darkExample": true,
+          },
+          "content": "
               This is some **markdown**
               ",
+        },
         "imports": [],
       }
     `)
@@ -52,9 +59,11 @@ describe("darkExample", () => {
     )
     expect(parsed1).toMatchInlineSnapshot(`
       {
-        "component": "",
-        "darkExample": true,
-        "docs": "",
+        "component": "<docs darkExample></docs>",
+        "docs": {
+          "attrs": {},
+          "content": "",
+        },
         "imports": [],
       }
     `)
@@ -67,9 +76,11 @@ describe("darkExample", () => {
     )
     expect(parsed2).toMatchInlineSnapshot(`
       {
-        "component": "",
-        "darkExample": true,
-        "docs": "",
+        "component": "<docs darkExample />",
+        "docs": {
+          "attrs": {},
+          "content": "",
+        },
         "imports": [],
       }
     `)
@@ -82,9 +93,11 @@ describe("darkExample", () => {
     )
     expect(parsed3).toMatchInlineSnapshot(`
       {
-        "component": "",
-        "darkExample": true,
-        "docs": "",
+        "component": "<docs dark-example />",
+        "docs": {
+          "attrs": {},
+          "content": "",
+        },
         "imports": [],
       }
     `)
@@ -109,7 +122,10 @@ describe("parse import statements", () => {
           import {bar} from './bar'
           export default {}
           </script>",
-        "docs": "",
+        "docs": {
+          "attrs": {},
+          "content": "",
+        },
         "imports": [
           {
             "importDefault": true,
@@ -139,7 +155,10 @@ describe("parse import statements", () => {
           import foo from './foo'
           import {bar} from './bar'
           </script>",
-        "docs": "",
+        "docs": {
+          "attrs": {},
+          "content": "",
+        },
         "imports": [
           {
             "importDefault": true,
