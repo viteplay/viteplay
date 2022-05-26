@@ -157,11 +157,13 @@ export const build = async (options: BuildOptions) => {
               return `{
                 title: ${JSON.stringify(example.title)},
                 slug: ${JSON.stringify(example.slug)},
-                docs: ${JSON.stringify(renderMarkdown(example.parsed.docs))},
+                docs: ${JSON.stringify({
+                  content: renderMarkdown(example.parsed.docs.content),
+                  attrs: example.parsed.docs.attrs,
+                })},
                 // encodeURI because the example will contain html tags
                 // which will cause this component to be incorrectly parsed
                 code: decodeURI(${JSON.stringify(encodeURI(example.contents))}),
-                dark: ${JSON.stringify(example.parsed.darkExample)},
                 iframeUrl: ${JSON.stringify(`/__iframe/${example.iframeId}.html`)},
                 openInEditor: import.meta.env.DEV 
                   ? () => openInEditor(${JSON.stringify(slash(example.absolutePath))}) 
@@ -236,7 +238,6 @@ export const build = async (options: BuildOptions) => {
 
   const layoutContents = `
 <script setup>
-import "@viteplay/vue/dist/style.css"
 import { RouteLayout, provideConfig } from "@viteplay/vue"
 
 const items = ${JSON.stringify(sideBarItems)}

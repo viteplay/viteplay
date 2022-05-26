@@ -1,19 +1,19 @@
 import { Node } from "@babel/types"
-import { localRequire } from "./utils"
+import { camelCaseKeys, getEmptyDocsBlock, localRequire } from "./utils"
 
 type Parsed = {
   imports: { importDefault?: boolean; source: string }[]
-  docs: string
-  darkExample?: boolean
+  docs: {
+    attrs: Record<string, any>
+    content: string
+  }
   component: string
 }
-
-const DOCS_BLOCK_WITH_DARK_EXAMPLE_RE = /<docs\s+(darkExample|dark-example)\s*\/?>(<\/docs>)?/
 
 export const parseExample = async (contents: string, file: string): Promise<Parsed> => {
   const compiler: typeof import("vue/compiler-sfc") = localRequire("vue/compiler-sfc")
   const sfc = compiler.parse(contents, { filename: file })
-  const result: Parsed = { imports: [], docs: "", component: contents }
+  const result: Parsed = { imports: [], docs: { attrs: {}, content: "" }, component: contents }
 
   if (sfc.descriptor.script || sfc.descriptor.scriptSetup) {
     const scriptResult = compiler.compileScript(sfc.descriptor, {
@@ -52,17 +52,18 @@ export const parseExample = async (contents: string, file: string): Promise<Pars
   // Blocks with empty content will not be collected by vue compiler
   const docsBlock = sfc.descriptor.customBlocks.find((block) => block.type === "docs")
   if (docsBlock) {
-    result.docs = docsBlock.content
+    result.docs.content = docsBlock.content
     result.component = `${result.component.slice(
       0,
       docsBlock.loc.start.offset,
     )}${result.component.slice(docsBlock.loc.end.offset)}`.replace(/<docs[^>]*><\/docs>/, "")
-    if (docsBlock.attrs.darkExample || docsBlock.attrs["dark-example"]) {
-      result.darkExample = true
+    result.docs.attrs = camelCaseKeys(docsBlock.attrs)
+  } else {
+    const emptyDocs = getEmptyDocsBlock(result.component)
+    if (emptyDocs) {
+      result.component = emptyDocs.component
+      result.docs.attrs = emptyDocs.attrs
     }
-  } else if (DOCS_BLOCK_WITH_DARK_EXAMPLE_RE.test(result.component)) {
-    result.component = result.component.replace(DOCS_BLOCK_WITH_DARK_EXAMPLE_RE, "")
-    result.darkExample = true
   }
 
   result.component = result.component.trim()

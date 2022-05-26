@@ -42,6 +42,14 @@ export default defineConfig({
 
 This will auto-detect all your nested components in the `components` folder. (see [below](#configuring-components-paths) for more examples on different folder structures)
 
+#### VitePlay CSS
+
+In your app entry, import VitePlay's stylesheet:
+
+```js
+import "@viteplay/vue/dist/style.css"
+```
+
 #### Vue Router
 
 Add [Vue Router](https://router.vuejs.org) to your project if you haven't already.

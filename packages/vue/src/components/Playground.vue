@@ -71,7 +71,13 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="playground">
-    <div class="playground-preview" :class="example.dark && 'dark'">
+    <div
+      class="playground-preview"
+      :class="[
+        example.docs.attrs.previewClass,
+        (example.docs.attrs.darkPreview || example.docs.attrs.darkExample) && 'dark',
+      ]"
+    >
       <iframe
         ref="iframe"
         :src="example.iframeUrl"
@@ -133,7 +139,7 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .playground-error {
   background-color: crimson;
   color: white;

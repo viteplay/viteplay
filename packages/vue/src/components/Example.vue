@@ -19,7 +19,7 @@ defineProps({
   <section class="viteplay-example">
     <ExampleHeader :slug="example.slug" :title="example.title" :iframeUrl="example.iframeUrl" />
 
-    <div class="viteplay-docs" v-html="example.docs"></div>
+    <div class="viteplay-docs" v-html="example.docs.content"></div>
 
     <Playground :example="example" :componentProps="componentProps" />
   </section>

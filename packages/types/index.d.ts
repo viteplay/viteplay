@@ -9,8 +9,10 @@ declare type ComponentExample = {
   slug: string
   title: string
   code: string
-  docs?: string
-  dark?: boolean
+  docs: {
+    content: string
+    attrs: Record<string, any>
+  }
   iframeUrl: string
   openInEditor?: () => void
 }

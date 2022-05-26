@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 import process from "node:process"
 import glob from "fast-glob"
 import { Page, NormalizedPage } from "."
+import { camelCase } from "case-anything"
 
 const nonNullable = <T>(value: T): value is NonNullable<T> => {
   return value !== null && value !== undefined
@@ -109,4 +110,27 @@ export const getIframeHtml = (iframeId: string, cacheDir: string) => `
 export const resolveFile = async (files: string[], cwd: string): Promise<string | undefined> => {
   const result = await glob(files, { cwd, absolute: true, onlyFiles: true })
   return result[0]
+}
+
+export const getEmptyDocsBlock = (code: string) => {
+  const EMPTY_DOCS_BLOCK_RE = /^<docs\s+([^/>]+)\/?>(<\/docs>)?/m
+  const HTML_ATTR_RE = /(\w+)(?:="([^"]+)")?/g
+  const [, attrString] = EMPTY_DOCS_BLOCK_RE.exec(code) || []
+  if (attrString) {
+    const attrs: Record<string, any> = {}
+    attrString.replace(HTML_ATTR_RE, (_, key, value) => {
+      attrs[key] =
+        value === undefined || value === "true" ? true : value === "false" ? false : value
+      return ""
+    })
+    return { attrs, component: code.replace(EMPTY_DOCS_BLOCK_RE, "") }
+  }
+}
+
+export const camelCaseKeys = (obj: Record<string, any>) => {
+  const result: Record<string, any> = {}
+  for (const key in obj) {
+    result[camelCase(key)] = obj[key]
+  }
+  return result
 }
