@@ -4,7 +4,7 @@ import path from "node:path"
 import { kebabCase } from "case-anything"
 import { parseExample } from "./parse-example"
 import { outputFileIfChanged } from "./fs"
-import { getIframeHtml, getPagesFromOptions, slash } from "./utils"
+import { getIframeHtml, getPagesFromOptions, resolveFile, slash } from "./utils"
 import { MarkRequired } from "./types"
 import { Options } from "./index"
 import { renderMarkdown } from "./markdown"
@@ -12,6 +12,7 @@ import { parseComponent } from "./parse-component"
 
 type BuildOptions = MarkRequired<Options, "cacheDir"> & {
   dev: boolean
+  root: string
 }
 
 export const build = async (options: BuildOptions) => {
@@ -90,9 +91,21 @@ export const build = async (options: BuildOptions) => {
         </template>
         `
         const iframeAppCode = `
-        import {createApp} from 'vue'
+        import { createApp, h } from 'vue'
         import App from './${example.iframeId}.vue'
-        createApp(App).mount('#app')
+        import viteplayIframe from '../viteplay.iframe'
+
+        const { Wrapper, extend } = viteplayIframe
+
+        const app = createApp({
+          setup() {
+            return () => Wrapper ? h(Wrapper, () => [h(App)]) : h(App)
+          }
+        })
+        if (extend) {
+          extend({ app })
+        }
+        app.mount('#app')
         `
         outputFileIfChanged(
           path.join(options.cacheDir, `__iframe/${example.iframeId}.vue`),
@@ -264,6 +277,24 @@ provideConfig(${JSON.stringify({
     `
 
   outputFileIfChanged(path.join(options.cacheDir, "client.js"), clientContent)
+
+  // Generate CACHE/viteplay.iframe.js
+  const viteplayIframeFile = await resolveFile(
+    ["viteplay.iframe.js", "viteplay.iframe.ts"],
+    options.root,
+  )
+  outputFileIfChanged(
+    path.join(options.cacheDir, "viteplay.iframe.js"),
+    viteplayIframeFile
+      ? `
+    export { default } from "${slash(viteplayIframeFile)}"
+  `
+      : `export default {}`,
+  )
+
+  if (viteplayIframeFile) {
+    watchFiles.add(viteplayIframeFile)
+  }
 
   return { watchFiles, iframes }
 }

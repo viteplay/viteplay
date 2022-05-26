@@ -92,3 +92,8 @@ export const getIframeHtml = (iframeId: string, cacheDir: string) => `
   </body>
 </html>
 `
+
+export const resolveFile = async (files: string[], cwd: string): Promise<string | undefined> => {
+  const result = await glob(files, { cwd, absolute: true, onlyFiles: true })
+  return result[0]
+}

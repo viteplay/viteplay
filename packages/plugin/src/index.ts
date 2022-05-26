@@ -68,19 +68,20 @@ export type Options = {
 const plugin = (options: Options): Plugin[] => {
   let cacheDir = options.cacheDir ?? ".cache/viteplay"
   let watchFiles: Set<string> = new Set()
+  let root = process.cwd()
 
   return [
     {
       name: "viteplay",
 
       async config(config, env) {
-        const root = config.root || process.cwd()
+        root = config.root || process.cwd()
         const rootHtmlFile = path.join(root, "index.html")
         cacheDir = path.resolve(root, cacheDir)
 
         debug(`Starting initial build`)
         const dev = env.command === "serve"
-        const buildResult = await build({ ...options, cacheDir, dev })
+        const buildResult = await build({ ...options, cacheDir, dev, root })
         watchFiles = buildResult.watchFiles
 
         const input = buildResult.iframes.reduce<Record<string, string>>((res, iframe) => {
@@ -124,7 +125,7 @@ const plugin = (options: Options): Plugin[] => {
           // Otherwise adding or deleting any file (even if it's not an example / component) will trigger a rebuild
           debug(`rebuild: %s %s`, event, id)
 
-          const buildResult = await build({ ...options, cacheDir, dev: true })
+          const buildResult = await build({ ...options, cacheDir, dev: true, root })
           watchFiles = buildResult.watchFiles
         })
 
