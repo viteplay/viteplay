@@ -163,7 +163,9 @@ export const build = async (options: BuildOptions) => {
                 code: decodeURI(${JSON.stringify(encodeURI(example.contents))}),
                 dark: ${JSON.stringify(example.parsed.darkExample)},
                 iframeUrl: ${JSON.stringify(`/__iframe/${example.iframeId}.html`)},
-                openInEditor: () => openInEditor(${JSON.stringify(slash(example.absolutePath))})
+                openInEditor: import.meta.env.DEV 
+                  ? () => openInEditor(${JSON.stringify(slash(example.absolutePath))}) 
+                  : undefined 
               }`
             })
             .join(",")}
