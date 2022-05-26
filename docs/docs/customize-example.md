@@ -1,4 +1,4 @@
-# Customize Preview
+# Customize Example
 
 Let's say you have an example component `SimpleButton.vue`:
 
