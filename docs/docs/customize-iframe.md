@@ -17,4 +17,4 @@ export default {
 }
 ```
 
-In general, if you want to customize the preview, like importing some global CSS, you should do it in `viteplay.iframe.js` instead of in your actual app.
+In general, if you want to customize the rendered preview, like applying some global CSS, you should do it in `viteplay.iframe.js`.

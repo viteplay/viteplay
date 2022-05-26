@@ -17,6 +17,26 @@ export default defineConfig({
     editLinkText: "Edit this page on GitHub",
     lastUpdated: "Last Updated",
 
+    sidebar: [
+      {
+        text: "Guide",
+        children: [
+          {
+            text: "Getting Started",
+            link: "/docs/getting-started",
+          },
+          {
+            text: "Customize Example",
+            link: "/docs/customize-example",
+          },
+          {
+            text: "Customize Iframe",
+            link: "/docs/customize-iframe",
+          },
+        ],
+      },
+    ],
+
     // algolia: {
     //   apiKey: "",
     //   appId: "",

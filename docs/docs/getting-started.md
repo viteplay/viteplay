@@ -70,7 +70,7 @@ export const router = createRouter({
 })
 ```
 
-That's all! Now you have a fully auto-generated development environment for your components. Just visit `/dev` on your localhost server and start writing [component examples](/writing-component-examples)!
+That's all! Now you have a fully auto-generated development environment for your components. Just visit `/dev` on your localhost server and start writing [component examples](./writing-component-examples/index.md)!
 
 ### Config Examples
 

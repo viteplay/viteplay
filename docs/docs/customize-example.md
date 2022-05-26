@@ -1,6 +1,6 @@
 # Customize Preview
 
-Let's say you have an example component like:
+Let's say you have an example component `SimpleButton.vue`:
 
 ```vue
 <script setup lang="ts">
