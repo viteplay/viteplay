@@ -5,6 +5,10 @@ import process from "node:process"
 import glob from "fast-glob"
 import { Page, NormalizedPage } from "."
 
+const nonNullable = <T>(value: T): value is NonNullable<T> => {
+  return value !== null && value !== undefined
+}
+
 export const slash = (input: string) => input.replace(/\\/g, "/")
 
 export const resolveFrom = (id: string, dir: string) => {
@@ -61,19 +65,28 @@ export async function getPagesFromOptions(options: {
   const exampleFiles = await glob(componentExamples, { absolute: true, onlyFiles: true }).then(
     (items) => items.map((v) => slash(v)).sort(),
   )
-  const files = await glob(components, { absolute: true, onlyFiles: true }).then((items) =>
-    items.map((v) => slash(v)).sort(),
-  )
-  const componentFiles = files.filter((p) => !exampleFiles.includes(p))
+  const componentFiles = await glob(components, {
+    absolute: true,
+    onlyFiles: true,
+    ignore: [componentExamples],
+  }).then((items) => items.map((v) => slash(v)).sort())
 
   return {
     watchFiles: new Set([...componentFiles, ...exampleFiles]),
-    pages: componentFiles.map((p) => {
-      const fileName = path.basename(p, path.extname(p))
-      const folder = path.dirname(p)
-      const examples = exampleFiles.filter((_p) => _p.startsWith(folder + "/")).sort()
-      return { title: fileName, component: p, examples }
-    }),
+    pages: componentFiles
+      .map((p) => {
+        const fileName = path.basename(p, path.extname(p))
+        const folder = path.dirname(p)
+        const folderName = path.basename(folder)
+        // Only use the component if its filename matches its folder name
+        // case insensitive
+        if (folderName.toLowerCase() !== fileName.toLowerCase()) {
+          return null
+        }
+        const examples = exampleFiles.filter((_p) => _p.startsWith(folder + "/")).sort()
+        return { title: fileName, component: p, examples }
+      })
+      .filter(nonNullable),
   }
 }
 
