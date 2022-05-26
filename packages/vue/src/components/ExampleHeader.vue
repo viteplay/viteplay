@@ -18,7 +18,10 @@ const header = ref<HTMLHeadingElement | null>(null)
 watchEffect(() => {
   if (route.hash && header.value && route.hash === `#${header.value.id}`) {
     setTimeout(() => {
-      const el = document.querySelector<HTMLElement>(decodeURIComponent(route.hash))
+      const el =
+        header.value.id === "props"
+          ? document.querySelector<HTMLDivElement>(".page-title")
+          : document.querySelector<HTMLDivElement>(decodeURIComponent(route.hash))
       if (el) {
         window.scrollTo({
           top: el.offsetTop,

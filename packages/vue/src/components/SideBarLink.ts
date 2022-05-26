@@ -1,4 +1,4 @@
-import { FunctionalComponent, h, ref, UnwrapRef, watchEffect } from "vue"
+import { FunctionalComponent, h, Ref, ref, UnwrapRef, watchEffect } from "vue"
 import { useRoute, RouterLink, useLink } from "vue-router"
 import { useConfig } from ".."
 import type { SideBarItem } from "./SideBar.types"
@@ -9,6 +9,7 @@ export const SideBarLink: FunctionalComponent<{
   item: SideBarItem
   depth?: number
   slug?: string
+  parentLinkRef?: Ref<HTMLAnchorElement | null>
 }> = (props) => {
   const route = useRoute()
   const depth = props.depth || 1
@@ -23,7 +24,11 @@ export const SideBarLink: FunctionalComponent<{
   // Scroll the header in sidebar into view
   watchEffect(() => {
     if (route.hash && props.slug && route.hash === `#${props.slug}` && sidebarLinkRef.value) {
-      sidebarLinkRef.value.scrollIntoView()
+      if (props.parentLinkRef?.value) {
+        props.parentLinkRef.value.scrollIntoView()
+      } else {
+        sidebarLinkRef.value.scrollIntoView()
+      }
     }
   })
 
@@ -61,6 +66,7 @@ export const SideBarLink: FunctionalComponent<{
             item: { text: header.title, link: `#${header.slug}` },
             depth: depth + 1,
             slug: header.slug,
+            parentLinkRef: sidebarLinkRef,
           })
         }),
       ),
