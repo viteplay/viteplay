@@ -5,24 +5,9 @@ h2,
 h3 {
   color: var(--c-wordmark);
   font-family: var(--font-family-title);
-  display: flex;
 }
 h4 {
   margin-top: 1em;
-}
-
-h2 {
-  position: relative;
-  border: none;
-}
-h2:after {
-  content: "";
-  background: linear-gradient(90deg, #ffd679, #ed6dc3, #7176e1);
-  height: 1px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 /* Internal Links */
