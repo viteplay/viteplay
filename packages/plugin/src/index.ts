@@ -2,7 +2,7 @@ import path from "node:path"
 import { Plugin } from "vite"
 import createDebug from "debug"
 import { build } from "./build"
-import { getIframeHtml, slash } from "./utils"
+import { getIframeHtml, OWN_DIR, slash } from "./utils"
 
 const debug = createDebug(`viteplay:plugin`)
 
@@ -103,9 +103,20 @@ const plugin = (options: Options): Plugin[] => {
       },
 
       resolveId(id) {
-        if (id.startsWith("viteplay-cache/")) {
-          return id.replace("viteplay-cache", cacheDir)
+        if (/^\/?viteplay-cache\//.test(id)) {
+          return id.replace(/^\/?viteplay-cache/, cacheDir)
         }
+      },
+
+      transformIndexHtml(_, ctx) {
+        if (!ctx.server) return
+        return [
+          {
+            tag: "script",
+            attrs: { type: "module", src: path.join(OWN_DIR, "vite-client.js") },
+            injectTo: "body",
+          },
+        ]
       },
 
       configureServer(server) {
@@ -118,6 +129,8 @@ const plugin = (options: Options): Plugin[] => {
           }
 
           // For changed files, we only need to rebuild if it's already watched
+          // watchFiles is null when there's build error
+          // so we rebuild anyway
           if (event === "change" && !watchFiles.has(id)) {
             return
           }
@@ -125,8 +138,26 @@ const plugin = (options: Options): Plugin[] => {
           // Otherwise adding or deleting any file (even if it's not an example / component) will trigger a rebuild
           debug(`rebuild: %s %s`, event, id)
 
-          const buildResult = await build({ ...options, cacheDir, dev: true, root })
-          watchFiles = buildResult.watchFiles
+          try {
+            const buildResult = await build({ ...options, cacheDir, dev: true, root })
+            watchFiles = buildResult.watchFiles
+            server.ws.send({
+              type: "custom",
+              event: "viteplay:clear-error-overlay",
+            })
+          } catch (error: any) {
+            server.ws.send({
+              type: "error",
+              err: {
+                message: error.message,
+                stack: error.stack,
+                loc: error.loc,
+                frame: error.frame || error.code,
+              },
+            })
+            console.error(error)
+            process.exitCode = 1
+          }
         })
 
         server.middlewares.use(async (req, res, next) => {

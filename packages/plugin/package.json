@@ -6,7 +6,8 @@
   },
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "/vite-client.js"
   ],
   "types": "dist/index.d.ts",
   "exports": {

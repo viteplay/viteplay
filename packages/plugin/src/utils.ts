@@ -10,6 +10,11 @@ const nonNullable = <T>(value: T): value is NonNullable<T> => {
   return value !== null && value !== undefined
 }
 
+const dirname =
+  typeof __dirname === "undefined" ? path.dirname(fileURLToPath(import.meta.url)) : __dirname
+
+export const OWN_DIR = path.join(dirname, "..")
+
 export const slash = (input: string) => input.replace(/\\/g, "/")
 
 export const resolveFrom = (id: string, dir: string) => {

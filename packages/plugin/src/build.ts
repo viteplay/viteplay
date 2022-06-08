@@ -27,7 +27,12 @@ export const build = async (options: BuildOptions) => {
       const { props } = await parseComponent(
         await fs.promises.readFile(page.component, "utf8"),
         page.component,
-      )
+      ).catch((error) => {
+        if (error.loc && !error.loc.file) {
+          error.loc.file = page.component
+        }
+        throw error
+      })
       const componentName = path.basename(page.component, path.extname(page.component))
       const componentProps = {
         [componentName]: props,
@@ -36,7 +41,12 @@ export const build = async (options: BuildOptions) => {
       const examples = await Promise.all(
         page.examples.map(async (file) => {
           const contents = await fs.promises.readFile(file, "utf8")
-          const parsed = await parseExample(contents, file)
+          const parsed = await parseExample(contents, file).catch((error) => {
+            if (error.loc && !error.loc.file) {
+              error.loc.file = file
+            }
+            throw error
+          })
           const title =
             file
               .split("/")
