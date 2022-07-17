@@ -79,6 +79,17 @@ export const router = createRouter({
 
 That's all! Now you have a fully auto-generated development environment for your components. Just visit `/dev` on your localhost server and start writing [component examples](./writing-component-examples/index.md)!
 
+##### First time setting up Vue Router?
+
+If you hadn't already added vue-router to your Vite project, it's really easy to do so:
+
+1. `npm i -D vue-router`
+2. Save the snippet above as `router.js` in your `src` folder.
+3. in `src/main.ts` add `import { router } from './router'` and `createApp(App).use(router)` before `.mount('#app')`
+4. in `src/App.vue` make sure it has `<router-view />` in the template.
+
+That's all!
+
 ### Config Examples
 
 #### Component Auto-Detection
