@@ -6,6 +6,4 @@ import Button from "@my-repo/button/Button.vue"
   <Button variant="primary">Simple Button</Button>
 </template>
 
-<docs previewClass="bg-navy">
-This is an **example** docs `that` shows above the playground.
-</docs>
+<docs previewClass="bg-navy" />

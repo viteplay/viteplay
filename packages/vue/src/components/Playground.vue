@@ -85,8 +85,8 @@ onBeforeUnmount(() => {
       />
     </div>
     <div :class="['playground-editor', errors.length && 'has-error', editorExpanded && 'expanded']">
-      <div class="playground-header">
-        <h3 @click="editorExpanded = !editorExpanded">
+      <div class="playground-header" @click="editorExpanded = !editorExpanded">
+        <h3>
           <Pepicon :name="editorExpanded ? 'angle-down' : 'angle-right'" :size="16" />
           <span>Editable Example</span>
         </h3>
@@ -98,7 +98,7 @@ onBeforeUnmount(() => {
             type="pop"
             size="sm"
             role="button"
-            @click="resetCode"
+            @click.stop="resetCode"
           />
           <Pepicon
             v-if="example.openInEditor"
@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
             type="pop"
             size="sm"
             role="button"
-            @click="example.openInEditor"
+            @click.stop="example.openInEditor"
           />
           <Pepicon
             v-if="!errors.length"
@@ -116,7 +116,7 @@ onBeforeUnmount(() => {
             type="pop"
             size="sm"
             role="button"
-            @click="copy.copy"
+            @click.stop="copy.copy"
           />
           <Pepicon
             v-if="errors.length"
@@ -125,7 +125,7 @@ onBeforeUnmount(() => {
             type="pop"
             size="xl"
             role="button"
-            @click="() => (showingError = !showingError)"
+            @click.stop="() => (showingError = !showingError)"
           />
         </div>
       </div>
@@ -189,6 +189,11 @@ onBeforeUnmount(() => {
   color: rgb(155, 155, 155);
   position: relative;
   padding: 0 15px;
+  cursor: se-resize;
+}
+
+.expanded .playground-header {
+  cursor: nw-resize;
 }
 
 .playground-header h3 {
@@ -196,7 +201,6 @@ onBeforeUnmount(() => {
   font-size: 1rem;
   font-size: inherit;
   margin: 0;
-  cursor: pointer;
   display: flex;
   align-items: center;
   user-select: none;
