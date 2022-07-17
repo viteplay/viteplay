@@ -6,7 +6,7 @@ editLink: true
 
 ## Requirements
 
-Viteplay only available for **Vite projects**.
+Viteplay is only available for **Vite projects**.
 
 It currently only supports **Vue** based projects, but in the future we plan to support _React_ & _Svelte_ as well. (Maintainers welcome!)
 
@@ -14,7 +14,13 @@ It currently only supports **Vue** based projects, but in the future we plan to 
 
 ### Vue Projects
 
-You only need to add 2 snippets of code to your vite and vue-router config.
+Install these dev dependencies:
+
+```sh
+npm i -D @viteplay/plugin @viteplay/vue
+```
+
+Then you need to add 2 snippets of code to your vite and vue-router config.
 
 #### Vite Config
 
@@ -57,12 +63,13 @@ Add [Vue Router](https://router.vuejs.org) to your project if you haven't alread
 In your Vue Router config file, add this:
 
 ```ts
-import { createRouter } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
 import { pages as pagesVitePlay } from "@viteplay/vue/client"
 
 console.log(`VitePlay development routes → `, pagesVitePlay)
 
 export const router = createRouter({
+  history: createWebHistory(), // or whatever your project has already
   routes: [
     ...pagesVitePlay,
     // your other routes here...
