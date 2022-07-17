@@ -42,3 +42,8 @@
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: var(--c-gradient-dark);
 }
+
+* {
+  border-image: var(--c-gradient-dark);
+  border-image-slice: 1;
+}
