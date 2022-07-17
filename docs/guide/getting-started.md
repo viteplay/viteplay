@@ -1,7 +1,3 @@
----
-editLink: true
----
-
 # Getting Started
 
 ## Requirements
@@ -46,7 +42,7 @@ export default defineConfig({
 })
 ```
 
-This will auto-detect all your nested components in the `components` folder. (see [below](#configuring-components-paths) for more examples on different folder structures)
+This will auto-detect all your nested components in the `components` folder. (see [config examples](#config-examples) for more examples on different folder structures)
 
 #### VitePlay CSS
 
@@ -77,7 +73,7 @@ export const router = createRouter({
 })
 ```
 
-That's all! Now you have a fully auto-generated development environment for your components. Just visit `/dev` on your localhost server and start writing [component examples](./writing-component-examples/index.md)!
+That's all! Now you have a fully auto-generated development environment for your components. Just visit `/dev` on your localhost server and start writing [component examples](/guide/my-first-component)!
 
 ##### First time setting up Vue Router?
 

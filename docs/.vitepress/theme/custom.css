@@ -1,0 +1,44 @@
+:root {
+  --c-gradient-light: linear-gradient(
+    to right bottom,
+    #ffeab7,
+    #ffd7ac,
+    #ffc3ab,
+    #ffb1b4,
+    #ffa3c3,
+    #fda1d2,
+    #f7a1e2,
+    #eba3f3,
+    #ddabfa,
+    #d0b2fe,
+    #c4b8ff,
+    #babeff
+  );
+  --c-gradient-dark: linear-gradient(
+    to right bottom,
+    #fed369,
+    #ffb564,
+    #ff956e,
+    #ff7882,
+    #ff629c,
+    #f45bad,
+    #e459c0,
+    #cd5cd2,
+    #ba61dc,
+    #a366e4,
+    #886beb,
+    #666ff0
+  );
+}
+
+:root {
+  --vp-c-brand-dark: #666ff0;
+  --vp-c-brand: #886beb;
+  --vp-c-brand-light: #a366e4;
+  --vp-c-brand-lighter: #ba61dc;
+}
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: var(--c-gradient-dark);
+}

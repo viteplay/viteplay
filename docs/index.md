@@ -1,17 +1,26 @@
 ---
-navbar: false
-home: true
-heroImage: /viteplay-logo.svg
-heroAlt: VitePlay Logo
-tagline: Automated Component Development Environment
-actionText: Get Started
-actionLink: /docs/getting-started
+layout: home
+
+hero:
+  name: VitePlay
+  text: Develop Components Without the Hassle
+  tagline: A fully auto-generated and interactive component development environment.
+  actions:
+    - theme: brand
+      text: Get Started
+      link: /guide/getting-started
+    - theme: alt
+      text: View on GitHub
+      link: https://github.com/viteplay/viteplay
+
 features:
-  - title: Boost Development
-    details: Build components in isolation on an auto-generated dev page
-  - title: Simple
-    details: Fully automated development environment with only 2 lines of code
-  - title: Flexible
-    details: HMR & auto detection of new components & examples
-footer: MIT Licensed 　・　 Copyright © 2021-present 　・　 Made with 💛 by Mesqueeb & EGOIST
+  - icon: 🏝
+    title: Isolated Development
+    details: Build components in isolation and have reference for future debugging
+  - icon: 🏄
+    title: Simple and Quick
+    details: A fully automated development page for your components, in just 3 minutes
+  - icon: 🍹
+    title: Share and Play
+    details: Each rendered component is fully interactable, as is its code
 ---

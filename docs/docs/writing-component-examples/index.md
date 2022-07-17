@@ -1,1 +1,0 @@
-# Writing Component Examples
