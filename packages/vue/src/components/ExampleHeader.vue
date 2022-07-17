@@ -50,7 +50,7 @@ const openIframe = () => {
         size="sm"
         type="pop"
         role="button"
-        class="icon-button"
+        class="viteplay-icon-button"
         @click="() => openIframe()"
       />
       <FocusButton :slug="props.slug" />
@@ -85,10 +85,12 @@ a.header-anchor:focus {
 .example-header-buttons {
   display: flex;
   align-items: center;
-  opacity: 0;
+  > *:not(.active) {
+    opacity: 0;
+  }
 }
 
-.viteplay-example:hover .example-header-buttons {
+.viteplay-example:hover .example-header-buttons > * {
   opacity: 1;
 }
 </style>

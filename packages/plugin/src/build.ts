@@ -188,7 +188,7 @@ export const build = async (options: BuildOptions) => {
         options.dev ? `:openInEditor="() => openInEditor('${slash(page.component)}')"` : ``
       } />
           <div v-if="hiddenCount > 0" class="hidden-examples-info">
-            {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a @click.prevent="showAll" type="button" style="cursor: pointer">show all</a>
+            {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a class="viteplay-link" type="button" @click.prevent="showAll">show all</a>
           </div>
           <PropsTable componentName="${componentName}" :componentProps="componentProps" />
           <template  

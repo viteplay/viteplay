@@ -23,12 +23,12 @@ const handleEyeClick = (e: any) => {
 
 <template>
   <Pepicon
-    v-tooltip="`Show this example only`"
-    name="eye"
+    v-tooltip="focussed ? `Show all examples again` : `Show this example only`"
+    :name="focussed ? 'eye-off' : 'eye'"
     role="button"
     type="pop"
-    class="icon-button focus-button"
-    :class="`icon-button ${active && focussed ? 'active' : ''}`"
+    class="viteplay-icon-button focus-button"
+    :class="`viteplay-icon-button ${active && focussed ? 'active' : ''}`"
     @click="(e) => handleEyeClick(e)"
   />
 </template>

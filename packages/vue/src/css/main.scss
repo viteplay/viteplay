@@ -174,7 +174,7 @@ body {
   }
 }
 
-.icon-button {
+.viteplay-icon-button {
   border: none;
   background-color: transparent;
   color: var(--viteplay-c-text);
@@ -184,10 +184,24 @@ body {
   height: 32px;
   padding: 0;
 }
-.icon-button:not(.active):hover {
+.viteplay-icon-button:not(.active):hover {
   background-color: var(--viteplay-c-bg-light);
 }
 
-.icon-button.active {
+.viteplay-icon-button.active {
   color: var(--viteplay-c-brand);
+}
+
+.viteplay-link {
+  color: var(--viteplay-c-brand);
+  cursor: pointer;
+  position: relative;
+  &::before {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid var(--viteplay-c-brand);
+  }
 }
