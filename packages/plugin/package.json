@@ -19,7 +19,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "vitest run",
-    "build": "tsup",
+    "build": "tsup --shims",
     "dev": "tsup --watch",
     "prepublishOnly": "npm run build"
   },
