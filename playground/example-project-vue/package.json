@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "2.3.3",
+    "@viteplay/plugin": "workspace:^0.0.27",
+    "@viteplay/vue": "workspace:^0.0.27",
     "typescript": "^4.6.4",
     "vite": "2.9.13",
     "vue-tsc": "^0.38.4"
