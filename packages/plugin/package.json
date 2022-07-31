@@ -38,8 +38,8 @@
     "@types/markdown-it": "^12.2.3",
     "eslint": "^8.7.0",
     "eslint-config-viteplay": "workspace:*",
-    "vite": "^2.7.13",
+    "vite": "2.9.13",
     "vitest": "0.6.0",
-    "vue": "^3.2.26"
+    "vue": "^3.2.37"
   }
 }
