@@ -1,7 +1,18 @@
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
+import viteplay from "@viteplay/plugin"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    viteplay({
+      // Path to extract components from
+      components: "./src/components/*/*.vue",
+      // Path to extract examples from
+      componentExamples: "./src/components/*/examples/*.vue",
+      // base route for the development pages
+      base: "/",
+    }),
+  ],
 })
