@@ -10,7 +10,7 @@ There is a Vue example project available in the [Github Repo here](https://githu
 
 1. First, make sure you followed the [setup](/guide/getting-started).
 2. Launch your project's dev server.
-3. Visit http://localhost:3000/dev in your browser. The `/dev` route can be [changed via the config](/guide/getting-started#vite-config).
+3. Visit `http://localhost:3000/dev` in your browser. The `/dev` route can be [changed via the config](/guide/getting-started#vite-config).
 
 ### Decide on the File Structure
 

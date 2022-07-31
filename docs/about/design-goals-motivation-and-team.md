@@ -48,7 +48,7 @@ const members = [
 
 ## Motivation
 
-When I came up with the idea of VitePlay, I really just wanted a way to easily develop components without all the setup hassle. I've experienced endless _setup hell_ with frameworks like StoryBook. Others similar frameworks I found, didn't check all my boxes for what I needed from a development framework (see [Goals](#design-goals)).
+When I came up with the idea of VitePlay, I really just wanted a way to easily develop components without all the setup hassle. I've experienced endless _setup hell_ with frameworks like StoryBook. Others similar frameworks I found, didn't check all my boxes for what I needed from a development framework (see [Design Goals](#design-goals)).
 
 Another really big turn off to me is that you have to learn a new syntax to write components examples. One of my main design choices for VitePlay is that component examples are _just_ a Vue files where you import a component and use it in the template. The closer it is to _real usage_ throughout your project, the more it makes sense.
 
