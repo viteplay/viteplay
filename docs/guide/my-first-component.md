@@ -4,8 +4,6 @@
 
 There is a Vue example project available in the [Github Repo here](https://github.com/viteplay/viteplay/tree/main/playground/example-project-vue).
 
-You can
-
 ## Button Example
 
 ### Open VitePlay in the browser
