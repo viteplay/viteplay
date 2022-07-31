@@ -43,7 +43,21 @@
   --vp-home-hero-name-background: var(--c-gradient-dark);
 }
 
-* {
+.VPSidebar .group + .group,
+.vp-doc h2,
+.VPDocFooter .prev-next,
+.VPFooter {
+  border-image: var(--c-gradient-dark);
+  border-image-slice: 1;
+}
+
+.VPNavBar .menu + .translations::before,
+.VPNavBar .menu + .appearance::before,
+.VPNavBar .menu + .social-links::before,
+.VPNavBar .translations + .appearance::before,
+.VPNavBar .appearance + .social-links::before {
+  width: 0px;
+  border-left: 1px solid transparent;
   border-image: var(--c-gradient-dark);
   border-image-slice: 1;
 }
