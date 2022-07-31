@@ -4,7 +4,7 @@ export default defineConfig({
   lang: "en-US",
   title: "VitePlay",
   description: "A fully auto-generated and interactive component development environment.",
-  head: [["link", { rel: "icon", type: "image/svg+xml", href: "/viteplay-icon.svg" }]],
+  head: [["link", { rel: "icon", type: "image/svg+xml", href: "/viteplay-logo-icon.svg" }]],
 
   lastUpdated: true,
   // markdown: {
@@ -13,8 +13,11 @@ export default defineConfig({
 
   // Theme related configurations.
   themeConfig: {
-    // siteTitle: false,
-    logo: "/viteplay-icon.svg",
+    logo: {
+      light: "/viteplay-logo-wordmark-lightmode.svg",
+      dark: "/viteplay-logo-wordmark-darkmode.svg",
+    },
+    siteTitle: false,
     editLink: {
       pattern: "https://github.com/viteplay/viteplay/edit/main/docs/:path",
       text: "Edit this page on GitHub",

@@ -6,7 +6,8 @@ hero:
   text: Develop Components Without the Hassle
   tagline: A fully auto-generated and interactive component development environment.
   image:
-    src: /viteplay-icon.svg
+    light: /viteplay-logo-icon.svg
+    dark: /viteplay-logo-icon.svg
     alt: VitePlay
   actions:
     - theme: brand
