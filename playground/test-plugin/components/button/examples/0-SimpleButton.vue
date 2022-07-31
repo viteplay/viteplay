@@ -5,7 +5,7 @@ const foo = await import("./foo.json")
 </script>
 
 <template>
-  <Button variant="primary">Simple Button</Button>
+  <Button kind="primary">Simple Button</Button>
   {{ JSON.stringify(foo) }}
 </template>
 

@@ -36,7 +36,12 @@ export default defineConfig({
       },
       {
         text: "About",
-        items: [{ text: "Motivation & Team", link: "/about/motivation-and-team" }],
+        items: [
+          {
+            text: "Design Goals, Motivation & Team",
+            link: "/about/design-goals-motivation-and-team",
+          },
+        ],
       },
     ],
 

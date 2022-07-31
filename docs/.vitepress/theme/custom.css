@@ -71,3 +71,22 @@
 .vp-doc h4 {
   padding-top: 1em;
 }
+
+li small {
+  color: var(--vp-c-text-code);
+  opacity: 0.7;
+}
+
+.quote {
+  font-weight: 200;
+  font-size: 32px;
+  line-height: 1.2;
+  text-align: end;
+  color: var(--vp-c-text-code);
+  opacity: 0.7;
+}
+.quote div:last-child {
+  margin-top: 0.5rem;
+  font-size: 20px;
+  font-weight: 300;
+}

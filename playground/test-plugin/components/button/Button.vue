@@ -1,29 +1,26 @@
 <script setup lang="ts">
 const props = defineProps<{
-  /** Choose a button variant */
-  variant?: string
+  /** Choose a button kind */
+  kind?: "primary" | "error" | "warning" | "info"
 }>()
 </script>
 
 <template>
-  <button :class="[`is-${props.variant}`]"><slot></slot></button>
+  <button :class="`_kind-${props.kind}`"><slot /></button>
 </template>
 
 <style scoped>
-.is-primary {
-  background-color: blue;
+._kind-primary {
+  background-color: mediumslateblue;
   color: white;
 }
-
-.is-error {
-  background-color: red;
+._kind-error {
+  background-color: tomato;
 }
-
-.is-warning {
-  background-color: orange;
+._kind-warning {
+  background-color: goldenrod;
 }
-
-.is-info {
-  background-color: cyan;
+._kind-info {
+  background-color: lightskyblue;
 }
 </style>

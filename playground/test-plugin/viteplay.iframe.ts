@@ -1,5 +1,5 @@
 // import { defineComponent, h, onMounted } from "vue"
-import ViteplayPreviewWrapper from "./ViteplayPreviewWrapper.vue"
+import VitePlayWrapper from "./VitePlayWrapper.vue"
 
 // const Wrapper = defineComponent((props, { slots }) => {
 //   onMounted(() => {
@@ -9,5 +9,5 @@ import ViteplayPreviewWrapper from "./ViteplayPreviewWrapper.vue"
 // })
 
 export default {
-  Wrapper: ViteplayPreviewWrapper,
+  Wrapper: VitePlayWrapper,
 }

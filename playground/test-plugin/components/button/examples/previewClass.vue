@@ -3,7 +3,7 @@ import Button from "@my-repo/button/Button.vue"
 </script>
 
 <template>
-  <Button variant="primary">Simple Button</Button>
+  <Button kind="primary">Simple Button</Button>
 </template>
 
 <docs previewClass="bg-navy" />

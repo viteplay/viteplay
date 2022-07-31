@@ -6,9 +6,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <button :class="`_kind-${props.kind}`">
-    <slot></slot>
-  </button>
+  <button :class="`_kind-${props.kind}`"><slot /></button>
 </template>
 
 <style scoped>
@@ -16,15 +14,12 @@ const props = defineProps<{
   background-color: mediumslateblue;
   color: white;
 }
-
 ._kind-error {
   background-color: tomato;
 }
-
 ._kind-warning {
   background-color: goldenrod;
 }
-
 ._kind-info {
   background-color: lightskyblue;
 }
