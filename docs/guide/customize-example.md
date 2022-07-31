@@ -4,11 +4,11 @@ Let's say you have an example component `SimpleButton.vue`:
 
 ```vue
 <script setup lang="ts">
-import Button from "@my-repo/button/Button.vue"
+import MyButton from "../MyButton.vue"
 </script>
 
 <template>
-  <Button variant="primary">Simple Button</Button>
+  <MyButton variant="primary">Simple Button</MyButton>
 </template>
 
 <docs>
@@ -36,11 +36,11 @@ This example will render with a default black background:
 
 ```vue
 <script setup lang="ts">
-import Button from "@my-repo/button/Button.vue"
+import MyButton from "../MyButton.vue"
 </script>
 
 <template>
-  <Button variant="primary">Simple Button</Button>
+  <MyButton variant="primary">Simple Button</MyButton>
 </template>
 
 <docs darkPreview />
