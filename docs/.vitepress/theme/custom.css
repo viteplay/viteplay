@@ -1,3 +1,9 @@
+@import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
+:root {
+  --vp-font-family-mono: "Fira Code", Menlo, Monaco, Consolas, "Courier New", monospace;
+  --vp-code-line-height: 1.5;
+}
+
 :root {
   --c-gradient-light: linear-gradient(
     to right bottom,
@@ -60,4 +66,8 @@
   border-left: 1px solid transparent;
   border-image: var(--c-gradient-dark);
   border-image-slice: 1;
+}
+
+.vp-doc h4 {
+  padding-top: 1em;
 }
