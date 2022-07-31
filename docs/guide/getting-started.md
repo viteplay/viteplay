@@ -74,7 +74,7 @@ Depending on how you want to organise your components folder, you might need a d
 
 If you hadn't already added vue-router to your Vite project, it's really easy to do so:
 
-1. `npm i -D vue-router`
+1. `npm i vue-router`
 2. Save the snippet above as `router.ts` (or `.js`) in your `src` folder.
 3. in `src/main.ts` (or `.js`) add `import { router } from './router'` and `createApp(App).use(router)` before `.mount('#app')`
 4. in `src/App.vue` make sure it has `<router-view />` in the template.

@@ -38,7 +38,11 @@ Here is an example of what your `ViteplayPreviewWrapper.vue` could look like:
 </style>
 ```
 
-### Centering all example previews
+:::info
+If you use TS, you will have to add `"./viteplay.iframe.ts"` to the `"include": [...]` array in your `tsconfig.json`.
+:::
+
+## Centering all example previews
 
 Here is an example of what your `ViteplayPreviewWrapper.vue` could look like if you want all example previews to be centered:
 
