@@ -26,7 +26,8 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm run vendor-sucrase && vite build",
+    "clean": "rimraf dist",
+    "build": "npm run clean && npm run vendor-sucrase && vite build && vite build -c=vite.config.iframe.ts",
     "dev": "npm run vendor-sucrase && vite build --watch --mode development",
     "test": "vitest run",
     "example": "npm run vendor-sucrase && vite example",
@@ -43,6 +44,7 @@
     "eslint": "^8.7.0",
     "eslint-config-viteplay": "workspace:*",
     "postcss": "^8.4.16",
+    "rimraf": "^3.0.2",
     "sass": "^1.49.9",
     "sucrase": "3.20.3",
     "vite": "3.0.9",

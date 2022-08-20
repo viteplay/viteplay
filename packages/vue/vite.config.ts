@@ -8,23 +8,23 @@ export default defineConfig((ctx) => {
   return {
     build: {
       minify: false,
-      emptyOutDir: prod,
+      emptyOutDir: false,
+      lib: {
+        entry: "./src/index.ts",
+        formats: ["es", "cjs"],
+      },
       rollupOptions: {
-        input: {
-          index: "./src/index.ts",
-          iframe: "./src/iframe/index.ts",
-        },
         output: [
           {
             assetFileNames: "style.[ext]",
-            entryFileNames: "[name].mjs",
-            chunkFileNames: "[name].mjs",
-            format: "esm",
+            entryFileNames: "index.mjs",
+            chunkFileNames: "index.mjs",
+            format: "es",
           },
           {
             assetFileNames: "style.[ext]",
-            entryFileNames: "[name].js",
-            chunkFileNames: "[name].js",
+            entryFileNames: "index.js",
+            chunkFileNames: "index.js",
             format: "cjs",
           },
         ],
