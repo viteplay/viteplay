@@ -16,12 +16,13 @@ export default defineConfig((ctx) => {
         },
         output: [
           {
-            assetFileNames: "style.css",
+            assetFileNames: "style.[ext]",
             entryFileNames: "[name].mjs",
             chunkFileNames: "[name].mjs",
             format: "esm",
           },
           {
+            assetFileNames: "style.[ext]",
             entryFileNames: "[name].js",
             chunkFileNames: "[name].js",
             format: "cjs",
