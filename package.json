@@ -6,6 +6,7 @@
   "license": "MIT",
   "packageManager": "pnpm@6.28.0",
   "scripts": {
+    "typecheck": "turbo run typecheck --scope=@viteplay/vue --no-deps",
     "build": "turbo run build --scope=@viteplay/vue --scope=@viteplay/plugin --no-deps",
     "dev": "node scripts/dev.js",
     "docs:dev": "vitepress dev docs",

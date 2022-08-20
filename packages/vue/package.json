@@ -26,14 +26,15 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "clean": "rimraf dist",
     "build": "npm run clean && npm run vendor-sucrase && vite build && vite build -c=vite.config.iframe.ts",
+    "clean": "rimraf dist",
     "dev": "npm run vendor-sucrase && vite build --watch --mode development",
-    "test": "vitest run",
     "example": "npm run vendor-sucrase && vite example",
-    "vendor-sucrase": "node scripts/vendor-sucrase.mjs",
     "lint": "eslint . --ext .ts,.vue",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "typecheck": "vue-tsc --noEmit",
+    "vendor-sucrase": "node scripts/vendor-sucrase.mjs"
   },
   "license": "MIT",
   "devDependencies": {
@@ -50,7 +51,8 @@
     "vite": "3.0.9",
     "vite-plugin-dts": "0.9.7",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue-tsc": "^0.38.4"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^0.19.12",

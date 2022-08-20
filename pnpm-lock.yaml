@@ -109,6 +109,7 @@ importers:
       vite-plugin-dts: 0.9.7
       vue: ^3.2.37
       vue-router: ^4.0.12
+      vue-tsc: ^0.38.4
     dependencies:
       '@codemirror/autocomplete': 0.19.12
       '@codemirror/basic-setup': 0.19.1
@@ -140,6 +141,7 @@ importers:
       vite-plugin-dts: 0.9.7_vite@3.0.9
       vue: 3.2.37
       vue-router: 4.0.12_vue@3.2.37
+      vue-tsc: 0.38.9
 
   playground/example-project-vue:
     specifiers:
@@ -3614,6 +3616,15 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.2.1
       vue: 3.2.37
+
+  /vue-tsc/0.38.9:
+    resolution: {integrity: sha512-Yoy5phgvGqyF98Fb4mYqboR4Q149jrdcGv5kSmufXJUq++RZJ2iMVG0g6zl+v3t4ORVWkQmRpsV4x2szufZ0LQ==}
+    hasBin: true
+    peerDependencies:
+      typescript: '*'
+    dependencies:
+      '@volar/vue-typescript': 0.38.9
+    dev: true
 
   /vue-tsc/0.38.9_typescript@4.7.4:
     resolution: {integrity: sha512-Yoy5phgvGqyF98Fb4mYqboR4Q149jrdcGv5kSmufXJUq++RZJ2iMVG0g6zl+v3t4ORVWkQmRpsV4x2szufZ0LQ==}
