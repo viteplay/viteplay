@@ -6,6 +6,17 @@ import { getIframeHtml, OWN_DIR, slash } from "./utils"
 
 const debug = createDebug(`viteplay:plugin`)
 
+export type OptionExamples =
+  | string
+  | ((componentInfo: {
+      /** the full folder path to the component */
+      path: string
+      /** the name of the component without `.vue` */
+      name: string
+      /** the full filename of the component with `.vue` */
+      filename: string
+    }) => string)
+
 export type Page = {
   /**
    * Path to a component to create the dev page for
@@ -18,7 +29,7 @@ export type Page = {
    *
    * @example './components/MyButton/*.example.vue'
    */
-  examples: string | string[]
+  examples: OptionExamples
   /**
    * Defaults to the filename
    */
@@ -45,16 +56,8 @@ export type Options = {
    *
    * @example './components/*\/*.example.vue'
    */
-  componentExamples?:
-    | string
-    | ((componentInfo: {
-        /** the full folder path to the component */
-        path: string
-        /** the name of the component without `.vue` */
-        name: string
-        /** the full filename of the component with `.vue` */
-        filename: string
-      }) => string)
+  componentExamples?: OptionExamples
+
   /**
    * The base path the generated routes should be nested under as children.
    *

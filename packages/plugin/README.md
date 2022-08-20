@@ -16,8 +16,8 @@ export default defineConfig({
     viteplay({
       // Path to extract components from
       components: "./components/*/*.vue",
-      // Path to extract examples from
-      componentExamples: "./components/*/*.example.vue",
+      // Path to extract examples from, relative to component path
+      componentExamples: "./examples/*.vue",
       // base route for the development pages
       base: "/dev",
     }),
@@ -39,12 +39,12 @@ export default defineConfig({
     viteplay({
       pages: [
         {
-          title: "MyButton", // (Optional) defaults to the component name
+          title: "My Button", // (Optional) defaults to the component name
           component: "./button/MyButton.vue",
           examples: "./button/*.example.vue",
         },
         {
-          title: "MyForm", // (Optional) defaults to the component name
+          title: "My Form", // (Optional) defaults to the component name
           component: "./form/MyForm.vue",
           examples: "./form/*.example.vue",
         },

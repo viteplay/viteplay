@@ -31,8 +31,8 @@ export default defineConfig({
     viteplay({
       // Path to extract components from
       components: "./components/*/*.vue",
-      // Path to extract examples from
-      componentExamples: "./components/*/examples/*.vue",
+      // Path to extract examples from, relative to component path
+      componentExamples: "./examples/*.vue",
       // base route for the development pages
       base: "/dev",
     }),
@@ -112,7 +112,7 @@ The great thing about this folder structure in that you can keep on adding compo
 // in plugins: [ ... ]
 viteplay({
   components: "./components/*/*.vue", // or .jsx / .tsx
-  componentExamples: "./components/*/examples/*.vue", // or .jsx / .tsx
+  componentExamples: "./examples/*.vue", // or .jsx / .tsx
 })
 ```
 
@@ -137,7 +137,7 @@ viteplay({
 // in plugins: [ ... ]
 viteplay({
   components: "./components/*/*.vue", // or .jsx / .tsx
-  componentExamples: "./components/*/*.example.vue", // or .jsx / .tsx
+  componentExamples: "./*.example.vue", // or .jsx / .tsx
 })
 ```
 
@@ -147,11 +147,11 @@ viteplay({
 /src
 └─ /components
    ├─ MyButton.vue (or .jsx / .tsx)
-   ├─ MyButton.example.Basic.vue
-   ├─ MyButton.example.Dark Mode.vue
+   ├─ MyButton.Basic.vue
+   ├─ MyButton.Dark Mode.vue
    ├─ MyInput.vue
-   ├─ MyInput.example.Basic.vue
-   └─ MyInput.example.Search.vue
+   ├─ MyInput.Basic.vue
+   └─ MyInput.Search.vue
 ```
 
 ```ts
@@ -160,7 +160,7 @@ viteplay({
 // in plugins: [ ... ]
 viteplay({
   components: "./components/*.vue", // or .jsx / .tsx
-  componentExamples: "./components/*.example.*.vue", // or .jsx / .tsx
+  componentExamples: ({ name }) => `./${name}.*.vue`, // or .jsx / .tsx
 })
 ```
 
