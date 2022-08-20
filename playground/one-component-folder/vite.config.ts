@@ -9,8 +9,8 @@ export default defineConfig({
     viteplay({
       // Path to extract components from
       components: "./src/components/*.vue",
-      // Path to extract examples from
-      componentExamples: "./src/components/*.example.vue",
+      // Path to extract examples from, relative to component path
+      componentExamples: ({ name }) => `./${name}.*.vue`,
       // base route for the development pages
       base: "/",
     }),
