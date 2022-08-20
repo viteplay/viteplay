@@ -7,11 +7,8 @@ export default defineConfig((ctx) => {
   const prod = ctx.mode !== "development"
   return {
     build: {
+      minify: false,
       emptyOutDir: prod,
-      lib: {
-        entry: "./src/index.ts",
-        formats: ["cjs", "es"],
-      },
       rollupOptions: {
         input: {
           index: "./src/index.ts",
@@ -19,6 +16,7 @@ export default defineConfig((ctx) => {
         },
         output: [
           {
+            assetFileNames: "style.css",
             entryFileNames: "[name].mjs",
             chunkFileNames: "[name].mjs",
             format: "esm",
