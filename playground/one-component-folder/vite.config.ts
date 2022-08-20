@@ -10,7 +10,7 @@ export default defineConfig({
       // Path to extract components from
       components: "./src/components/*.vue",
       // Path to extract examples from
-      componentExamples: "./src/components/*.example.vue",
+      componentExamples: ({ name }) => `./${name}.*.vue`,
       // base route for the development pages
       base: "/",
     }),

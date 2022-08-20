@@ -3,8 +3,8 @@ import { createRequire } from "node:module"
 import { fileURLToPath } from "node:url"
 import process from "node:process"
 import glob from "fast-glob"
-import { Page, NormalizedPage } from "."
 import { camelCase } from "case-anything"
+import { Page, NormalizedPage, Options } from "."
 
 const nonNullable = <T>(value: T): value is NonNullable<T> => {
   return value !== null && value !== undefined
@@ -35,8 +35,8 @@ export const getDirnameFromImportMetaUrl = (url: string) => {
 
 export async function getPagesFromOptions(options: {
   pages?: Page[]
-  components?: string
-  componentExamples?: string
+  components?: Options["components"]
+  componentExamples?: Options["componentExamples"]
 }): Promise<{ pages: NormalizedPage[]; watchFiles: Set<string> }> {
   if (options.pages) {
     const watchFiles: Set<string> = new Set()
@@ -68,31 +68,58 @@ export async function getPagesFromOptions(options: {
     )
   }
 
-  const exampleFiles = await glob(componentExamples, { absolute: true, onlyFiles: true }).then(
-    (items) => items.map((v) => slash(v)).sort(),
-  )
-  const componentFiles = await glob(components, {
+  /**
+   * This makes sure that files like `MyButton.example.vue` are not included
+   * @example './src/components/** /!(*.*.vue|!(*.vue))'
+   */
+  const componentsGlob = components.endsWith("/*.vue")
+    ? components.replace("/*.vue", "/!(*.*.vue|!(*.vue))")
+    : components
+
+  /**
+   * @example ['/Users/mesqueeb/my-project/src/components/MyButton/MyButton.vue']
+   */
+  const componentPaths = await glob(componentsGlob, {
     absolute: true,
     onlyFiles: true,
-    ignore: [componentExamples],
   }).then((items) => items.map((v) => slash(v)).sort())
 
+  const pagePromises = componentPaths.map(async (p) => {
+    /** @example 'MyButton' */
+    const name = path.basename(p, path.extname(p))
+
+    /** @example 'MyButton.vue' */
+    const filename = path.basename(p)
+
+    /** @example '/Users/mesqueeb/my-project/src/components/MyButton' */
+    const folderPath = path.dirname(p)
+
+    /** @example './examples/*.vue' */
+    const componentExamplesPath =
+      typeof componentExamples === "function"
+        ? componentExamples({
+            name,
+            filename,
+            path: folderPath,
+          })
+        : componentExamples
+
+    /** @example '/Users/mesqueeb/my-project/src/components/MyButton/./examples/*.vue' */
+    const pathToExamples = folderPath + "/" + componentExamplesPath
+
+    /** @example ['/Users/mesqueeb/my-project/src/components/examples/*.vue'] */
+    const examplePaths = await glob(pathToExamples, { absolute: true, onlyFiles: true }).then(
+      (items) => items.map((v) => slash(v)).sort(),
+    )
+
+    return { title: name, component: p, examples: examplePaths }
+  })
+
+  const pages = await Promise.all(pagePromises)
+
   return {
-    watchFiles: new Set([...componentFiles, ...exampleFiles]),
-    pages: componentFiles
-      .map((p) => {
-        const fileName = path.basename(p, path.extname(p))
-        const folder = path.dirname(p)
-        const folderName = path.basename(folder)
-        // Only use the component if its filename matches its folder name
-        // case insensitive
-        if (folderName.toLowerCase() !== fileName.toLowerCase()) {
-          return null
-        }
-        const examples = exampleFiles.filter((_p) => _p.startsWith(folder + "/")).sort()
-        return { title: fileName, component: p, examples }
-      })
-      .filter(nonNullable),
+    watchFiles: new Set(pages.flatMap((page) => [page.component, ...(page?.examples || [])])),
+    pages: pages.filter(nonNullable),
   }
 }
 

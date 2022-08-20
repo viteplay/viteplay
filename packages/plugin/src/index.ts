@@ -45,7 +45,16 @@ export type Options = {
    *
    * @example './components/*\/*.example.vue'
    */
-  componentExamples?: string
+  componentExamples?:
+    | string
+    | ((componentInfo: {
+        /** the full folder path to the component */
+        path: string
+        /** the name of the component without `.vue` */
+        name: string
+        /** the full filename of the component with `.vue` */
+        filename: string
+      }) => string)
   /**
    * The base path the generated routes should be nested under as children.
    *

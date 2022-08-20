@@ -52,6 +52,7 @@ export const build = async (options: BuildOptions) => {
               .split("/")
               .pop()
               // `[number]-` is used to to control order
+              ?.replace(new RegExp(`^${page.title}.`), "")
               ?.replace(/^\d+-/, "")
               ?.replace(/\.vue$/, "")
               ?.replace(/\.example$/, "") ?? ""
