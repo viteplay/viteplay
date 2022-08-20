@@ -4,7 +4,7 @@ import path from "node:path"
 import { kebabCase } from "case-anything"
 import { parseExample } from "./parse-example"
 import { outputFileIfChanged } from "./fs"
-import { getIframeHtml, getPagesFromOptions, resolveFile, slash } from "./utils"
+import { getIframeHtml, getPagesFromOptions, pagesToWatchfiles, resolveFile, slash } from "./utils"
 import { MarkRequired } from "./types"
 import { Options } from "./index"
 import { renderMarkdown } from "./markdown"
@@ -19,7 +19,9 @@ export const build = async (options: BuildOptions) => {
   const base = options.base ?? "/"
   const getPath = options.getPath ?? ((slug) => `${slug}`)
 
-  const { pages: _pages, watchFiles } = await getPagesFromOptions(options)
+  const _pages = await getPagesFromOptions(options)
+  const watchFiles = pagesToWatchfiles(_pages)
+
   const iframes: { id: string; filepath: string }[] = []
 
   const pages = await Promise.all(
@@ -52,6 +54,7 @@ export const build = async (options: BuildOptions) => {
               .split("/")
               .pop()
               // `[number]-` is used to to control order
+              ?.replace(new RegExp(`^${page.title}.`), "")
               ?.replace(/^\d+-/, "")
               ?.replace(/\.vue$/, "")
               ?.replace(/\.example$/, "") ?? ""
