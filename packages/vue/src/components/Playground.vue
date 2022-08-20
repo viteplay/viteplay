@@ -50,7 +50,7 @@ const handleMessage = (e: MessageEvent) => {
 
     if (data.action === "render-error") {
       errors.value = data.payload.errors || []
-    } else if (data.action === "resize") {
+    } else if (data.action === "resize" && iframe.value) {
       iframe.value.style.height = `${data.payload.height}px`
     }
   }

@@ -19,7 +19,7 @@ watchEffect(() => {
   if (route.hash && header.value && route.hash === `#${header.value.id}`) {
     setTimeout(() => {
       const el =
-        header.value.id === "props"
+        header.value?.id === "props"
           ? document.querySelector<HTMLDivElement>(".page-title")
           : document.querySelector<HTMLDivElement>(decodeURIComponent(route.hash))
       if (el) {
