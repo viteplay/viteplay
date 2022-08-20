@@ -13,11 +13,11 @@
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "2.3.3",
+    "@vitejs/plugin-vue": "3.0.3",
     "@viteplay/plugin": "workspace:*",
     "@viteplay/vue": "workspace:*",
     "typescript": "^4.6.4",
-    "vite": "2.9.13",
+    "vite": "3.0.9",
     "vue-tsc": "^0.38.4"
   }
 }

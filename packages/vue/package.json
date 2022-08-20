@@ -37,14 +37,15 @@
   "license": "MIT",
   "devDependencies": {
     "@lezer/common": "^0.15.11",
-    "@vitejs/plugin-vue": "2.3.3",
+    "@vitejs/plugin-vue": "3.0.3",
     "autoprefixer": "^10.4.2",
-    "esbuild": "0.14.10",
+    "esbuild": "0.15.5",
     "eslint": "^8.7.0",
     "eslint-config-viteplay": "workspace:*",
+    "postcss": "^8.4.16",
     "sass": "^1.49.9",
     "sucrase": "3.20.3",
-    "vite": "2.9.13",
+    "vite": "3.0.9",
     "vite-plugin-dts": "0.9.7",
     "vue": "^3.2.37",
     "vue-router": "^4.0.12"
