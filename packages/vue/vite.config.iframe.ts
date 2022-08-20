@@ -1,10 +1,8 @@
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
-import dts from "vite-plugin-dts"
 import pkg from "./package.json"
 
 export default defineConfig((ctx) => {
-  const prod = ctx.mode !== "development"
   return {
     build: {
       minify: false,
@@ -17,33 +15,20 @@ export default defineConfig((ctx) => {
         output: [
           {
             assetFileNames: "style.iframe.[ext]",
-            entryFileNames: "iframe.mjs",
-            chunkFileNames: "iframe.mjs",
+            entryFileNames: "iframe/index.mjs",
+            chunkFileNames: "iframe/index.mjs",
             format: "es",
           },
           {
             assetFileNames: "style.iframe.[ext]",
-            entryFileNames: "iframe.js",
-            chunkFileNames: "iframe.js",
+            entryFileNames: "iframe/index.js",
+            chunkFileNames: "iframe/index.js",
             format: "cjs",
           },
         ],
         external: [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)],
       },
     },
-    plugins: [
-      vue(),
-      prod &&
-        dts({
-          skipDiagnostics: false,
-          include: ["./src/**/*"],
-          cleanVueFileName: true,
-          beforeWriteFile(filepath) {
-            return {
-              filePath: filepath.replace("/dist/src/", "/dist/"),
-            }
-          },
-        }),
-    ],
+    plugins: [vue()],
   }
 })

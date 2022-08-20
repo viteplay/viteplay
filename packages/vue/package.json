@@ -20,13 +20,15 @@
     "./dist/style.css": "./dist/style.css",
     "./client": "./client.js",
     "./iframe": {
-      "require": "./dist/iframe.js",
-      "import": "./dist/iframe.mjs"
+      "require": "./dist/iframe/index.js",
+      "import": "./dist/iframe/index.mjs"
     }
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm run clean && npm run vendor-sucrase && vite build && vite build -c=vite.config.iframe.ts",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly --project tsconfig.declaration.json",
+    "build:lib": "npm run vendor-sucrase && vite build && vite build -c=vite.config.iframe.ts",
+    "build": "npm run clean && npm run build:lib && npm run build:types",
     "clean": "rimraf dist",
     "dev": "npm run vendor-sucrase && vite build --watch --mode development",
     "example": "npm run vendor-sucrase && vite example",
@@ -48,8 +50,8 @@
     "rimraf": "^3.0.2",
     "sass": "^1.49.9",
     "sucrase": "3.20.3",
+    "typescript": "^4.6.4",
     "vite": "3.0.9",
-    "vite-plugin-dts": "0.9.7",
     "vue": "^3.2.37",
     "vue-router": "^4.0.12",
     "vue-tsc": "^0.38.4"
