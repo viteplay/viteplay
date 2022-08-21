@@ -14,7 +14,7 @@ const config = useConfig()
     <img
       v-if="!config.logo"
       class="logo"
-      src="../../../../assets/logo.svg"
+      src="../../../../assets/viteplay-logo-wordmark-lightmode.svg"
       alt="Logo"
       :draggable="false"
     />

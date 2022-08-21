@@ -44,6 +44,10 @@ defineProps<{
   padding: 0 1.5rem 4rem;
   max-width: 48rem;
 }
+.viteplay-base .viteplay-container {
+  padding: 0;
+  max-width: initial;
+}
 
 .viteplay-content {
   position: relative;

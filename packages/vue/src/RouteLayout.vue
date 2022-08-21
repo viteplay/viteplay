@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { ref, watch } from "vue"
+import { computed, ref, watch } from "vue"
+import { useRoute } from "vue-router"
 import { useMediaQuery } from "@vueuse/core"
 import { SideBarItem } from "./components/SideBar.types"
 import { elOrParentsHaveClass } from "./utils"
 import SideBar from "./components/SideBar.vue"
 import PageLayout from "./components/PageLayout.vue"
 import NavBar from "./components/NavBar.vue"
+import { useConfig } from "."
 
 defineProps<{ items: SideBarItem[] }>()
 
@@ -36,10 +38,14 @@ watch(
   },
   { immediate: true },
 )
+
+const route = useRoute()
+const config = useConfig()
+const isBase = computed(() => route.path === config.base)
 </script>
 
 <template>
-  <div class="viteplay viteplay-layout">
+  <div :class="`viteplay viteplay-layout ${isBase ? 'viteplay-base' : ''}`">
     <NavBar
       :items="items"
       @toggleSideBar="() => toggleSideBar()"

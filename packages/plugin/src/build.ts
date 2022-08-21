@@ -272,11 +272,14 @@ provideConfig(${JSON.stringify({
   outputFileIfChanged(layoutComponent, layoutContents)
 
   const clientContent = `
+    import { LandingPage } from "@viteplay/vue"
+
     let pages = [
       {
         path: "${base}",
         component: () => import("${slash(layoutComponent)}"),
         children: [
+          { title: "VitePlay", path: "", component: LandingPage },
           ${pages
             .map(
               (page) => `{

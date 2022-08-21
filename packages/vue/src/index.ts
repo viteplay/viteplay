@@ -4,13 +4,14 @@ import "./css/main.scss"
 import "./css/sidebar.scss"
 import { provide, inject } from "vue"
 
-import RouteLayout from "./RouteLayout.vue"
-import PropsTable from "./components/PropsTable.vue"
-import ExampleHeader from "./components/ExampleHeader.vue"
-import PageTitle from "./components/PageTitle.vue"
 import Example from "./components/Example.vue"
+import ExampleHeader from "./components/ExampleHeader.vue"
+import LandingPage from "./components/LandingPage.vue"
+import PageTitle from "./components/PageTitle.vue"
+import PropsTable from "./components/PropsTable.vue"
+import RouteLayout from "./RouteLayout.vue"
 
-export { Example, RouteLayout, PropsTable, ExampleHeader, PageTitle }
+export { Example, ExampleHeader, LandingPage, PageTitle, PropsTable, RouteLayout }
 
 export type Config = {
   modules?: Record<string, any>

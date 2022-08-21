@@ -11,9 +11,10 @@
   --viteplay-c-text-light: var(--viteplay-c-text-light-2);
   --viteplay-c-text-lighter: var(--viteplay-c-text-light-3);
 
-  --viteplay-c-brand: #3f258e;
-  --viteplay-c-brand-light: #543aa4;
-  --viteplay-c-brand-lighter: #7057bb;
+  --vp-c-brand-dark: #666ff0;
+  --viteplay-c-brand: #886beb;
+  --viteplay-c-brand-light: #a366e4;
+  --viteplay-c-brand-lighter: #ba61dc;
 
   --viteplay-c-white: #ffffff;
   --viteplay-c-white-dark: #f8f8f8;
