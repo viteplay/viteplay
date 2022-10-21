@@ -91,7 +91,7 @@ importers:
       '@codemirror/view': ^0.19.43
       '@lezer/common': ^0.15.11
       '@lezer/html': ^0.15.1
-      '@pepicons/vue': ^1.0.12
+      '@pepicons/vue': ^1.2.1
       '@vitejs/plugin-vue': 3.0.3
       '@viteplay/types': workspace:*
       '@vueuse/core': ^8.4.0
@@ -121,7 +121,7 @@ importers:
       '@codemirror/state': 0.19.9
       '@codemirror/view': 0.19.43
       '@lezer/html': 0.15.1
-      '@pepicons/vue': 1.0.12_vue@3.2.37
+      '@pepicons/vue': 1.2.1_vue@3.2.37
       '@viteplay/types': link:../types
       '@vueuse/core': 8.4.0_vue@3.2.37
       floating-vue: 2.0.0-beta.16_vue@3.2.37
@@ -709,12 +709,12 @@ packages:
       '@nodelib/fs.scandir': 2.1.4
       fastq: 1.11.0
 
-  /@pepicons/vue/1.0.12_vue@3.2.37:
-    resolution: {integrity: sha512-7JLzkfzRJ+L5hGW8nbNeBx/dBuy8/SZyZeAxNDbkSCMFBtLGarmkEXpHeldSNZyeCLLoNdWswNu+CAkli9TN4A==}
+  /@pepicons/vue/1.2.1_vue@3.2.37:
+    resolution: {integrity: sha512-k/dE7O7RyrTkR7KDmHSgJba3KGMfCPllZ5BJe+eHmvp7eJQrp0Cz63lo96PXYuAKXuULoEGyzanJdcnez2BdZw==}
     peerDependencies:
-      vue: ^3.2.29
+      vue: ^3.2.39
     dependencies:
-      pepicons: 1.0.12
+      pepicons: 1.2.1
       vue: 3.2.37
     dev: false
 
@@ -2806,8 +2806,8 @@ packages:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
     dev: true
 
-  /pepicons/1.0.12:
-    resolution: {integrity: sha512-W+N6N8coy861xKq7qJ3T4/D7rNUys2htDzla91wdKVE26hGE/PmzMImQ1ijT7B2VQlTZB68obFTU4AimipJCiw==}
+  /pepicons/1.2.1:
+    resolution: {integrity: sha512-tEKBgA7Qswzaiv2w5E25lznz8/2hgPxrFMv+VT/lI2NlNl8Ll7fuGzp0n7JTlXcnDTt2ZTsCqKkNTguKCll3Yg==}
     dev: false
 
   /picocolors/1.0.0:
