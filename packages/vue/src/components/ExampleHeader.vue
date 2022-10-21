@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { watchEffect, ref } from "vue"
 import { useRoute } from "vue-router"
-import { Pepicon } from "@pepicons/vue"
 import { VTooltip as vTooltip } from "floating-vue"
 import FocusButton from "./FocusButton.vue"
+import pepiconsVue from "@pepicons/vue"
+const { Pepicon } = pepiconsVue
 
 const props = defineProps<{
   title: string

@@ -3,9 +3,10 @@ import { PropType, ref, watchEffect, watch, onMounted, onBeforeUnmount } from "v
 import CodeEditor from "./CodeEditor.vue"
 import { useCopy } from "../hooks/useCopy"
 import { ComponentExample, PropDefinition } from "@viteplay/types"
-import { Pepicon } from "@pepicons/vue"
 import { VTooltip as vTooltip } from "floating-vue"
 import { ensureSFC } from "../utils"
+import pepiconsVue from "@pepicons/vue"
+const { Pepicon } = pepiconsVue
 
 const props = defineProps({
   example: {

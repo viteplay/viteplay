@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { Pepicon } from "@pepicons/vue"
 import { VTooltip as vTooltip } from "floating-vue"
+import pepiconsVue from "@pepicons/vue"
+const { Pepicon } = pepiconsVue
 
 const props = defineProps<{ slug: string }>()
 
