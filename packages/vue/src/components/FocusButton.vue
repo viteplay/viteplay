@@ -2,7 +2,7 @@
 import { computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { VTooltip as vTooltip } from "floating-vue"
-import * as pepiconsVue from "@pepicons/vue"
+import pepiconsVue from "@pepicons/vue"
 const { Pepicon } = pepiconsVue
 
 const props = defineProps<{ slug: string }>()

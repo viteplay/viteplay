@@ -5,7 +5,7 @@ import { useCopy } from "../hooks/useCopy"
 import { ComponentExample, PropDefinition } from "@viteplay/types"
 import { VTooltip as vTooltip } from "floating-vue"
 import { ensureSFC } from "../utils"
-import * as pepiconsVue from "@pepicons/vue"
+import pepiconsVue from "@pepicons/vue"
 const { Pepicon } = pepiconsVue
 
 const props = defineProps({
