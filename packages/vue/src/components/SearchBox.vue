@@ -10,7 +10,7 @@ export type GetSuggestions = (keyword: string) => Suggestion[]
 <script lang="ts" setup>
 import { ref, watchEffect } from "vue"
 import { onClickOutside, onKeyStroke } from "@vueuse/core"
-import pepiconsVue from "@pepicons/vue"
+import * as pepiconsVue from "@pepicons/vue"
 const { Pepicon } = pepiconsVue
 
 const keyword = ref("")

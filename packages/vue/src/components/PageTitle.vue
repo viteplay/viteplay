@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { VTooltip as vTooltip } from "floating-vue"
-import pepiconsVue from "@pepicons/vue"
+import * as pepiconsVue from "@pepicons/vue"
 const { Pepicon } = pepiconsVue
 
 const props = defineProps<{
