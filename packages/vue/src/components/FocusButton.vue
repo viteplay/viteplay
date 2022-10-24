@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { Pepicon } from "@pepicons/vue"
+import { PopEyeOff, PopEye } from "@pepicons/vue"
 import { VTooltip as vTooltip } from "floating-vue"
 
 const props = defineProps<{ slug: string }>()
@@ -22,13 +22,12 @@ const handleEyeClick = (e: any) => {
 </script>
 
 <template>
-  <Pepicon
+  <component
+    :is="focussed ? PopEyeOff : PopEye"
     v-tooltip="focussed ? `Show all examples again` : `Show this example only`"
-    :name="focussed ? 'eye-off' : 'eye'"
     role="button"
-    type="pop"
     class="viteplay-icon-button focus-button"
     :class="`viteplay-icon-button ${active && focussed ? 'active' : ''}`"
-    @click="(e) => handleEyeClick(e)"
+    @click="(e: MouseEvent) => handleEyeClick(e)"
   />
 </template>

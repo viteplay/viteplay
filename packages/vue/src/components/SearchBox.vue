@@ -9,7 +9,7 @@ export type GetSuggestions = (keyword: string) => Suggestion[]
 
 <script lang="ts" setup>
 import { ref, watchEffect } from "vue"
-import { Pepicon } from "@pepicons/vue"
+import { PopLoop } from "@pepicons/vue"
 import { onClickOutside, onKeyStroke } from "@vueuse/core"
 
 const keyword = ref("")
@@ -92,7 +92,7 @@ onKeyStroke(["Enter"], () => {
 <template>
   <div ref="searchBoxRef" :class="$style.search">
     <div :class="[$style.search_input_wrapper, focused && $style.search_input_wrapper__focused]">
-      <Pepicon name="loop" :class="$style.search_icon" />
+      <PopLoop name="loop" :class="$style.search_icon" />
       <input
         ref="inputRef"
         v-model="keyword"

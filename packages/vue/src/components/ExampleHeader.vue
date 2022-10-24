@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watchEffect, ref } from "vue"
 import { useRoute } from "vue-router"
-import { Pepicon } from "@pepicons/vue"
+import { PopExpand } from "@pepicons/vue"
 import { VTooltip as vTooltip } from "floating-vue"
 import FocusButton from "./FocusButton.vue"
 
@@ -44,11 +44,9 @@ const openIframe = () => {
     {{ props.title }}
     <a class="header-anchor" :href="`#${props.slug}`">#</a>
     <div class="example-header-buttons">
-      <Pepicon
+      <PopExpand
         v-tooltip="`Open the preview in a new tab`"
-        name="expand"
         size="sm"
-        type="pop"
         role="button"
         class="viteplay-icon-button"
         @click="() => openIframe()"

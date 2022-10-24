@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Pepicon } from "@pepicons/vue"
+import { PopOpen } from "@pepicons/vue"
 import { VTooltip as vTooltip } from "floating-vue"
 
 const props = defineProps<{
@@ -11,10 +11,9 @@ const props = defineProps<{
 <template>
   <h1 class="page-title">
     <span>{{ props.title }}</span
-    ><Pepicon
+    ><PopOpen
       v-if="props.openInEditor"
       v-tooltip="`Open the component in editor`"
-      name="open"
       aria-hidden="true"
       role="button"
       class="open-in-editor-button"

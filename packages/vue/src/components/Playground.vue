@@ -3,7 +3,7 @@ import { PropType, ref, watchEffect, watch, onMounted, onBeforeUnmount } from "v
 import CodeEditor from "./CodeEditor.vue"
 import { useCopy } from "../hooks/useCopy"
 import { ComponentExample, PropDefinition } from "@viteplay/types"
-import { Pepicon } from "@pepicons/vue"
+import { PrintAngleDown, PrintAngleRight, PopReload, PopOpen, PopCheckmark, PopClipboard, PopExclamation } from "@pepicons/vue"
 import { VTooltip as vTooltip } from "floating-vue"
 import { ensureSFC } from "../utils"
 
@@ -87,42 +87,35 @@ onBeforeUnmount(() => {
     <div :class="['playground-editor', errors.length && 'has-error', editorExpanded && 'expanded']">
       <div class="playground-header" @click="editorExpanded = !editorExpanded">
         <h3>
-          <Pepicon :name="editorExpanded ? 'angle-down' : 'angle-right'" :size="16" />
+          <component :is="editorExpanded ? PrintAngleDown : PrintAngleRight" :size="16" />
           <span>Editable Example</span>
         </h3>
         <div class="playground-buttons">
-          <Pepicon
+          <PopReload
             v-if="!errors.length"
             v-tooltip="`Reset the code`"
-            name="reload"
-            type="pop"
             size="sm"
             role="button"
             @click.stop="resetCode"
           />
-          <Pepicon
+          <PopOpen
             v-if="example.openInEditor"
             v-tooltip="`Open the example code in editor`"
-            name="open"
-            type="pop"
             size="sm"
             role="button"
             @click.stop="example.openInEditor"
           />
-          <Pepicon
+          <component
+            :is="copy.copied.value ? PopCheckmark : PopClipboard"
             v-if="!errors.length"
             v-tooltip="`Copy to clipboard`"
-            :name="copy.copied.value ? 'checkmark' : 'clipboard'"
-            type="pop"
             size="sm"
             role="button"
             @click.stop="copy.copy"
           />
-          <Pepicon
+          <PopExclamation
             v-if="errors.length"
             :class="`playground-icon-error ${showingError ? 'enabled' : ''}`"
-            name="exclamation"
-            type="pop"
             size="xl"
             role="button"
             @click.stop="() => (showingError = !showingError)"
