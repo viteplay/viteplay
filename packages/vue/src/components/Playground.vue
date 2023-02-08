@@ -145,6 +145,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--viteplay-c-divider);
   border-radius: 8px;
   margin: 15px 0;
+  padding: 1rem;
   background-color: var(--viteplay-example-bg);
   color: var(--viteplay-example-color);
   width: 100%;
