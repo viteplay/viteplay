@@ -3,7 +3,15 @@ import { PropType, ref, watchEffect, watch, onMounted, onBeforeUnmount } from "v
 import CodeEditor from "./CodeEditor.vue"
 import { useCopy } from "../hooks/useCopy"
 import { ComponentExample, PropDefinition } from "@viteplay/types"
-import { PrintAngleDown, PrintAngleRight, PopReload, PopOpen, PopCheckmark, PopClipboard, PopExclamation } from "@pepicons/vue"
+import {
+  PrintAngleDown,
+  PrintAngleRight,
+  PopArrowSpin,
+  PopOpen,
+  PopCheckmark,
+  PopClipboard,
+  PopExclamationCircle,
+} from "@pepicons/vue"
 import { VTooltip as vTooltip } from "floating-vue"
 import { ensureSFC } from "../utils"
 
@@ -91,7 +99,7 @@ onBeforeUnmount(() => {
           <span>Editable Example</span>
         </h3>
         <div class="playground-buttons">
-          <PopReload
+          <PopArrowSpin
             v-if="!errors.length"
             v-tooltip="`Reset the code`"
             size="sm"
@@ -113,7 +121,7 @@ onBeforeUnmount(() => {
             role="button"
             @click.stop="copy.copy"
           />
-          <PopExclamation
+          <PopExclamationCircle
             v-if="errors.length"
             :class="`playground-icon-error ${showingError ? 'enabled' : ''}`"
             size="xl"
