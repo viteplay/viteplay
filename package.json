@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@viteplay/monorepo",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Automated Component Development Environment",
   "license": "MIT",
   "packageManager": "pnpm@6.28.0",
