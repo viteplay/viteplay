@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { PopMenu } from "@pepicons/vue"
+import { PopMenu } from "@pepicons/vue/dist/index"
 const emit = defineEmits<{ (e: "toggle"): void }>()
 </script>
 

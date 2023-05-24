@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watchEffect, ref } from "vue"
 import { useRoute } from "vue-router"
-import { PopExpand } from "@pepicons/vue"
+import { PopExpand } from "@pepicons/vue/dist/index"
 import { VTooltip as vTooltip } from "floating-vue"
 import FocusButton from "./FocusButton.vue"
 

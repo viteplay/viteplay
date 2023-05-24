@@ -134,8 +134,8 @@ importers:
         specifier: ^1.3.4
         version: 1.3.4
       '@pepicons/vue':
-        specifier: ^2.0.8
-        version: 2.0.8(vue@3.3.4)
+        specifier: ^3.0.1
+        version: 3.0.1(vue@3.3.4)
       '@viteplay/types':
         specifier: workspace:*
         version: link:../types
@@ -930,12 +930,12 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.11.0
 
-  /@pepicons/vue@2.0.8(vue@3.3.4):
-    resolution: {integrity: sha512-iDKCcxHSUAs3rxKnuw4yk1VNzwluxHqVS+CEViy3k6T39kAbAGjZrVmYE+TuzLhkIj/Y2DZdor0B1VbnZd/kqg==}
+  /@pepicons/vue@3.0.1(vue@3.3.4):
+    resolution: {integrity: sha512-ev/C7uva4d/OffomgWdz57P65ok4soN18qa3nkmidbLzW3sB+qsQh3tZ/yLQNeR3vdh9OPiN0GPjOy9MmywA0w==}
     peerDependencies:
       vue: ^3.2.39
     dependencies:
-      pepicons: 2.0.8
+      pepicons: 3.0.1
       vue: 3.3.4
     dev: false
 
@@ -2648,6 +2648,11 @@ packages:
     resolution: {integrity: sha512-LnQR4bZ9IADDRSkvpqMGvt/tEJWclzklNgSw48V5EAaAeDd6qGvN8ei6k5p0tvxSR171VmGyHuTiAOfxAbr8kA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
+  /is-what@4.1.11:
+    resolution: {integrity: sha512-gr9+qDrJvdwT4+N2TAACsZQIB4Ow9j2eefqlh3m9JUV41M1LoKhcE+/j+IVni/r6U8Jnc1PwhjdjVJr+Xmtb0A==}
+    engines: {node: '>=12.13'}
+    dev: false
+
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
@@ -3075,10 +3080,11 @@ packages:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
     dev: true
 
-  /pepicons@2.0.8:
-    resolution: {integrity: sha512-PlmO2tnp6joUv/RBs9fNNG8cWOtfrdMqyvthYQG1cb8ErtVVLezfon0w7YfvVLj0KFSv3PkA6/rk8vXv/ogc5A==}
+  /pepicons@3.0.1:
+    resolution: {integrity: sha512-K+hGLp6w7zmGBbeIxAXmUpEbaFqe1uYxWYCfVlAm/JzNoOAPTNm9lXwEjfb0TSm5qnxWQBrx+hxLrRjBOhqGww==}
     dependencies:
       case-anything: 2.1.12
+      is-what: 4.1.11
     dev: false
 
   /perfect-debounce@0.1.3:

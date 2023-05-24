@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PopOpen } from "@pepicons/vue"
+import { PopOpen } from "@pepicons/vue/dist/index"
 import { VTooltip as vTooltip } from "floating-vue"
 
 const props = defineProps<{

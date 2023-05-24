@@ -9,7 +9,7 @@ export type GetSuggestions = (keyword: string) => Suggestion[]
 
 <script lang="ts" setup>
 import { ref, watchEffect } from "vue"
-import { PopLoop } from "@pepicons/vue"
+import { PopLoop } from "@pepicons/vue/dist/index"
 import { onClickOutside, onKeyStroke } from "@vueuse/core"
 
 const keyword = ref("")

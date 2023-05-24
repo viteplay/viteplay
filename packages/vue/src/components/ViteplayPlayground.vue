@@ -11,7 +11,7 @@ import {
   PopCheckmark,
   PopClipboard,
   PopExclamationCircle,
-} from "@pepicons/vue"
+} from "@pepicons/vue/dist/index"
 import { VTooltip as vTooltip } from "floating-vue"
 import { ensureSFC } from "../utils"
 

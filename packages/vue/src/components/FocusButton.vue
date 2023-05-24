@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { PopEye, PopEyeOff } from "@pepicons/vue"
+import { PopEye, PopEyeOff } from "@pepicons/vue/dist/index"
 import { VTooltip as vTooltip } from "floating-vue"
 
 const props = defineProps<{ slug: string }>()
