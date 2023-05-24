@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { defineComponent, onBeforeUnmount, onMounted, ref, watchEffect } from "vue"
-import { EditorState, basicSetup } from "@codemirror/basic-setup"
+import { basicSetup } from "codemirror"
+import { EditorState } from "@codemirror/state"
 import { EditorView, ViewUpdate, keymap } from "@codemirror/view"
 import { indentWithTab } from "@codemirror/commands"
 import { html } from "../codemirror/lang-html"

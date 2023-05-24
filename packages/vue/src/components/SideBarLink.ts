@@ -7,6 +7,7 @@ import FocusButton from "./FocusButton.vue"
 
 export const SideBarLink: FunctionalComponent<{
   item: SideBarItem
+  key?: string | number
   depth?: number
   slug?: string
   parentLinkRef?: Ref<HTMLAnchorElement | null>

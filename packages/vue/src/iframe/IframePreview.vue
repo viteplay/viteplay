@@ -104,6 +104,7 @@ onBeforeUnmount(() => {
 
 <template>
   <template v-if="transformed">
+    <!-- eslint-disable-next-line vue/no-v-text-v-html-on-component -->
     <component is="style" v-if="transformed.css" v-html="transformed.css" />
     <Suspense>
       <component :is="transformed.component" v-if="transformed.component" />

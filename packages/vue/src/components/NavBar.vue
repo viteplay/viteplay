@@ -10,7 +10,10 @@ import SearchBox, { GetSuggestions } from "./SearchBox.vue"
 
 const props = defineProps<{ items: SideBarItem[] }>()
 
-const emit = defineEmits<{ (e: "toggleSideBar"): void }>()
+const emit = defineEmits<{
+  (e: "click", payload: MouseEvent | TouchEvent): void
+  (e: "toggleSideBar"): void
+}>()
 
 const router = useRouter()
 const config = useConfig()
@@ -42,7 +45,7 @@ const getSuggesttions: GetSuggestions = (keyword) => {
 </script>
 
 <template>
-  <header class="viteplay-navbar">
+  <header class="viteplay-navbar" @click="(e) => emit('click', e)">
     <ToggleSideBarButton tabindex="1" @toggle="() => emit('toggleSideBar')" />
 
     <NavBarTitle />

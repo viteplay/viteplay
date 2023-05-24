@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropDefinition, ComponentExample } from "@viteplay/types"
 import ExampleHeader from "./ExampleHeader.vue"
-import Playground from "./Playground.vue"
+import ViteplayPlayground from "./ViteplayPlayground.vue"
 
 defineProps<{
   example: ComponentExample
@@ -15,6 +15,6 @@ defineProps<{
 
     <div class="viteplay-docs" v-html="example.docs.content"></div>
 
-    <Playground :example="example" :componentProps="componentProps || {}" />
+    <ViteplayPlayground :example="example" :componentProps="componentProps || {}" />
   </section>
 </template>

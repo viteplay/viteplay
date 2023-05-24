@@ -79,47 +79,45 @@ export const build = async (options: BuildOptions) => {
 
       for (const example of examples) {
         const iframeComponentCode = `
-        <script setup>
-        import { IframePreview } from '@viteplay/vue/iframe'
-        const code = decodeURI(${JSON.stringify(encodeURI(example.contents))})
+<script setup>
+import { IframePreview } from '@viteplay/vue/iframe'
+const code = decodeURI(${JSON.stringify(encodeURI(example.contents))})
 
-        const modules = {}
-        ${(example.parsed.imports || [])
-          .map(
-            (im, imIndex) => `import ${
-              im.importDefault ? "" : "* as "
-            } module_${imIndex} from "${slash(
-              im.source.startsWith(".")
-                ? path.join(path.dirname(example.absolutePath), im.source)
-                : im.source,
-            )}"
-          modules["${im.source}"] = module_${imIndex}
-          `,
-          )
-          .join("\n")}
-        </script>
+const modules = {}
+${(example.parsed.imports || [])
+  .map(
+    (im, imIndex) => `import ${im.importDefault ? "" : "* as "} module_${imIndex} from "${slash(
+      im.source.startsWith(".")
+        ? path.join(path.dirname(example.absolutePath), im.source)
+        : im.source,
+    )}"
+  modules["${im.source}"] = module_${imIndex}
+  `,
+  )
+  .join("\n")}
+</script>
 
-        <template>
-          <IframePreview :code="code" :modules="modules" />
-        </template>
-        `
+<template>
+  <IframePreview :code="code" :modules="modules" />
+</template>
+`
         const iframeAppCode = `
-        import { createApp, h } from 'vue'
-        import App from './${example.iframeId}.vue'
-        import viteplayIframe from '../viteplay.iframe'
+import { createApp, h } from 'vue'
+import App from './${example.iframeId}.vue'
+import viteplayIframe from '../viteplay.iframe'
 
-        const { Wrapper, extend } = viteplayIframe
+const { Wrapper, extend } = viteplayIframe
 
-        const app = createApp({
-          setup() {
-            return () => Wrapper ? h(Wrapper, () => [h(App)]) : h(App)
-          }
-        })
-        if (extend) {
-          extend({ app })
-        }
-        app.mount('#app')
-        `
+const app = createApp({
+  setup() {
+    return () => Wrapper ? h(Wrapper, () => [h(App)]) : h(App)
+  }
+})
+if (extend) {
+  extend({ app })
+}
+app.mount('#app')
+`
         outputFileIfChanged(
           path.join(options.cacheDir, `__iframe/${example.iframeId}.vue`),
           iframeComponentCode,
@@ -139,70 +137,70 @@ export const build = async (options: BuildOptions) => {
       }
 
       const contents = `
-        <script setup>
-        import { computed } from "vue"
-        import { Example, PropsTable, PageTitle } from "@viteplay/vue"
-        import { useRoute, useRouter } from "vue-router"
-            
-        let componentProps = ${JSON.stringify(componentProps)}
-        let route = useRoute()
-        let router = useRouter()
-        let focusId = computed(() => route.query.focus && route.hash.slice(1))
-        let shouldRender = (slug) => {
-          return !route.query.focus || slug === focusId.value
-        }
-        let hiddenCount = computed(() => {
-          return ${JSON.stringify(
-            examples.map((example) => example.slug),
-          )}.filter((slug) => !shouldRender(slug)).length
-        })
+<script setup>
+import { computed } from "vue"
+import { ViteplayExample, PropsTable, PageTitle } from "@viteplay/vue"
+import { useRoute, useRouter } from "vue-router"
+    
+let componentProps = ${JSON.stringify(componentProps)}
+let route = useRoute()
+let router = useRouter()
+let focusId = computed(() => route.query.focus && route.hash.slice(1))
+let shouldRender = (slug) => {
+  return !route.query.focus || slug === focusId.value
+}
+let hiddenCount = computed(() => {
+  return ${JSON.stringify(
+    examples.map((example) => example.slug),
+  )}.filter((slug) => !shouldRender(slug)).length
+})
 
-        let showAll = () => {
-          router.push({ query: {}, hash: route.hash })
-        }
+let showAll = () => {
+  router.push({ query: {}, hash: route.hash })
+}
 
-        let openInEditor = (file) => {
-           fetch('/__open-in-editor?file=' + encodeURIComponent(file))
-        }
-        let examples = [
-          ${examples
-            .map((example) => {
-              return `{
-                title: ${JSON.stringify(example.title)},
-                slug: ${JSON.stringify(example.slug)},
-                docs: ${JSON.stringify({
-                  content: renderMarkdown(example.parsed.docs.content),
-                  attrs: example.parsed.docs.attrs,
-                })},
-                // encodeURI because the example will contain html tags
-                // which will cause this component to be incorrectly parsed
-                code: decodeURI(${JSON.stringify(encodeURI(example.contents))}),
-                iframeUrl: ${JSON.stringify(`/__iframe/${example.iframeId}.html`)},
-                openInEditor: import.meta.env.DEV 
-                  ? () => openInEditor(${JSON.stringify(slash(example.absolutePath))}) 
-                  : undefined 
-              }`
-            })
-            .join(",")}
-        ]
-        </script>
-        <template>
-          <PageTitle title="${page.title}" ${
+let openInEditor = (file) => {
+    fetch('/__open-in-editor?file=' + encodeURIComponent(file))
+}
+let examples = [
+  ${examples
+    .map((example) => {
+      return `{
+        title: ${JSON.stringify(example.title)},
+        slug: ${JSON.stringify(example.slug)},
+        docs: ${JSON.stringify({
+          content: renderMarkdown(example.parsed.docs.content),
+          attrs: example.parsed.docs.attrs,
+        })},
+        // encodeURI because the example will contain html tags
+        // which will cause this component to be incorrectly parsed
+        code: decodeURI(${JSON.stringify(encodeURI(example.contents))}),
+        iframeUrl: ${JSON.stringify(`/__iframe/${example.iframeId}.html`)},
+        openInEditor: import.meta.env.DEV 
+          ? () => openInEditor(${JSON.stringify(slash(example.absolutePath))}) 
+          : undefined 
+      }`
+    })
+    .join(",")}
+]
+</script>
+<template>
+  <PageTitle title="${page.title}" ${
         options.dev ? `:openInEditor="() => openInEditor('${slash(page.component)}')"` : ``
       } />
-          <div v-if="hiddenCount > 0" class="hidden-examples-info">
-            {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a class="viteplay-link" type="button" @click.prevent="showAll">show all</a>
-          </div>
-          <PropsTable componentName="${componentName}" :componentProps="componentProps" />
-          <template  
-            v-for="example in examples" 
-            :key="example.slug">
-            <Example 
-              v-if="shouldRender(example.slug)"
-              :example="example" 
-              :componentProps="componentProps" />
-          </template>
-        </template>
+  <div v-if="hiddenCount > 0" class="hidden-examples-info">
+    {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a class="viteplay-link" type="button" @click.prevent="showAll">show all</a>
+  </div>
+  <PropsTable componentName="${componentName}" :componentProps="componentProps" />
+  <template  
+    v-for="example in examples" 
+    :key="example.slug">
+    <ViteplayExample 
+      v-if="shouldRender(example.slug)"
+      :example="example" 
+      :componentProps="componentProps" />
+  </template>
+</template>
 
 <style scoped>
 .hidden-examples-info {
@@ -272,27 +270,27 @@ provideConfig(${JSON.stringify({
   outputFileIfChanged(layoutComponent, layoutContents)
 
   const clientContent = `
-    import { LandingPage } from "@viteplay/vue"
+import { LandingPage } from "@viteplay/vue"
 
-    let pages = [
-      {
-        path: "${base}",
-        component: () => import("${slash(layoutComponent)}"),
-        children: [
-          { title: "VitePlay", path: "", component: LandingPage },
-          ${pages
-            .map(
-              (page) => `{
-              title: "${page.title}",
-              path: "${page.path}",
-              component: () => import("${slash(page.component)}")
-            }`,
-            )
-            .join(",\n")}
-        ],
-      },
-    ]
-    export { pages }
+let pages = [
+  {
+    path: "${base}",
+    component: () => import("${slash(layoutComponent)}"),
+    children: [
+      { title: "VitePlay", path: "", component: LandingPage },
+      ${pages
+        .map(
+          (page) => `{
+          title: "${page.title}",
+          path: "${page.path}",
+          component: () => import("${slash(page.component)}")
+        }`,
+        )
+        .join(",\n")}
+    ],
+  },
+]
+export { pages }
     `
 
   outputFileIfChanged(path.join(options.cacheDir, "client.js"), clientContent)
@@ -306,7 +304,7 @@ provideConfig(${JSON.stringify({
     path.join(options.cacheDir, "viteplay.iframe.js"),
     viteplayIframeFile
       ? `
-    export { default } from "${slash(viteplayIframeFile)}"
+export { default } from "${slash(viteplayIframeFile)}"
   `
       : `export default {}`,
   )

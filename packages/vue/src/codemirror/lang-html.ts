@@ -11,7 +11,7 @@ import {
   LanguageSupport,
   syntaxTree,
 } from "@codemirror/language"
-import { styleTags, tags as t } from "@codemirror/highlight"
+import { styleTags, tags as t } from "@lezer/highlight"
 import { createHtmlCompletionSource, elementName } from "./complete"
 import { PropDefinition } from "@viteplay/types"
 

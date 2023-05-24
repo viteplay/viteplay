@@ -7,15 +7,15 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "3.0.3",
+    "@vitejs/plugin-vue": "4.2.3",
     "@viteplay/plugin": "workspace:*",
     "@viteplay/vue": "workspace:*",
     "lets-run": "^0.0.4",
-    "vite": "3.0.9",
-    "vite-tsconfig-paths": "^3.3.17",
-    "vue": "^3.2.37"
+    "vite": "4.3.8",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vue": "^3.3.4"
   },
   "dependencies": {
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.2.1"
   }
 }
