@@ -10,5 +10,5 @@
     "eslint-config-prettier": "^8.8.0",
     "typescript": "^5.0.4"
   },
-  "version": "0.2.6"
+  "version": "0.2.7"
 }
