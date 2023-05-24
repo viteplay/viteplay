@@ -67,7 +67,7 @@
     "@codemirror/state": "^0.19.9",
     "@codemirror/view": "^0.19.43",
     "@lezer/html": "^0.15.1",
-    "@pepicons/vue": "^2.0.3",
+    "@pepicons/vue": "^2.0.8",
     "@viteplay/types": "workspace:*",
     "@vueuse/core": "^8.4.0",
     "floating-vue": "2.0.0-beta.16",
