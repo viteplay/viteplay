@@ -21,7 +21,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "build": "tsup --shims",
-    "dev": "tsup --watch",
+    "dev": "tsup --shims --watch",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
