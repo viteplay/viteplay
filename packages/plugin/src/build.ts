@@ -4,7 +4,14 @@ import path from "node:path"
 import { kebabCase } from "case-anything"
 import { parseExample } from "./parse-example"
 import { outputFileIfChanged } from "./fs"
-import { getIframeHtml, getPagesFromOptions, pagesToWatchfiles, resolveFile, slash } from "./utils"
+import {
+  applyWindowsFix,
+  getIframeHtml,
+  getPagesFromOptions,
+  pagesToWatchfiles,
+  resolveFile,
+  slash,
+} from "./utils"
 import { MarkRequired } from "./types"
 import { Options } from "./index"
 import { renderMarkdown } from "./markdown"
@@ -80,7 +87,7 @@ export const build = async (options: BuildOptions) => {
       for (const example of examples) {
         const iframeComponentCode = `
 <script setup>
-import { IframePreview } from '@viteplay/vue/iframe'
+import { IframePreview } from '@viteplay/vue'
 const code = decodeURI(${JSON.stringify(encodeURI(example.contents))})
 
 const modules = {}
@@ -132,7 +139,7 @@ app.mount('#app')
         )
         iframes.push({
           id: example.iframeId,
-          filepath: example.iframeFilePath,
+          filepath: applyWindowsFix(example.iframeFilePath),
         })
       }
 
@@ -141,7 +148,7 @@ app.mount('#app')
 import { computed } from "vue"
 import { ViteplayExample, PropsTable, PageTitle } from "@viteplay/vue"
 import { useRoute, useRouter } from "vue-router"
-    
+
 let componentProps = ${JSON.stringify(componentProps)}
 let route = useRoute()
 let router = useRouter()
@@ -176,9 +183,9 @@ let examples = [
         // which will cause this component to be incorrectly parsed
         code: decodeURI(${JSON.stringify(encodeURI(example.contents))}),
         iframeUrl: ${JSON.stringify(`/__iframe/${example.iframeId}.html`)},
-        openInEditor: import.meta.env.DEV 
-          ? () => openInEditor(${JSON.stringify(slash(example.absolutePath))}) 
-          : undefined 
+        openInEditor: import.meta.env.DEV
+          ? () => openInEditor(${JSON.stringify(slash(example.absolutePath))})
+          : undefined
       }`
     })
     .join(",")}
@@ -192,12 +199,12 @@ let examples = [
     {{ hiddenCount }} example{{ hiddenCount > 1 ? "s" : null }} hidden, <a class="viteplay-link" type="button" @click.prevent="showAll">show all</a>
   </div>
   <PropsTable componentName="${componentName}" :componentProps="componentProps" />
-  <template  
-    v-for="example in examples" 
+  <template
+    v-for="example in examples"
     :key="example.slug">
-    <ViteplayExample 
+    <ViteplayExample
       v-if="shouldRender(example.slug)"
-      :example="example" 
+      :example="example"
       :componentProps="componentProps" />
   </template>
 </template>

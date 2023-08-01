@@ -24,6 +24,9 @@ export const resolveFrom = (id: string, dir: string) => {
   return req(resolved)
 }
 
+export const applyWindowsFix = (str: string) =>
+  process.platform !== "win32" ? str : `/@fs/${slash(str)}`
+
 export const localRequire = (id: string) => {
   return resolveFrom(id, process.cwd())
 }
@@ -145,7 +148,9 @@ export const getIframeHtml = (iframeId: string, cacheDir: string) => `
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="${slash(path.join(cacheDir, `__iframe/${iframeId}.js`))}"></script>
+    <script type="module" src="${applyWindowsFix(
+      slash(path.join(cacheDir, `__iframe/${iframeId}.js`)),
+    )}"></script>
   </body>
 </html>
 `

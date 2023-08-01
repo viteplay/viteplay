@@ -2,7 +2,7 @@ import path from "node:path"
 import { Plugin } from "vite"
 import createDebug from "debug"
 import { build } from "./build"
-import { getIframeHtml, OWN_DIR, slash } from "./utils"
+import { applyWindowsFix, getIframeHtml, OWN_DIR, slash } from "./utils"
 
 const debug = createDebug(`viteplay:plugin`)
 
@@ -125,7 +125,7 @@ const plugin = (options: Options): Plugin[] => {
         return [
           {
             tag: "script",
-            attrs: { type: "module", src: path.join(OWN_DIR, "vite-client.js") },
+            attrs: { type: "module", src: applyWindowsFix(path.join(OWN_DIR, "vite-client.js")) },
             injectTo: "body",
           },
         ]
