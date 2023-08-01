@@ -45,3 +45,5 @@ export const useConfig = () => {
   const config = inject<Required<Config>>(PROVIDE_KEY, getDefaultConfig())
   return config
 }
+
+export * from "./iframe"
