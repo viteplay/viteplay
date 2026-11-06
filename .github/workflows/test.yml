@@ -13,21 +13,21 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node-version: [14.x]
+        node-version: [18, 20, 22]
 
     runs-on: ${{ matrix.os }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Cache ~/.pnpm-store
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-pnpm-store
         with:
@@ -39,9 +39,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 6
+        uses: pnpm/action-setup@v4
 
       - name: Install deps
         run: pnpm i

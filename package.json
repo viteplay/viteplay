@@ -4,7 +4,7 @@
   "version": "0.2.9",
   "description": "Automated Component Development Environment",
   "license": "MIT",
-  "packageManager": "pnpm@6.28.0",
+  "packageManager": "pnpm@8.15.9",
   "scripts": {
     "typecheck": "turbo run typecheck --scope=@viteplay/vue --scope=@viteplay/plugin --no-deps",
     "build": "turbo run build --scope=@viteplay/vue --scope=@viteplay/plugin --no-deps",
@@ -23,7 +23,7 @@
     "tsup": "^6.7.0",
     "turbo": "^1.9.9",
     "typescript": "^5.0.4",
-    "vitepress": "^1.0.0-beta.1",
+    "vitepress": "1.0.0-beta.1",
     "vitest": "0.31.1",
     "vue": "^3.3.4"
   },
