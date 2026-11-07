@@ -15,7 +15,7 @@ import logo from "../../../../assets/viteplay-logo-icon.svg"
       {
         theme: 'brand',
         text: 'Official Documentation',
-        link: 'https://viteplay-docs.onrender.com',
+        link: 'https://viteplay.cycraft.co',
       },
       { theme: 'alt', text: 'View on GitHub', link: 'https://github.com/viteplay/viteplay' },
     ]"
