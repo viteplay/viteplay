@@ -1,6 +1,12 @@
 {
   "hosting": {
     "public": "docs/.vitepress/dist",
-    "ignore": []
+    "ignore": [],
+    "rewrites": [
+      {
+        "source": "/.well-known/security.txt",
+        "destination": "/security.txt"
+      }
+    ]
   }
 }
