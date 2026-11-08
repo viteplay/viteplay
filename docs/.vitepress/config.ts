@@ -46,7 +46,8 @@ export default defineConfig({
     ],
 
     footer: {
-      message: "Made with 💛 by Mesqueeb & EGOIST",
+      message:
+        'Made with 💛 by Mesqueeb & EGOIST<br>Support: <a href="mailto:support@cycraft.co">support@cycraft.co</a>',
       copyright: "MIT Licensed. Copyright © 2019-present",
     },
   },
